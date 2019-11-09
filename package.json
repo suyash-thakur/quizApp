@@ -1,0 +1,31 @@
+{
+  "name": "Telegram_App",
+  "version": "1.0.0",
+  "description": "A simple web interface for Telegram",
+  "main": "./bin/www",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www",
+    "eslint": "eslint *.js */.js",
+    "eslint:fix": "eslint *.js */.js --fix"
+  },
+  "keywords": [],
+  "author": "Hardik Khandelwal",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "standard": "^14.3.1"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "debug": "^4.1.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "helmet": "^3.21.2",
+    "http": "0.0.0",
+    "morgan": "^1.9.1",
+    "path": "^0.12.7"
+  }
+}
