@@ -1,0 +1,15 @@
+include partials/header
+
+div
+    #questionBlock
+        for question, index in quizQuestion
+            
+            div(data-index=index).qestionBlock
+                p.question=question
+
+                for choice, i in quizChoices[index]
+                    li(data-choice=i).choices=choice
+
+
+
+include partials/footer

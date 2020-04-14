@@ -1,5 +1,5 @@
 {
-  "name": "Telegram_App",
+  "name": "quiz-app",
   "version": "1.0.0",
   "description": "A simple web interface for Telegram",
   "main": "./bin/www",
@@ -14,6 +14,7 @@
   "license": "ISC",
   "devDependencies": {
     "eslint": "^6.6.0",
+    "node-sass-middleware": "^0.11.0",
     "standard": "^14.3.1"
   },
   "dependencies": {
@@ -21,11 +22,12 @@
     "cookie-parser": "^1.4.4",
     "debug": "^4.1.1",
     "dotenv": "^8.2.0",
-    "ejs": "^2.7.1",
     "express": "^4.17.1",
     "helmet": "^3.21.2",
     "http": "0.0.0",
     "morgan": "^1.9.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "pug": "^2.0.4",
+    "watch": "^1.0.2"
   }
 }
