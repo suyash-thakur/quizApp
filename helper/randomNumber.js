@@ -5,4 +5,6 @@ function getRandomNumber(min, max, decimal = 0) {
   return number.toFixed(decimal);
 }
 
+
+
 module.exports = getRandomNumber;

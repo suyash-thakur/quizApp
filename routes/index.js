@@ -3,6 +3,8 @@ const express = require("express"),
 
 const generateQuestion = require("./../questions");
 const randomNumber = require("../helper/randomNumber");
+const shuffle = require("../helper/arrayShuffle");
+
 
 const quizFunctionCall = {
   one: 7,
@@ -42,9 +44,17 @@ questionsGenerate = (typeOfQuestion) => {
 
     let answer = eval(question);
     let choices = [answer];
+    console.log(choices);
+    let i = 0;
 
-    for (let i = 0; i < 3; i++) {
-      choices.push(randomNumber(answer - 5, answer + 5) - 0);
+    while(i < 3) {
+      let num = randomNumber(answer - 5, answer + 5) ;
+      if(!choices.includes(num) ){
+        console.log(choices.includes(num));
+        choices.push(num - 0);
+        i++
+      }
+      console.log(choices);
     }
 
     questionArr.push({ question, answer, choices });
@@ -70,7 +80,7 @@ router.get("/questions", function (req, res, next) {
 
   questionArr.forEach((quiz) => {
     arrayOfQuestions.push(quiz.question);
-    arrayOfChoices.push(quiz.choices);
+    arrayOfChoices.push(shuffle(quiz.choices));
   });
 
   userID = randomNumber(1, 1000);
