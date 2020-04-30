@@ -72,6 +72,9 @@ router.get("/", function (req, res, next) {
 router.get("/quiz", function (req, res, next) {
   res.render("quiz", { title: "Quiz Website" });
 });
+router.get("/question", function (req, res, next) {
+  res.render("question", { title: "Quiz Website" });
+});
 
 router.get("/questions", function (req, res, next) {
   typeOfQuestion = req.query.type;

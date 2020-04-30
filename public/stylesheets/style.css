@@ -92,11 +92,54 @@ html {
   background-repeat: no-repeat;
 
 }
+.timer {
+  border: 2px solid #F8E71C;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  padding: 8px;
+
+  color: #666;
+  text-align: center;
+}
+.timer-text {
+  font-size: 35px;
+}
+.abacus-img {
+  width: 50px;
+}
+.number {
+  background-color: #010101;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: #FAEF6F;
+  font-size: 50px;
+  border-radius: 40px;
+}
+.button-quiz {
+  font-size: 30px;
+  border-radius: 75px;
+  border: 2px solid #F8E71C;
+  padding-right: 30px;
+  padding-left: 30px;
+}
+.margin {
+  margin-top: 30px;
+}
+.img-side {
+  width: 400px;
+  transform: rotateZ(20deg);
+}
 @media screen and (max-width: 1000px) {
  .content {
    padding-left: 0px;
    justify-content: center;
  } 
+ .img-side {
+  display: none;
+}
  .image {
   width: 60px;
 }
@@ -156,5 +199,11 @@ html {
   .imageContainer {
     padding: 10px;
   }
-  
+  .button-quiz {
+    font-size: 20px;
+    border-radius: 75px;
+    border: 2px solid #F8E71C;
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }

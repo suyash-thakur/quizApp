@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="\stylesheets\style.css"  type="text/css">
+    <title>Document</title>
+</head>
+<body>
+    <%- include("./partials/header.ejs") %>
+    <!-- <div style="display: flex;">
+        <div>
+            <img src="/assets/question.png" class="img-side">
+        </div> -->
+    <div style="padding-left: 10%; padding-right: 10%;">
+        <div class="second-content">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto, non quaerat! Quisquam omnis quod hic soluta ab, ut dolor repellat nemo id possimus architecto dolorum fugiat unde rerum aspernatur voluptatem?
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <img src="/assets/question.png" class="img-side hidden-xs">
+            </div>
+        <div style="flex-grow: 1;">
+        <div style="display: flex;" class="margin">
+            <div style="padding: 5px;">
+                <div class="timer" style="display: flex; align-items: center; justify-content: center;">
+                    <div class="timer-text"  style="color: black;">55</div>
+                </div>
+            </div>
+            <div style="flex-grow: 1;">
+
+            </div>
+            <div>
+                <div style="display: flex;">
+                    <div>
+                        <img src="/assets/abacus.png" class="abacus-img">
+                    </div>
+                    <div class="timer-text">
+                       <b> : + </b>
+                    </div>
+                </div>
+                <br>
+                <div style="display: flex;">
+                    <div>
+                        <img src="/assets/clock.png" class="abacus-img">
+                    </div>
+                    <div class="timer-text">
+                       <b> : 90 </b>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center;"  class="margin">
+            <div class="number"> 
+                100
+            </div>
+        </div>
+        <br>
+        <div style="display: flex; justify-content: space-evenly;"  class="margin">
+            <div class="button-quiz">
+                <a>Restart</a>
+            </div>
+            <div class="button-quiz">
+                <a>Restart</a>
+            </div>
+            <div class="button-quiz">
+                <a>Restart</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- </div> -->
+    <br>
+    <%- include("./partials/footer.ejs") %>
+</body>
+</html>
