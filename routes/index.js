@@ -69,6 +69,9 @@ questionsGenerate = (typeOfQuestion) => {
 router.get("/", function (req, res, next) {
   res.render("index", { title: "Quiz Website" });
 });
+router.get("/quiz", function (req, res, next) {
+  res.render("quiz", { title: "Quiz Website" });
+});
 
 router.get("/questions", function (req, res, next) {
   typeOfQuestion = req.query.type;
