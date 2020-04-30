@@ -6,12 +6,13 @@ const express = require("express"),
   cookieParser = require("cookie-parser"),
   bodyParser = require("body-parser");
 
-const index = require("./routes/index");
+const index = require("./routes");
 
 const app = express();
 
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
+app.engine('html', require('ejs').renderFile);
+app.set("view engine", "ejs");
 
 app.use(logger("dev"));
 app.use(bodyParser.json());

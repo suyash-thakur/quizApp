@@ -1,7 +1,7 @@
 const express = require("express"),
   router = express.Router();
 
-const generateQuestion = require("./../questions");
+const generateQuestion = require("../questions");
 const randomNumber = require("../helper/randomNumber");
 const shuffle = require("../helper/arrayShuffle");
 
@@ -49,7 +49,7 @@ questionsGenerate = (typeOfQuestion) => {
 
     while(i < 3) {
       let num = randomNumber(answer - 5, answer + 5) ;
-      if(!choices.includes(num) ){
+      if(!choices.includes(num - 0) ){
         console.log(choices.includes(num));
         choices.push(num - 0);
         i++
