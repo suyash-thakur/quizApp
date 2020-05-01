@@ -44,7 +44,6 @@ questionsGenerate = (typeOfQuestion) => {
 
     let answer = eval(question);
     let choices = [answer];
-    console.log(choices);
     let i = 0;
 
     while(i < 3) {
@@ -54,7 +53,6 @@ questionsGenerate = (typeOfQuestion) => {
         choices.push(num - 0);
         i++
       }
-      console.log(choices);
     }
 
     questionArr.push({ question, answer, choices });
@@ -72,12 +70,13 @@ router.get("/", function (req, res, next) {
 router.get("/quiz", function (req, res, next) {
   res.render("quiz", { title: "Quiz Website" });
 });
-router.get("/question", function (req, res, next) {
-  res.render("question", { title: "Quiz Website" });
-});
+// router.get("/quizquestion", function (req, res, next) {
+//   res.render("question", { title: "Quiz Website" });
+// });
 
-router.get("/questions", function (req, res, next) {
+router.get("/quizquestion", function (req, res, next) {
   typeOfQuestion = req.query.type;
+  console.log(typeOfQuestion);
 
   questionArr = questionsGenerate(typeOfQuestion);
 
@@ -92,12 +91,17 @@ router.get("/questions", function (req, res, next) {
   userID = randomNumber(1, 1000);
 
   useVar[userID] = questionArr;
-  res.cookie("userID", userID); // options is optional
+  // res.cookie("userID", userID); // options is optional
 
-  res.render("questions", {
+
+  console.log(arrayOfQuestions);
+  console.log(arrayOfChoices);
+
+   return res.render("question", {
     quizQuestion: arrayOfQuestions,
     quizChoices: arrayOfChoices,
   });
+
 });
 
 router.post("/api", function (req, res, next) {
