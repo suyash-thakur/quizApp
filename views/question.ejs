@@ -25,11 +25,11 @@
         <div style="display: flex;" class="margin">
             <div style="padding: 5px;">
                 <div class="timer" style="display: flex; align-items: center; justify-content: center;">
-                    <div class="timer-text"  style="color: black;">55</div>
+                    <div class="timer-text"  style="color: black;" id="progressBar">55</div>
                 </div>
             </div>
-            <div style="flex-grow: 1;">
-
+            <div style="flex-grow: 1; text-align: center;">
+                <h1 id="heading" style="display: none;">Select The Correct Answer</h1>
             </div>
             <div>
                 <div style="display: flex;">
@@ -46,14 +46,26 @@
                         <img src="/assets/clock.png" class="abacus-img">
                     </div>
                     <div class="timer-text">
-                       <b> : 90 </b>
+                       <b > : 90 </b>
                     </div>
                 </div>
             </div>
         </div>
-        <div style="display: flex; justify-content: center; align-items: center;"  class="margin">
-            <div class="number"> 
+        <div style="display: flex; justify-content: center; align-items: center;"  class="margin" id="main">
+            <div class="number" id="question"> 
                 100
+            </div>
+            <div id="option1" style="display: none;" class="number">
+
+            </div>
+            <div id="option2" style="display: none;" class="number">
+
+            </div>
+            <div id="option3" style="display: none;" class="number">
+
+            </div>
+            <div id="option4" style="display: none;" class="number">
+
             </div>
         </div>
         <br>
@@ -62,10 +74,10 @@
                 <a>Restart</a>
             </div>
             <div class="button-quiz">
-                <a>Restart</a>
+                <a>Next</a>
             </div>
             <div class="button-quiz">
-                <a>Restart</a>
+                <a>Change Mode</a>
             </div>
         </div>
     </div>
@@ -74,5 +86,68 @@
 <!-- </div> -->
     <br>
     <%- include("./partials/footer.ejs") %>
+    <script>
+        var question = <%- JSON.stringify(quizQuestion)   %> ;
+        var options = <%- JSON.stringify(quizChoices)   %>;
+        var currentquestion = 0;
+        var currentDigit = 0;
+        var questionArray = new Array();
+        for( var j = 0; j < question.length; j++){
+            var stringArray = new Array();
+            var string = question[j];
+            string = string.split(" ");
+                for(var i =0; i < string.length; i++){
+                    stringArray.push(string[i]);
+     
+                }
+            questionArray.push(stringArray);
+
+        }
+        var noOfQuestion = questionArray.length;
+        var noOfDigits = questionArray[0].length;
+        var timeleft = 60;
+        var eachtime = 60/(noOfQuestion - 1);
+        timer();
+
+        function timer(){
+            var downloadTimer = setInterval(function(){
+            if(timeleft <= 0){
+                clearInterval(downloadTimer);
+                document.getElementById("question").style.display = "none";
+                document.getElementById("heading").style.display = "block";
+                document.getElementById("option1").innerHTML = options[noOfQuestion - currentquestion - 1][0];
+                document.getElementById("option2").innerHTML = options[noOfQuestion - currentquestion - 1][1];
+                document.getElementById("option3").innerHTML = options[noOfQuestion - currentquestion - 1][2];
+                document.getElementById("option4").innerHTML = options[noOfQuestion - currentquestion - 1][3];
+                document.getElementById("main").style.justifyContent = "space-evenly";
+                document.getElementById("option1").style.display = "block";
+                document.getElementById("option2").style.display = "block";
+                document.getElementById("option3").style.display = "block";
+                document.getElementById("option4").style.display = "block";
+            }
+
+        document.getElementById("progressBar").textContent = timeleft;
+            document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion -1 ][noOfDigits - currentDigit - 2 ];
+        console.log(questionArray[noOfQuestion - currentquestion -1 ][noOfDigits - currentDigit - 2 ]);
+       
+  
+
+        timeleft -= 1;
+        }, 1000);
+        var changequest = setInterval(function(){
+            console.log(timeleft);
+            if(timeleft <= 2*eachtime){
+                clearInterval(changequest);
+            }
+            currentDigit = currentDigit + 1;
+            console.log(currentDigit);
+
+        }, eachtime*1000);
+        console.log(questionArray);
+        console.log(options);
+
+        } 
+
+    </script>
 </body>
 </html>

@@ -39,7 +39,7 @@ function generateQuestion(digit, type = "subAndAdd", length = 5, decimal = 0) {
     }
 
     arithmeticExpression +=
-      getRandomNumber(min, max, decimal) +
+       getRandomNumber(min, max, decimal) + " " +
       (length > 1 ? getRandomSymbol(type) : "");
     length -= 1;
   }

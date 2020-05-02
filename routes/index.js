@@ -98,6 +98,7 @@ router.get("/quizquestion", function (req, res, next) {
   console.log(arrayOfChoices);
 
    return res.render("question", {
+     title: 'title',
     quizQuestion: arrayOfQuestions,
     quizChoices: arrayOfChoices,
   });
