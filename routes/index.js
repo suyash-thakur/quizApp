@@ -91,7 +91,7 @@ router.get("/quizquestion", function (req, res, next) {
   userID = randomNumber(1, 1000);
 
   useVar[userID] = questionArr;
-  // res.cookie("userID", userID); // options is optional
+  res.cookie("userID", userID); // options is optional
 
 
   console.log(arrayOfQuestions);

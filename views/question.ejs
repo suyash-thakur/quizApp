@@ -55,16 +55,16 @@
             <div class="number" id="question"> 
                 100
             </div>
-            <div id="option1" style="display: none;" class="number">
+            <div id="option1" style="display: none;" class="number choices">
 
             </div>
-            <div id="option2" style="display: none;" class="number">
+            <div id="option2" style="display: none;" class="number choices">
 
             </div>
-            <div id="option3" style="display: none;" class="number">
+            <div id="option3" style="display: none;" class="number choices">
 
             </div>
-            <div id="option4" style="display: none;" class="number">
+            <div id="option4" style="display: none;" class="number choices">
 
             </div>
         </div>
@@ -73,8 +73,8 @@
             <div class="button-quiz">
                 <a>Restart</a>
             </div>
-            <div class="button-quiz">
-                <a>Next</a>
+            <div class="button-quiz" id="button-quiz">
+                <a id="next" onclick="nextQuestion()">Next</a>
             </div>
             <div class="button-quiz">
                 <a>Change Mode</a>
@@ -90,7 +90,6 @@
         var question = <%- JSON.stringify(quizQuestion)   %> ;
         var options = <%- JSON.stringify(quizChoices)   %>;
         var currentquestion = 0;
-        var currentDigit = 0;
         var questionArray = new Array();
         for( var j = 0; j < question.length; j++){
             var stringArray = new Array();
@@ -110,6 +109,17 @@
         timer();
 
         function timer(){
+            var currentDigit = 0;
+
+            document.getElementById("option1").style.display = "none";
+                document.getElementById("option2").style.display = "none";
+                document.getElementById("option3").style.display = "none";
+                document.getElementById("option4").style.display = "none";
+                document.getElementById("question").style.display = "block";
+                document.getElementById("heading").style.display = "none";
+                document.getElementById("main").style.justifyContent = "center";
+                document.getElementById("button-quiz").style.display = "none";
+
             var downloadTimer = setInterval(function(){
             if(timeleft <= 0){
                 clearInterval(downloadTimer);
@@ -124,6 +134,8 @@
                 document.getElementById("option2").style.display = "block";
                 document.getElementById("option3").style.display = "block";
                 document.getElementById("option4").style.display = "block";
+                document.getElementById("button-quiz").style.display = "block";
+
             }
 
         document.getElementById("progressBar").textContent = timeleft;
@@ -147,6 +159,65 @@
         console.log(options);
 
         } 
+        document.querySelectorAll(".choices").forEach((e) => {
+  e.addEventListener("click", () => {
+    const data = {
+      answer: e.innerText,
+      index: noOfQuestion - currentquestion -1,
+      question: question[noOfQuestion - currentquestion -1 ],
+    };
+    console.log(data);
+
+    const url = "/api";
+
+    const param = {
+      headers: {
+        "content-type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(data),
+      method: "post",
+    };
+    fetch(url, param)
+      .then((response) => {
+        response = response.json();
+        return response;
+      })
+      .then((data) => {
+        if (data.result) {
+            
+          document.getElementById("heading").style.color = "green";
+          document.getElementById("heading").innerHTML = "CORRECT ANSWER";
+          document.getElementById("option1").classList.remove("choices");
+          document.getElementById("option2").classList.remove("choices");
+          document.getElementById("option3").classList.remove("choices");
+          document.getElementById("option4").classList.remove("choices");
+
+
+
+        } else {
+          e.style.color = "Red";
+          document.getElementById("heading").style.color = "red";
+          document.getElementById("heading").innerHTML = "WRONG ANSWER";
+
+        }
+      })
+      .catch((err) => {
+        console.log("Err", err);
+      });
+  });
+});
+function nextQuestion() {
+    timeleft = 60;
+    document.getElementById("option1").classList.add("choices");
+    document.getElementById("option2").classList.add("choices");
+    document.getElementById("option3").classList.add("choices");
+    document.getElementById("option4").classList.add("choices");
+    document.getElementById("heading").innerHTML = "Select The Correct Answer";
+    document.getElementById("heading").style.display = "none";
+    // document.getElementById("option1").style.color = "#FAEF6F";
+    currentquestion = currentquestion + 1;
+    timer();
+}
 
     </script>
 </body>
