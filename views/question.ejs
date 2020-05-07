@@ -116,6 +116,11 @@
                 document.getElementById("option3").style.display = "none";
                 document.getElementById("option4").style.display = "none";
                 document.getElementById("question").style.display = "block";
+                document.getElementById("option1").style.color = "#FAEF6F";
+                document.getElementById("option2").style.color = "#FAEF6F";
+                document.getElementById("option3").style.color = "#FAEF6F";
+                document.getElementById("option4").style.color = "#FAEF6F";
+                document.getElementById("question").style.color = "#FAEF6F";
                 document.getElementById("heading").style.display = "none";
                 document.getElementById("main").style.justifyContent = "center";
                 document.getElementById("button-quiz").style.display = "none";
@@ -159,6 +164,7 @@
         console.log(options);
 
         } 
+     
         document.querySelectorAll(".choices").forEach((e) => {
   e.addEventListener("click", () => {
     const data = {
@@ -184,14 +190,10 @@
       })
       .then((data) => {
         if (data.result) {
-            
+            e.style.color = "green";
           document.getElementById("heading").style.color = "green";
           document.getElementById("heading").innerHTML = "CORRECT ANSWER";
-          document.getElementById("option1").classList.remove("choices");
-          document.getElementById("option2").classList.remove("choices");
-          document.getElementById("option3").classList.remove("choices");
-          document.getElementById("option4").classList.remove("choices");
-
+         
 
 
         } else {
@@ -200,11 +202,18 @@
           document.getElementById("heading").innerHTML = "WRONG ANSWER";
 
         }
+      
+        document.getElementById("option1").classList.remove("choices");
+    document.getElementById("option2").classList.remove("choices");
+    document.getElementById("option3").classList.remove("choices");
+    document.getElementById("option4").classList.remove("choices");
       })
       .catch((err) => {
         console.log("Err", err);
       });
   });
+  
+
 });
 function nextQuestion() {
     timeleft = 60;
