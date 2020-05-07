@@ -1,233 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="\stylesheets\style.css"  type="text/css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="\stylesheets\style.css" type="text/css" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <%- include("./partials/header.ejs") %>
     <!-- <div style="display: flex;">
         <div>
             <img src="/assets/question.png" class="img-side">
         </div> -->
     <div style="padding-left: 10%; padding-right: 10%;">
-        <div class="second-content">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto, non quaerat! Quisquam omnis quod hic soluta ab, ut dolor repellat nemo id possimus architecto dolorum fugiat unde rerum aspernatur voluptatem?
+      <div class="second-content">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto,
+        non quaerat! Quisquam omnis quod hic soluta ab, ut dolor repellat nemo
+        id possimus architecto dolorum fugiat unde rerum aspernatur voluptatem?
+      </div>
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        "
+      >
+        <div>
+          <img src="/assets/question.png" class="img-side hidden-xs" />
         </div>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div>
-                <img src="/assets/question.png" class="img-side hidden-xs">
-            </div>
         <div style="flex-grow: 1;">
-        <div style="display: flex;" class="margin">
+          <div style="display: flex;" class="margin">
             <div style="padding: 5px;">
-                <div class="timer" style="display: flex; align-items: center; justify-content: center;">
-                    <div class="timer-text"  style="color: black;" id="progressBar">55</div>
+              <div
+                class="timer"
+                style="
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                "
+              >
+                <div class="timer-text" style="color: black;" id="progressBar">
+                  55
                 </div>
+              </div>
             </div>
             <div style="flex-grow: 1; text-align: center;">
-                <h1 id="heading" style="display: none;">Select The Correct Answer</h1>
+              <h1 id="heading" style="display: none;">
+                Select The Correct Answer
+              </h1>
             </div>
             <div>
-                <div style="display: flex;">
-                    <div>
-                        <img src="/assets/abacus.png" class="abacus-img">
-                    </div>
-                    <div class="timer-text">
-                       <b> : + </b>
-                    </div>
+              <div style="display: flex;">
+                <div>
+                  <img src="/assets/abacus.png" class="abacus-img" />
                 </div>
-                <br>
-                <div style="display: flex;">
-                    <div>
-                        <img src="/assets/clock.png" class="abacus-img">
-                    </div>
-                    <div class="timer-text">
-                       <b > : 90 </b>
-                    </div>
+                <div class="timer-text">
+                  <b> : + </b>
                 </div>
+              </div>
+              <br />
+              <div style="display: flex;">
+                <div>
+                  <img src="/assets/clock.png" class="abacus-img" />
+                </div>
+                <div class="timer-text">
+                  <b> : 90 </b>
+                </div>
+              </div>
             </div>
-        </div>
-        <div style="display: flex; justify-content: center; align-items: center;"  class="margin" id="main">
-            <div class="number" id="question"> 
-                100
-            </div>
-            <div id="option1" style="display: none;" class="number choices">
-
-            </div>
-            <div id="option2" style="display: none;" class="number choices">
-
-            </div>
-            <div id="option3" style="display: none;" class="number choices">
-
-            </div>
-            <div id="option4" style="display: none;" class="number choices">
-
-            </div>
-        </div>
-        <br>
-        <div style="display: flex; justify-content: space-evenly;"  class="margin">
+          </div>
+          <div
+            style="display: flex; justify-content: center; align-items: center;"
+            class="margin"
+            id="main"
+          >
+            <div class="number" id="question"></div>
+            <div
+              id="option1"
+              style="display: none;"
+              class="number choices"
+            ></div>
+            <div
+              id="option2"
+              style="display: none;"
+              class="number choices"
+            ></div>
+            <div
+              id="option3"
+              style="display: none;"
+              class="number choices"
+            ></div>
+            <div
+              id="option4"
+              style="display: none;"
+              class="number choices"
+            ></div>
+          </div>
+          <br />
+          <div
+            style="display: flex; justify-content: space-evenly;"
+            class="margin"
+          >
             <div class="button-quiz">
-                <a>Restart</a>
+              <a>Restart</a>
             </div>
             <div class="button-quiz" id="button-quiz">
-                <a id="next" onclick="nextQuestion()">Next</a>
+              <a id="next" onclick="nextQuestion()">Next</a>
             </div>
             <div class="button-quiz">
-                <a>Change Mode</a>
+              <a>Change Mode</a>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-</div>
-<!-- </div> -->
-    <br>
+    <!-- </div> -->
+    <br />
     <%- include("./partials/footer.ejs") %>
     <script>
-        var question = <%- JSON.stringify(quizQuestion)   %> ;
-        var options = <%- JSON.stringify(quizChoices)   %>;
-        var currentquestion = 0;
-        var questionArray = new Array();
-        for( var j = 0; j < question.length; j++){
-            var stringArray = new Array();
-            var string = question[j];
-            string = string.split(" ");
-                for(var i =0; i < string.length; i++){
-                    stringArray.push(string[i]);
-     
+              var question = <%- JSON.stringify(quizQuestion)   %> ;
+              var options = <%- JSON.stringify(quizChoices)   %>;
+              var currentquestion = 0;
+              var done = false;
+              var questionArray = new Array();
+              for( var j = 0; j < question.length; j++){
+                  var stringArray = new Array();
+                  var string = question[j];
+                  string = string.split(" ");
+                      for(var i =0; i < string.length; i++){
+                          stringArray.push(string[i]);
+
+                      }
+                  questionArray.push(stringArray);
+
+              }
+              var noOfQuestion = questionArray.length;
+              var noOfDigits = questionArray[0].length;
+              var timeleft = 60;
+              var eachtime = 60/(noOfQuestion - 1);
+              timer();
+
+              function timer(){
+                  var currentDigit = 0;
+
+                  document.getElementById("option1").style.display = "none";
+                      document.getElementById("option2").style.display = "none";
+                      document.getElementById("option3").style.display = "none";
+                      document.getElementById("option4").style.display = "none";
+                      document.getElementById("question").style.display = "block";
+                      document.getElementById("option1").style.color = "#FAEF6F";
+                      document.getElementById("option2").style.color = "#FAEF6F";
+                      document.getElementById("option3").style.color = "#FAEF6F";
+                      document.getElementById("option4").style.color = "#FAEF6F";
+                      document.getElementById("question").style.color = "#FAEF6F";
+                      document.getElementById("heading").style.display = "none";
+                      document.getElementById("main").style.justifyContent = "center";
+                      document.getElementById("button-quiz").style.display = "none";
+
+                  var downloadTimer = setInterval(function(){
+                  if(timeleft <= 0){
+                      clearInterval(downloadTimer);
+                      document.getElementById("question").style.display = "none";
+                      document.getElementById("heading").style.display = "block";
+                      document.getElementById("option1").innerHTML = options[noOfQuestion - currentquestion - 1][0];
+                      document.getElementById("option2").innerHTML = options[noOfQuestion - currentquestion - 1][1];
+                      document.getElementById("option3").innerHTML = options[noOfQuestion - currentquestion - 1][2];
+                      document.getElementById("option4").innerHTML = options[noOfQuestion - currentquestion - 1][3];
+                      document.getElementById("main").style.justifyContent = "space-evenly";
+                      document.getElementById("option1").style.display = "block";
+                      document.getElementById("option2").style.display = "block";
+                      document.getElementById("option3").style.display = "block";
+                      document.getElementById("option4").style.display = "block";
+                      document.getElementById("button-quiz").style.display = "block";
+
+                  }
+
+              document.getElementById("progressBar").textContent = timeleft;
+                  document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion -1 ][noOfDigits - currentDigit - 2 ];
+              console.log(questionArray[noOfQuestion - currentquestion -1 ][noOfDigits - currentDigit - 2 ]);
+
+
+
+              timeleft -= 1;
+              }, 1000);
+              var changequest = setInterval(function(){
+                  if(timeleft <= 2*eachtime){
+                      clearInterval(changequest);
+                  }
+                  currentDigit = currentDigit + 1;
+
+              }, eachtime*1000);
+
+              }
+
+              document.querySelectorAll(".choices").forEach((e) => {
+        e.addEventListener("click", () => {
+          const data = {
+            answer: e.innerText,
+            index: noOfQuestion - currentquestion -1,
+            question: question[noOfQuestion - currentquestion -1 ],
+          };
+
+          const url = "/api";
+
+          const param = {
+            headers: {
+              "content-type": "application/json; charset=UTF-8",
+            },
+            body: JSON.stringify(data),
+            method: "post",
+          };
+          fetch(url, param)
+            .then((response) => {
+              response = response.json();
+              return response;
+            })
+            .then((data) => {
+              if(!done){
+                if (data.result) {
+                  e.style.color = "green";
+                  document.getElementById("heading").style.color = "green";
+                  document.getElementById("heading").innerHTML = "CORRECT ANSWER";
+                } else {
+                  e.style.color = "Red";
+                  document.getElementById("heading").style.color = "red";
+                  document.getElementById("heading").innerHTML = "WRONG ANSWER";
                 }
-            questionArray.push(stringArray);
-
-        }
-        var noOfQuestion = questionArray.length;
-        var noOfDigits = questionArray[0].length;
-        var timeleft = 60;
-        var eachtime = 60/(noOfQuestion - 1);
-        timer();
-
-        function timer(){
-            var currentDigit = 0;
-
-            document.getElementById("option1").style.display = "none";
-                document.getElementById("option2").style.display = "none";
-                document.getElementById("option3").style.display = "none";
-                document.getElementById("option4").style.display = "none";
-                document.getElementById("question").style.display = "block";
-                document.getElementById("option1").style.color = "#FAEF6F";
-                document.getElementById("option2").style.color = "#FAEF6F";
-                document.getElementById("option3").style.color = "#FAEF6F";
-                document.getElementById("option4").style.color = "#FAEF6F";
-                document.getElementById("question").style.color = "#FAEF6F";
-                document.getElementById("heading").style.display = "none";
-                document.getElementById("main").style.justifyContent = "center";
-                document.getElementById("button-quiz").style.display = "none";
-
-            var downloadTimer = setInterval(function(){
-            if(timeleft <= 0){
-                clearInterval(downloadTimer);
-                document.getElementById("question").style.display = "none";
-                document.getElementById("heading").style.display = "block";
-                document.getElementById("option1").innerHTML = options[noOfQuestion - currentquestion - 1][0];
-                document.getElementById("option2").innerHTML = options[noOfQuestion - currentquestion - 1][1];
-                document.getElementById("option3").innerHTML = options[noOfQuestion - currentquestion - 1][2];
-                document.getElementById("option4").innerHTML = options[noOfQuestion - currentquestion - 1][3];
-                document.getElementById("main").style.justifyContent = "space-evenly";
-                document.getElementById("option1").style.display = "block";
-                document.getElementById("option2").style.display = "block";
-                document.getElementById("option3").style.display = "block";
-                document.getElementById("option4").style.display = "block";
-                document.getElementById("button-quiz").style.display = "block";
-
+                console.log(done);
+                document.querySelectorAll(".choices").forEach((e,index) => {
+                  if(e.innerText == data.answer){
+                    document.querySelectorAll(".choices")[index].style.color = "green";
+                    done = true;
+                  }}
+                )
             }
-
-        document.getElementById("progressBar").textContent = timeleft;
-            document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion -1 ][noOfDigits - currentDigit - 2 ];
-        console.log(questionArray[noOfQuestion - currentquestion -1 ][noOfDigits - currentDigit - 2 ]);
-       
-  
-
-        timeleft -= 1;
-        }, 1000);
-        var changequest = setInterval(function(){
-            console.log(timeleft);
-            if(timeleft <= 2*eachtime){
-                clearInterval(changequest);
-            }
-            currentDigit = currentDigit + 1;
-            console.log(currentDigit);
-
-        }, eachtime*1000);
-        console.log(questionArray);
-        console.log(options);
-
-        } 
-     
-        document.querySelectorAll(".choices").forEach((e) => {
-  e.addEventListener("click", () => {
-    const data = {
-      answer: e.innerText,
-      index: noOfQuestion - currentquestion -1,
-      question: question[noOfQuestion - currentquestion -1 ],
-    };
-    console.log(data);
-
-    const url = "/api";
-
-    const param = {
-      headers: {
-        "content-type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify(data),
-      method: "post",
-    };
-    fetch(url, param)
-      .then((response) => {
-        response = response.json();
-        return response;
-      })
-      .then((data) => {
-        if (data.result) {
-            e.style.color = "green";
-          document.getElementById("heading").style.color = "green";
-          document.getElementById("heading").innerHTML = "CORRECT ANSWER";
-         
+            })
+            .catch((err) => {
+              console.log("Err", err);
+            });
+        });
 
 
-        } else {
-          e.style.color = "Red";
-          document.getElementById("heading").style.color = "red";
-          document.getElementById("heading").innerHTML = "WRONG ANSWER";
-
-        }
-      
-        document.getElementById("option1").classList.remove("choices");
-    document.getElementById("option2").classList.remove("choices");
-    document.getElementById("option3").classList.remove("choices");
-    document.getElementById("option4").classList.remove("choices");
-      })
-      .catch((err) => {
-        console.log("Err", err);
       });
-  });
-  
-
-});
-function nextQuestion() {
-    timeleft = 60;
-    document.getElementById("option1").classList.add("choices");
-    document.getElementById("option2").classList.add("choices");
-    document.getElementById("option3").classList.add("choices");
-    document.getElementById("option4").classList.add("choices");
-    document.getElementById("heading").innerHTML = "Select The Correct Answer";
-    document.getElementById("heading").style.display = "none";
-    // document.getElementById("option1").style.color = "#FAEF6F";
-    currentquestion = currentquestion + 1;
-    timer();
-}
-
+      function nextQuestion() {
+          timeleft = 60;
+          done = false;
+          document.getElementById("option1").classList.add("choices");
+          document.getElementById("option2").classList.add("choices");
+          document.getElementById("option3").classList.add("choices");
+          document.getElementById("option4").classList.add("choices");
+          document.getElementById("heading").innerHTML = "Select The Correct Answer";
+          document.getElementById("heading").style.display = "none";
+          // document.getElementById("option1").style.color = "#FAEF6F";
+          currentquestion = currentquestion + 1;
+          timer();
+      }
     </script>
-</body>
+  </body>
 </html>
