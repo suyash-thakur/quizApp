@@ -144,6 +144,7 @@
               var noOfDigits = questionArray[0].length;
               var timeleft = 60;
               var eachtime = 60/(noOfQuestion - 1);
+              console.log(this.questionArray);
               timer();
 
               function timer(){
@@ -182,8 +183,8 @@
                   }
 
               document.getElementById("progressBar").textContent = timeleft;
-                  document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion -1 ][noOfDigits - currentDigit - 2 ];
-              console.log(questionArray[noOfQuestion - currentquestion -1 ][noOfDigits - currentDigit - 2 ]);
+                  document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion -1 ][currentDigit];
+              console.log(questionArray[noOfQuestion - currentquestion -1 ][currentDigit ]);
 
 
 
@@ -193,7 +194,9 @@
                   if(timeleft <= 2*eachtime){
                       clearInterval(changequest);
                   }
-                  currentDigit = currentDigit + 1;
+                  if(currentDigit !== noOfDigits - 2){
+                    currentDigit = currentDigit + 1;
+                  }
 
               }, eachtime*1000);
 

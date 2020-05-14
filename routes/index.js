@@ -38,7 +38,7 @@ questionsGenerate = (typeOfQuestion) => {
   while (numOfQuestion > 0) {
     let question = generateQuestion(
       typeOfQuestion,
-      "subAndAdd",
+      operation,
       quizRow[typeOfQuestion]
     );
 
@@ -76,9 +76,10 @@ router.get("/quiz", function (req, res, next) {
 
 router.get("/quizquestion", function (req, res, next) {
   typeOfQuestion = req.query.type;
+  operation = req.query.operation;
   console.log(typeOfQuestion);
 
-  questionArr = questionsGenerate(typeOfQuestion);
+  questionArr = questionsGenerate(typeOfQuestion, operation);
 
   arrayOfQuestions = [];
   arrayOfChoices = [];

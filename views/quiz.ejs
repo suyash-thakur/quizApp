@@ -16,22 +16,20 @@
         </div>
         <div style="" class="imageContainer  col-xs-12 col-md-6">
             <h1 class="second-header">Quiz Me</h1>
-            <input list="operation" name="operation" placeholder="Operation" class="quiz-input" id="questionType" oninput='onInput()'>
+            <input list="expression" name="operation" placeholder="Operation" class="quiz-input" id="arithmetic" >
+            <datalist id="expression">
+                <option value="subAndAdd"></option>
+                <option value="mulAndDiv"></option>
+            </datalist>
+            <input list="operation" name="operation" placeholder="Mode" class="quiz-input" id="questionType">
             <datalist id="operation">
                 <option value="one"></option>
                 <option value="two"></option>
                 <option value="three"></option>
                 <option value="onetwo"></option>
             </datalist>
-            <input list="operation" name="operation" placeholder="Mode" class="quiz-input">
-            <datalist id="operation">
-                <option value="addition"></option>
-                <option value="subtraction"></option>
-                <option value="division"></option>
-                <option value="multiplication"></option>
-            </datalist>
             <br>
-            <a class="button-login" style="border: none; margin-top: 50px;" href="/question">Start</a>
+            <a class="button-login" style="border: none; margin-top: 50px;"  onclick="onInput()">Start</a>
         </div>
     </div>
     <%- include("./partials/footer.ejs") %>
