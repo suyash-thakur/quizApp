@@ -108,13 +108,13 @@
             class="margin"
           >
             <div class="button-quiz">
-              <a>Restart</a>
+              <a onclick="reload()" style="cursor: pointer;">Restart</a>
             </div>
             <div class="button-quiz" id="button-quiz">
               <a id="next" onclick="nextQuestion()">Next</a>
             </div>
             <div class="button-quiz">
-              <a>Change Mode</a>
+              <a onclick="goBack()" style="cursor: pointer;">Change Mode</a>
             </div>
           </div>
         </div>
@@ -264,6 +264,12 @@
           currentquestion = currentquestion + 1;
           timer();
       }
+      function reload() {
+        location.reload();
+      }
+      function goBack() {
+  window.history.back();
+}
     </script>
   </body>
 </html>
