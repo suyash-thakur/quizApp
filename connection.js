@@ -6,11 +6,7 @@ const connection = mysql.createConnection({
     user     : process.env.RDS_USERNAME,
     password : process.env.RDS_PASSWORD,
     port     : process.env.RDS_PORT,
-    ssl  : {
-      // DO NOT DO THIS
-      // set up your ca correctly to trust the connection
-      rejectUnauthorized: false
-    }
+    database : process.env.RDS_DATABASE
 });
 
 connection.connect((err) => {
@@ -19,5 +15,10 @@ connection.connect((err) => {
       return;
     }
   
-    console.log('Connected to database.');
+    console.log('Connected to mysql.');
+    var sql = "select * from users;";
+    connection.query(sql, function (err, result) {
+    if (err) throw err;
+      console.log(result);
+    });
 });
