@@ -1,7 +1,7 @@
 const express = require("express"),
-  router = express.Router();
+      router = express.Router();
 
-const generateQuestion = require("../questions");
+const generateQuestion = require("../helper/questions");
 const randomNumber = require("../helper/randomNumber");
 const shuffle = require("../helper/arrayShuffle");
 
