@@ -70,6 +70,9 @@ router.get("/", function (req, res, next) {
 router.get("/quiz", function (req, res, next) {
   res.render("quiz", { title: "Quiz Website" });
 });
+router.get("/teacher", function (req, res, next) {
+  res.render("teacher", { title: "Quiz Website" });
+});
 // router.get("/quizquestion", function (req, res, next) {
 //   res.render("question", { title: "Quiz Website" });
 // });
