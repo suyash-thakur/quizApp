@@ -11,7 +11,7 @@
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top" style="background-color: #fff !important; border-bottom: 3px solid #F2D984;" >
             <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -34,12 +34,55 @@
                 <li class="nav-item navItem">
                   <a class="nav-link" href="#">Contact</a>
                 </li>
+                <li class="nav-item navItem">
+                  <a class="nav-link" href="#">Contact</a>
+                </li>
               </ul>
+             <div class="UserName" id="name">
+               Name
+             </div>
+             <div class="SignOut" id="signout">
+              <a onclick="delete_cookie('userData')">Sign-Out</a>
+            </div>
+            </div>
+            <div>
             </div>
           </nav>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+      var isLoggedin = false;
+      function getCookie(c_name) {
+  var i, x, y, ARRcookies = document.cookie.split(";");
+  for (i = 0; i < ARRcookies.length; i++) {
+      x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+      y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+      x = x.replace(/^\s+|\s+$/g, "");
+      if (x == c_name) {
+          return unescape(y);
+      }
+  }
+}
+function delete_cookie(name) {
+  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+  document.getElementById('name').style.display = 'none';
+  document.getElementById('signout').style.display = 'none';
+
+}
+var x = getCookie("userData");
+console.log(x);
+if(x !== undefined) {
+  isLoggedin = true;
+  document.getElementById('name').style.display = 'block';
+  document.getElementById('name').innerHTML = x;
+  document.getElementById('signout').style.display = 'block';
+
+
+}
+
+      console.log(x);
+  </script>
 </body>
 </html>

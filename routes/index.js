@@ -68,10 +68,10 @@ questionsGenerate = (typeOfQuestion) => {
 
   return questionArr;
 };
-
+var userData = null;
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Quiz Website" });
+  res.render("index", { title: "Quiz Website"  });
 });
 router.get("/quiz", function (req, res, next) {
   res.render("quiz", { title: "Quiz Website" });
@@ -128,11 +128,12 @@ router.post('/auth', function(request, response) {
   var password = request.body.password;
   console.log(username +" " + password);
 	if (username && password) {
-		connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
-      console.log(results);
+		connection.query('SELECT * FROM users WHERE email = ? AND password = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
-			  res.render("index", { username: username });
-
+        const name = results[0].name;
+        console.log(name);
+        response.cookie('userData', name);
+        response.redirect('/');
 			} else {
 				response.send('Incorrect Username and/or Password!');
 			}			
