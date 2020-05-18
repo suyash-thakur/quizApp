@@ -111,6 +111,7 @@ router.get("/quizquestion", function (req, res, next) {
      title: 'title',
     quizQuestion: arrayOfQuestions,
     quizChoices: arrayOfChoices,
+    operation: operation
   });
 
 });

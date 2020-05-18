@@ -26,7 +26,7 @@
                   <a class="nav-link" href="#">Flash Cards</a>
                 </li>
                 <li class="nav-item navItem">
-                  <a class="nav-link" href="/quiz">Quiz</a>
+                  <a class="nav-link" onClick="quizUrl()">Quiz</a>
                 </li>
                 <li class="nav-item navItem">
                   <a class="nav-link" href="#">Word Problem</a>
@@ -71,6 +71,13 @@ function delete_cookie(name) {
   document.getElementById('signout').style.display = 'none';
 
 }
+function quizUrl() {
+  if(isLoggedin == true) {
+    window.location.href = "/quiz";
+  } else {
+    window.alert("Please log-in to continue");
+  }
+}
 var x = getCookie("userData");
 console.log(x);
 if(x !== undefined) {
@@ -83,6 +90,7 @@ if(x !== undefined) {
 }
 
       console.log(x);
+      console.log(isLoggedin);
   </script>
 </body>
 </html>

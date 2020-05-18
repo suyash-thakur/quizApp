@@ -61,7 +61,7 @@
                   <img src="/assets/abacus.png" class="abacus-img" />
                 </div>
                 <div class="timer-text">
-                  <b> : + </b>
+                  <b id="sign"> : + </b>
                 </div>
               </div>
               <br />
@@ -126,9 +126,16 @@
     <script>
               var question = <%- JSON.stringify(quizQuestion)   %> ;
               var options = <%- JSON.stringify(quizChoices)   %>;
+              var operation = <%- JSON.stringify(operation)   %>;
+              var points= 0;
               var currentquestion = 0;
               var done = false;
               var questionArray = new Array();
+              if(operation == "subAndAdd"){
+                document.getElementById('sign').innerHTML=": +";
+              }else {
+                document.getElementById('sign').innerHTML=": *";
+              }
               for( var j = 0; j < question.length; j++){
                   var stringArray = new Array();
                   var string = question[j];
@@ -230,6 +237,7 @@
                   e.style.color = "green";
                   document.getElementById("heading").style.color = "green";
                   document.getElementById("heading").innerHTML = "CORRECT ANSWER";
+                  points = points + 1;
                 } else {
                   e.style.color = "Red";
                   document.getElementById("heading").style.color = "red";
@@ -261,8 +269,13 @@
           document.getElementById("heading").innerHTML = "Select The Correct Answer";
           document.getElementById("heading").style.display = "none";
           // document.getElementById("option1").style.color = "#FAEF6F";
-          currentquestion = currentquestion + 1;
-          timer();
+          if(currentquestion != noOfQuestion - 1){
+            currentquestion = currentquestion + 1;
+            timer();
+          }else {
+            document.getElementById("heading").innerHTML = "Total Points:" + points;
+
+          }
       }
       function reload() {
         location.reload();
