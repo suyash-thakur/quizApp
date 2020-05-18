@@ -22,3 +22,5 @@ connection.connect((err) => {
       console.log(result);
     });
 });
+
+global.db = connection;
