@@ -16,11 +16,6 @@ connection.connect((err) => {
     }
   
     console.log('Connected to mysql.');
-    var sql = "select * from users;";
-    connection.query(sql, function (err, result) {
-    if (err) throw err;
-      console.log(result);
-    });
 });
 
-global.db = connection;
+module.exports = connection;

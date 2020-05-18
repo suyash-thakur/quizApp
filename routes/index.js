@@ -3,10 +3,14 @@ const express = require("express"),
 const generateQuestion = require("../helper/questions");
 const randomNumber = require("../helper/randomNumber");
 const shuffle = require("../helper/arrayShuffle");
-const mysql = require('mysql');
 
+const connection = require("../connection");
 
-
+var sql = "SELECT * FROM users WHERE email = 'test@gmail.com'";
+connection.query(sql, function (err, result) {
+  if (err) throw err;
+  console.log(result);
+});
 
 const quizFunctionCall = {
   one: 7,
@@ -118,12 +122,13 @@ router.post("/api", function (req, res, next) {
     answer: useVar[req.cookies.userID][req.body.index].answer,
   });
 });
+
 router.post('/auth', function(request, response) {
 	var username = request.body.username;
   var password = request.body.password;
   console.log(username +" " + password);
 	if (username && password) {
-		db.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+		connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
       console.log(results);
 			if (results.length > 0) {
 			  res.render("index", { username: username });
