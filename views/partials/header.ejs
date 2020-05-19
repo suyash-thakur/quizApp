@@ -17,25 +17,25 @@
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item active navItem">
-                  <a class="nav-link" href="#">About<span class="sr-only">(current)</span></a>
+                  <a class="nav-link" href="#" style="cursor: pointer;">About<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item navItem">
-                  <a class="nav-link" href="/teacher">Teachers</a>
+                  <a class="nav-link" href="/teacher" style="cursor: pointer;">Teachers</a>
                 </li>
                 <li class="nav-item navItem">
-                  <a class="nav-link" href="#">Flash Cards</a>
+                  <a class="nav-link" href="#" style="cursor: pointer;">Flash Cards</a>
                 </li>
                 <li class="nav-item navItem">
-                  <a class="nav-link" onClick="quizUrl()">Quiz</a>
+                  <a class="nav-link" onClick="quizUrl()" style="cursor: pointer;">Quiz</a>
                 </li>
                 <li class="nav-item navItem">
-                  <a class="nav-link" href="#">Word Problem</a>
+                  <a class="nav-link" href="#" style="cursor: pointer;">Word Problem</a>
                 </li>
                 <li class="nav-item navItem">
-                  <a class="nav-link" href="#">Contact</a>
+                  <a class="nav-link" href="#" style="cursor: pointer;">Contact</a>
                 </li>
                 <li class="nav-item navItem">
-                  <a class="nav-link" href="#">Contact</a>
+                  <a class="nav-link" href="#" style="cursor: pointer;">Contact</a>
                 </li>
               </ul>
              <div class="UserName" id="name">
@@ -52,45 +52,8 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script>
-      var isLoggedin = false;
-      function getCookie(c_name) {
-  var i, x, y, ARRcookies = document.cookie.split(";");
-  for (i = 0; i < ARRcookies.length; i++) {
-      x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
-      y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
-      x = x.replace(/^\s+|\s+$/g, "");
-      if (x == c_name) {
-          return unescape(y);
-      }
-  }
-}
-function delete_cookie(name) {
-  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-  document.getElementById('name').style.display = 'none';
-  document.getElementById('signout').style.display = 'none';
-
-}
-function quizUrl() {
-  if(isLoggedin == true) {
-    window.location.href = "/quiz";
-  } else {
-    window.alert("Please log-in to continue");
-  }
-}
-var x = getCookie("userData");
-console.log(x);
-if(x !== undefined) {
-  isLoggedin = true;
-  document.getElementById('name').style.display = 'block';
-  document.getElementById('name').innerHTML = x;
-  document.getElementById('signout').style.display = 'block';
-
-
-}
-
-      console.log(x);
-      console.log(isLoggedin);
+    <script src="scripts/main.js">
+     
   </script>
 </body>
 </html>

@@ -12,17 +12,19 @@
     <link rel="stylesheet" href="\stylesheets\style.css" type="text/css" />
     <title>Document</title>
   </head>
-  <body>
+  <body >
     <%- include("./partials/header.ejs") %>
     <!-- <div style="display: flex;">
         <div>
             <img src="/assets/question.png" class="img-side">
         </div> -->
-    <div style="padding-left: 10%; padding-right: 10%;">
+    <div style="padding-left: 10%; padding-right: 10%; height: 70vh;">
       <div class="second-content">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Architecto,
-        non quaerat! Quisquam omnis quod hic soluta ab, ut dolor repellat nemo
-        id possimus architecto dolorum fugiat unde rerum aspernatur voluptatem?
+        <p id="Instruction">
+        </p>
+       <p>
+         <b>Question: <span id="currentquestion">10</span>/ <span id="totalquestion">10</span></b>
+       </p>
       </div>
       <div
         style="
@@ -70,7 +72,7 @@
                   <img src="/assets/clock.png" class="abacus-img" />
                 </div>
                 <div class="timer-text">
-                  <b> : 90 </b>
+                  <b> : 60 </b>
                 </div>
               </div>
             </div>
@@ -111,7 +113,7 @@
               <a onclick="reload()" style="cursor: pointer;">Restart</a>
             </div>
             <div class="button-quiz" id="button-quiz">
-              <a id="next" onclick="nextQuestion()">Next</a>
+              <a id="next" onclick="nextQuestion()" style="cursor: pointer;">Next</a>
             </div>
             <div class="button-quiz">
               <a onclick="goBack()" style="cursor: pointer;">Change Mode</a>
@@ -133,9 +135,13 @@
               var questionArray = new Array();
               if(operation == "subAndAdd"){
                 document.getElementById('sign').innerHTML=": +";
+                document.getElementById('Instruction').innerHTML="Find the sum of the numbers displayed in the cards below."
               }else {
                 document.getElementById('sign').innerHTML=": *";
+                document.getElementById('Instruction').innerHTML="Find the product of the numbers displayed in the cards below."
+
               }
+              document.getElementById('currentquestion').innerHTML = currentquestion + 1;
               for( var j = 0; j < question.length; j++){
                   var stringArray = new Array();
                   var string = question[j];
@@ -148,6 +154,8 @@
 
               }
               var noOfQuestion = questionArray.length;
+              document.getElementById('totalquestion').innerHTML = noOfQuestion;
+
               var noOfDigits = questionArray[0].length;
               var timeleft = 60;
               var eachtime = 60/(noOfQuestion - 1);
@@ -271,6 +279,8 @@
           // document.getElementById("option1").style.color = "#FAEF6F";
           if(currentquestion != noOfQuestion - 1){
             currentquestion = currentquestion + 1;
+            document.getElementById('currentquestion').innerHTML = currentquestion + 1;
+
             timer();
           }else {
             document.getElementById("heading").innerHTML = "Total Points:" + points;
