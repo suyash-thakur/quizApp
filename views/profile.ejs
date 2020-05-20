@@ -1,0 +1,27 @@
+<%- include("./partials/header.ejs") %>
+
+<div style="margin: 2rem 10rem">
+    <form action="profile" method="POST">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" value="<%= profileData.email %>"" readonly="readonly">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name" name="username" value="<%= profileData.name %>">
+          </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password *</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" required>
+        </div>
+        <% if (locals.error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+        <button type="submit" class="btn btn-warning">Update</button>
+      </form>
+</div>
+      
+<%- include("./partials/footer.ejs") %>
