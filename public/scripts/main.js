@@ -7,7 +7,6 @@ var operation;
 function onInput() {
   this.questType = document.getElementById("questionType").value;
   this.operation = document.getElementById("arithmetic").value;
-  console.log(this.questType);
   location.href += `question?type=${this.questType}&operation=${this.operation}`;
 
 }
@@ -41,19 +40,11 @@ window.alert("Please log-in to continue");
 }
 }
 var x = getCookie("userData");
-console.log(x);
 if(x !== undefined) {
-isLoggedin = true;
-document.getElementById('name').style.display = 'block';
-document.getElementById('name').innerHTML = x;
-document.getElementById('signout').style.display = 'block';
-document.getElementById('login').style.display = 'none';
-document.getElementById('login-button').style.display = 'none';
-
-
-
-
+  isLoggedin = true;
+  document.getElementById('name').style.display = 'block';
+  document.getElementById('name').innerHTML = x;
+  document.getElementById('signout').style.display = 'block';
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('login-button').style.display = 'none';
 }
-
-console.log(x);
-console.log(isLoggedin);

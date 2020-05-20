@@ -3,14 +3,9 @@ const express = require("express"),
 const generateQuestion = require("../helper/questions");
 const randomNumber = require("../helper/randomNumber");
 const shuffle = require("../helper/arrayShuffle");
+const cookieParser = require("cookie-parser");
 
 const connection = require("../connection");
-
-var sql = "SELECT * FROM users WHERE email = 'test@gmail.com'";
-connection.query(sql, function (err, result) {
-  if (err) throw err;
-  console.log(result);
-});
 
 const quizFunctionCall = {
   one: 7,
@@ -71,17 +66,55 @@ questionsGenerate = (typeOfQuestion) => {
 var userData = null;
 /* GET home page. */
 router.get("/", function (req, res, next) {
-  res.render("index", { title: "Quiz Website"  });
+  res.render("index");
 });
+
+router.post('/', function(req, res) {
+  const {email, password} = req.body;
+
+  if (email && password) {
+		connection.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], function(error, results, fields) {
+			if (results.length > 0) {
+        const name = results[0].name;
+        res.cookie('userData', name);
+        res.cookie('profileData', {name: results[0].name, email: results[0].email});
+        res.redirect('/');
+			} else {
+        res.render("index", {error: 'Incorrect email and/or Password!'});
+			}			
+		});
+	} else {
+    res.render("index", {error: 'Please enter email and Password!'});
+	}
+});
+
 router.get("/quiz", function (req, res, next) {
-  res.render("quiz", { title: "Quiz Website" });
+  res.render("quiz");
 });
 router.get("/teacher", function (req, res, next) {
-  res.render("teacher", { title: "Quiz Website" });
+  res.render("teacher");
 });
-// router.get("/quizquestion", function (req, res, next) {
-//   res.render("question", { title: "Quiz Website" });
-// });
+
+router.get("/profile", function (req, res, next) {
+  res.render("profile", {profileData: req.cookies.profileData});
+});
+
+router.post("/profile", function(req, res) {
+  const {username, email, password} = req.body;
+  
+  connection.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password], function(error, results) {
+    if (results.length > 0) {
+      const name = results[0].name;
+      res.cookie('userData', name);
+      res.cookie('profileData', {name: results[0].name, email: results[0].email});
+      connection.query('UPDATE users SET name= ? WHERE email = ? AND password = ?',[username, email, password] , function(error, results) {
+         res.status(200).redirect("/");
+      });
+    } else {
+      res.render("profile", {profileData: req.cookies.profileData, error: 'Incorrect Password!'});
+    }
+  })
+})
 
 router.get("/quizquestion", function (req, res, next) {
   typeOfQuestion = req.query.type;
@@ -103,12 +136,7 @@ router.get("/quizquestion", function (req, res, next) {
   useVar[userID] = questionArr;
   res.cookie("userID", userID); // options is optional
 
-
-  console.log(arrayOfQuestions);
-  console.log(arrayOfChoices);
-
    return res.render("question", {
-     title: 'title',
     quizQuestion: arrayOfQuestions,
     quizChoices: arrayOfChoices,
     operation: operation
@@ -124,25 +152,10 @@ router.post("/api", function (req, res, next) {
   });
 });
 
-router.post('/auth', function(request, response) {
-	var username = request.body.username;
-  var password = request.body.password;
-  console.log(username +" " + password);
-	if (username && password) {
-		connection.query('SELECT * FROM users WHERE email = ? AND password = ?', [username, password], function(error, results, fields) {
-			if (results.length > 0) {
-        const name = results[0].name;
-        console.log(name);
-        response.cookie('userData', name);
-        response.redirect('/');
-			} else {
-				response.send('Incorrect Username and/or Password!');
-			}			
-			response.end();
-		});
-	} else {
-		response.send('Please enter Username and Password!');
-		response.end();
-	}
-});
+router.post("/clear", function (req,res,next) {
+  res.clearCookie('profileData');
+  res.clearCookie('userData');
+  res.redirect("/");
+})
+
 module.exports = router;
