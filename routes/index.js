@@ -94,6 +94,9 @@ router.get("/quiz", function (req, res, next) {
 router.get("/teacher", function (req, res, next) {
   res.render("teacher");
 });
+router.get("/login", function (req, res, next) {
+  res.render("login");
+});
 
 router.get("/profile", function (req, res, next) {
   res.render("profile", {profileData: req.cookies.profileData});

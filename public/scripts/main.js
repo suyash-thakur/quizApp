@@ -47,4 +47,7 @@ if(x !== undefined) {
   document.getElementById('signout').style.display = 'block';
   document.getElementById('login').style.display = 'none';
   document.getElementById('login-button').style.display = 'none';
+} else {
+  document.getElementById('login-button').style.display = 'flex';
+
 }

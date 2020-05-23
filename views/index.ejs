@@ -2,9 +2,9 @@
     <div  class="content">
         <div class="Login-Section">
             <h1 class="main-header">SharpMind Labs</h1>
-            <div class="button-login" id="login-button">
+            <div class="button-login" id="login-button" style="display: none;">
                 <div class="text-login" >
-                   <a href="#login" style="text-decoration: none; color: inherit;"> Log in </a>
+                   <a href="/login" style="text-decoration: none; color: inherit;"> Log in </a>
                 </div>
                 <div style="align-self: center; justify-self: center; margin-left: 20px;">
                     <img src="/assets/Path 17.svg">
@@ -66,34 +66,6 @@ We adopt the most scientific and experiential learning methods aimed to provide 
             </div>
            </div>
       </div>
-      <div style="display: flex;  padding-left: 10%; padding-right: 10%; padding-bottom: 30px; padding-top: 30px;" id="login">
-        <div style="flex: 1;">
-            <h4 class="light-header" style="text-align: center !important;"><b>Not Logged-in? Log In Now!</b></h4>
-            <br>
-            <br>
-            <form action="/" method="POST" style="margin: 0 13rem;">
-                    <div class="form-group">
-                    <label for="InputEmail">Email address</label>
-                    <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email" name="email">
-                  </div>
-                  <div class="form-group">
-                    <label for="InputPassword">Password</label>
-                    <input type="password" class="form-control" id="InputPassword" name="password" placeholder="Password">
-                  </div>
-                  
-                <% if (locals.error) { %>
-                    <div class="alert alert-danger" role="alert">
-                        <%= error %>
-                    </div>
-                <% } %>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-warning" style="width: 30%;">
-                        Login
-                    </button>
-                </div>
-            </form>
-        </div>
-        </div>
       </div>
       <div style="width: 100%;  padding-left: 10%; padding-right: 10%; padding-bottom: 25px;">
         <h1 class="second-header">Plans And Prices</h1>
@@ -129,6 +101,7 @@ We adopt the most scientific and experiential learning methods aimed to provide 
             </div>
            </div>
       </div>
+      <script src="scripts/main.js"></script>
       <%- include("./partials/footer.ejs") %>
 </body>
 </html>
