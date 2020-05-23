@@ -130,16 +130,29 @@
     <br />
     <%- include("./partials/footer.ejs") %>
     <script>
-              var question = <%- JSON.stringify(quizQuestion)   %> ;
-              var options = <%- JSON.stringify(quizChoices)   %>;
-              var operation = <%- JSON.stringify(operation)   %>;
+              var question = [ '9 -10 +3 +10 -7 ',
+  '5 +6 -6 +5 +7 ',
+  '1 +9 -3 -8 +6 ',
+  '8 +9 -4 -8 +4 ',
+  '7 +4 -5 +6 -2 ',
+  '9 +4 +3 -6 -10 ',
+  '7 +3 -3 -4 -1 ' ];
+              var options = [ [ 9, 5, 8, 7 ],
+  [ 13, 18, 14, 17 ],
+  [ 2, 4, 5, 9 ],
+  [ 10, 6, 9, 11 ],
+  [ 6, 11, 10, 9 ],
+  [ 1, 0, -5, -2 ],
+  [ 3, -1, 2, 5 ] ];
+                var answer = [5, 17, 5, 9, 10, 0, 2]
+              var operation = "subAndAdd";
               var points= 0;
               var currentquestion = 0;
               var done = false;
               var questionArray = new Array();
               if(operation == "subAndAdd"){
                 document.getElementById('sign').innerHTML=": +";
-                document.getElementById('Instruction').innerHTML="Find the sum of the numbers displayed in the cards below."
+                document.getElementById('Instruction').innerHTML="Find the sum of the numbers displayed in the cards below.<br> This is a Demo Version. Please Log-in to enhance your experience"
               }else {
                 document.getElementById('sign').innerHTML=": *";
                 document.getElementById('Instruction').innerHTML="Find the product of the numbers displayed in the cards below."
@@ -223,29 +236,14 @@
 
               document.querySelectorAll(".choices").forEach((e) => {
         e.addEventListener("click", () => {
-          const data = {
-            answer: e.innerText,
-            index: noOfQuestion - currentquestion -1,
-            question: question[noOfQuestion - currentquestion -1 ],
-          };
+        //   const data = {
+        //     answer: e.innerText,
+        //     index: noOfQuestion - currentquestion -1,
+        //     question: question[noOfQuestion - currentquestion -1 ],
+        //   };
 
-          const url = "/api";
-
-          const param = {
-            headers: {
-              "content-type": "application/json; charset=UTF-8",
-            },
-            body: JSON.stringify(data),
-            method: "post",
-          };
-          fetch(url, param)
-            .then((response) => {
-              response = response.json();
-              return response;
-            })
-            .then((data) => {
-              if(!done){
-                if (data.result) {
+   
+                if (e.innerHTML == answer[noOfQuestion - currentquestion - 1]) {
                   e.style.color = "green";
                   document.getElementById("heading").style.color = "green";
                   document.getElementById("heading").innerHTML = "CORRECT ANSWER";
@@ -257,20 +255,10 @@
                 }
                 console.log(done);
                 document.querySelectorAll(".choices").forEach((e,index) => {
-                  if(e.innerText == data.answer){
+                  if(e.innerText == answer[noOfQuestion - currentquestion - 1]){
                     document.querySelectorAll(".choices")[index].style.color = "green";
                     done = true;
-                  }}
-                )
-            }
-            })
-            .catch((err) => {
-              console.log("Err", err);
-            });
-        });
-
-
-      });
+                  }})})});
       function nextQuestion() {
           timeleft = 60;
           done = false;
@@ -286,7 +274,7 @@
             document.getElementById('currentquestion').innerHTML = currentquestion + 1;
 
             timer();
-          }if(currentquestion + 1 === noOfQuestion) {
+          } if(currentquestion + 1 === noOfQuestion) {
             document.getElementById("heading").innerHTML = "Total Points:" + points;
 
           }

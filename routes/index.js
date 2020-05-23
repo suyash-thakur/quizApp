@@ -97,6 +97,9 @@ router.get("/teacher", function (req, res, next) {
 router.get("/login", function (req, res, next) {
   res.render("login");
 });
+router.get("/DemoQuiz", function (req, res, next) {
+  res.render("DemoQuiz");
+});
 
 router.get("/profile", function (req, res, next) {
   res.render("profile", {profileData: req.cookies.profileData});
@@ -122,7 +125,6 @@ router.post("/profile", function(req, res) {
 router.get("/quizquestion", function (req, res, next) {
   typeOfQuestion = req.query.type;
   operation = req.query.operation;
-  console.log(typeOfQuestion);
 
   questionArr = questionsGenerate(typeOfQuestion, operation);
 
@@ -138,6 +140,9 @@ router.get("/quizquestion", function (req, res, next) {
 
   useVar[userID] = questionArr;
   res.cookie("userID", userID); // options is optional
+  console.log(arrayOfQuestions);
+  console.log(arrayOfChoices);
+
 
    return res.render("question", {
     quizQuestion: arrayOfQuestions,

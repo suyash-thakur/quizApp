@@ -36,7 +36,8 @@ function quizUrl() {
 if(isLoggedin == true) {
 window.location.href = "/quiz";
 } else {
-window.alert("Please log-in to continue");
+  window.location.href = "/DemoQuiz";
+  
 }
 }
 var x = getCookie("userData");
