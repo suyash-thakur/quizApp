@@ -48,6 +48,11 @@ html {
   background: none;
   border: none;
 }
+#question {
+  font-size: 100px;
+  margin-top: -150px;
+  margin-bottom: 100px;
+}
 .second-header {
   font-size: 60px !important;
   text-align: center;
