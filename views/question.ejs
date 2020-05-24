@@ -1,9 +1,5 @@
 <%- include("./partials/header.ejs") %>
-    <!-- <div style="display: flex;">
-        <div>
-            <img src="/assets/question.png" class="img-side">
-        </div> -->
-    <div style="padding-left: 10%; padding-right: 10%; height: 70vh;">
+    <div class="quiz-section">
       <div class="second-content">
         <p id="Instruction">
         </p>
@@ -18,9 +14,6 @@
           align-items: center;
         "
       >
-        <div>
-          <img src="/assets/question.png" class="img-side hidden-xs" />
-        </div>
         <div style="flex-grow: 1;">
           <div style="display: flex;" class="margin">
             <div style="padding: 5px;">
@@ -32,8 +25,8 @@
                   justify-content: center;
                 "
               >
-                <div class="timer-text" style="color: black;" id="progressBar">
-                  55
+                <div class="timer-text" id="progressBar">
+                  <img class="timer-loader" src="/assets/spinner.gif">
                 </div>
               </div>
             </div>
@@ -163,7 +156,6 @@
               var noOfDigits = questionArray[0].length;
               var timeleft = 60;
               var eachtime = 60/(noOfQuestion - 1);
-              console.log(this.questionArray);
               timer();
 
               function timer(){
@@ -202,11 +194,7 @@
                   }
 
               document.getElementById("progressBar").textContent = timeleft;
-                  document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion -1 ][currentDigit];
-              console.log(questionArray[noOfQuestion - currentquestion -1 ][currentDigit ]);
-
-
-
+              document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion -1 ][currentDigit];
               timeleft -= 1;
               }, 1000);
               var changequest = setInterval(function(){
@@ -255,7 +243,6 @@
                   document.getElementById("heading").style.color = "red";
                   document.getElementById("heading").innerHTML = "WRONG ANSWER";
                 }
-                console.log(done);
                 document.querySelectorAll(".choices").forEach((e,index) => {
                   if(e.innerText == data.answer){
                     document.querySelectorAll(".choices")[index].style.color = "green";
@@ -265,7 +252,6 @@
             }
             })
             .catch((err) => {
-              console.log("Err", err);
             });
         });
 
