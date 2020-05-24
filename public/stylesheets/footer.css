@@ -1,0 +1,42 @@
+.footer {
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.footer-content {
+  border-top: 1px solid #000000;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+
+.footer-link:nth-child(n-1){
+  padding-right: 20px;
+  border-right: 1px solid black;
+  padding-left: 10px;
+}
+.social-icon {
+  width: 30px;
+  margin-left: 20px;
+}
+
+.footer-imp {
+  display: flex;
+}
+
+.footer-social-links {
+  text-align: right;
+}
+
+.footer-body {
+  width: 100%;
+  text-align: left;
+}
+
+@media (max-width: 512px) {
+  .footer-social-links {
+    margin: 20px auto -10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
