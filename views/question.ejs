@@ -31,7 +31,7 @@
               </div>
             </div>
             <div style="flex-grow: 1; text-align: center;">
-              <h1 id="heading" style="display: none;">
+              <h1 id="heading" style="opacity: 0;">
                 Select The Correct Answer
               </h1>
             </div>
@@ -57,10 +57,9 @@
           </div>
           <div
             style="display: flex; justify-content: center; align-items: center;"
-            class="margin"
             id="main"
           >
-            <div class="number" id="question"></div>
+            <div class="number" id="question"><img class="timer-loader" src="/assets/spinner.gif"></div>
             <div
               id="option1"
               style="display: none;"
@@ -85,7 +84,6 @@
           <br />
           <div
             style="display: flex; justify-content: space-evenly;"
-            class="margin"
           >
             <div class="button-quiz">
               <a onclick="reload()" style="cursor: pointer;">Restart</a>
@@ -171,7 +169,7 @@
                       document.getElementById("option3").style.color = "#FAEF6F";
                       document.getElementById("option4").style.color = "#FAEF6F";
                       document.getElementById("question").style.color = "#FAEF6F";
-                      document.getElementById("heading").style.display = "none";
+                      document.getElementById("heading").style.opacity = 0;
                       document.getElementById("main").style.justifyContent = "center";
                       document.getElementById("button-quiz").style.display = "none";
 
@@ -179,7 +177,7 @@
                   if(timeleft <= 0){
                       clearInterval(downloadTimer);
                       document.getElementById("question").style.display = "none";
-                      document.getElementById("heading").style.display = "block";
+                      document.getElementById("heading").style.opacity = 1;
                       document.getElementById("option1").innerHTML = options[noOfQuestion - currentquestion - 1][0];
                       document.getElementById("option2").innerHTML = options[noOfQuestion - currentquestion - 1][1];
                       document.getElementById("option3").innerHTML = options[noOfQuestion - currentquestion - 1][2];
@@ -195,6 +193,7 @@
 
               document.getElementById("progressBar").textContent = timeleft;
               document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion -1 ][currentDigit];
+              document.getElementById("question").opacity = 1;
               timeleft -= 1;
               }, 1000);
               var changequest = setInterval(function(){
@@ -265,7 +264,7 @@
           document.getElementById("option3").classList.add("choices");
           document.getElementById("option4").classList.add("choices");
           document.getElementById("heading").innerHTML = "Select The Correct Answer";
-          document.getElementById("heading").style.display = "none";
+          document.getElementById("heading").style.opacity = 0;
           // document.getElementById("option1").style.color = "#FAEF6F";
           if(currentquestion != noOfQuestion - 1){
             currentquestion = currentquestion + 1;
