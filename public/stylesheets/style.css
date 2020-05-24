@@ -431,3 +431,13 @@ section .section-title {
   display: none;
   border: 4px solid black;
 }
+
+.profile-form-section {
+  margin: 2rem 10rem;
+}
+
+@media (max-width: 612px) {
+  .profile-form-section {
+    margin: 2rem 1rem;
+  }
+}
