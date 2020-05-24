@@ -100,9 +100,7 @@
             <div class="button-quiz" id="button-quiz">
               <a id="next" onclick="nextQuestion()" style="cursor: pointer;">Next</a>
             </div>
-            <div class="button-quiz">
-              <a  style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal">Change Mode</a>
-            </div>
+           
           </div>
         </div>
       </div>
@@ -244,20 +242,27 @@
         //   };
 
    
-                if (e.innerHTML == answer[noOfQuestion - currentquestion - 1]) {
+                if (e.innerHTML == answer[noOfQuestion - currentquestion - 1] && done == false) {
                   e.style.color = "green";
                   document.getElementById("heading").style.color = "green";
                   document.getElementById("heading").innerHTML = "CORRECT ANSWER";
                   points = points + 1;
+                  done = true;
                 } else {
-                  e.style.color = "Red";
+                  if(done == false){
+                    e.style.color = "Red";
                   document.getElementById("heading").style.color = "red";
                   document.getElementById("heading").innerHTML = "WRONG ANSWER";
+                  done = true;
+                  }
+                 
                 }
                 console.log(done);
                 document.querySelectorAll(".choices").forEach((e,index) => {
                   if(e.innerText == answer[noOfQuestion - currentquestion - 1]){
-                    document.querySelectorAll(".choices")[index].style.color = "green";
+                    if(done == false){
+                      document.querySelectorAll(".choices")[index].style.color = "green";
+                    }
                     done = true;
                   }})})});
       function nextQuestion() {
