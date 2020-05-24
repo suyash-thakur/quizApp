@@ -4,8 +4,9 @@ const generateQuestion = require("../helper/questions");
 const randomNumber = require("../helper/randomNumber");
 const shuffle = require("../helper/arrayShuffle");
 const cookieParser = require("cookie-parser");
-
+const fs = require('fs');
 const connection = require("../connection");
+const problem = fs.readFileSync(__dirname + "/wordproblem.json");
 
 const quizFunctionCall = {
   one: 7,
@@ -104,6 +105,27 @@ router.get("/DemoQuiz", function (req, res, next) {
 router.get("/profile", function (req, res, next) {
   res.render("profile", {profileData: req.cookies.profileData});
 });
+router.get("/wordProblem", function (req, res, next) {
+let problems = JSON.parse(problem);
+arrayOfQuestions = [];
+arrayOfChoices = [];
+arrayofAnswers = [];
+
+problems.forEach((problem) => {
+  arrayOfQuestions.push(problem.question);
+  arrayOfChoices.push(shuffle(problem.options));
+  arrayofAnswers.push(shuffle(problem.answer));
+
+});
+
+console.log(arrayOfChoices);
+console.log(arrayOfQuestions);
+
+  res.render("wordProblem", {
+    questions: arrayOfQuestions,
+    choices: arrayOfChoices
+  });
+});
 
 router.post("/profile", function(req, res) {
   const {username, email, password} = req.body;
@@ -152,11 +174,28 @@ router.get("/quizquestion", function (req, res, next) {
 
 });
 
+router.get("/wordProblem", function (req, res, next) {
+
+res.render("wordProblem");
+
+});
 router.post("/api", function (req, res, next) {
   result = useVar[req.cookies.userID][req.body.index].answer == req.body.answer;
   res.json({
     result: result,
     answer: useVar[req.cookies.userID][req.body.index].answer,
+  });
+});
+router.post("/check", function (req, res, next) {
+  let isCorrect;
+  if( req.body.result === arrayofAnswers[req.body.id]) {
+    isCorrect = true
+  } else {
+    isCorrect = false
+  }
+  res.json({
+    check: isCorrect,
+    answer: arrayofAnswers[req.body.id],
   });
 });
 

@@ -1,0 +1,19 @@
+[
+    {
+        "question": "Father gave me some money. I could choose between 15% of 1,500$ or 25% of 1,000$. Which amount did I choose?",
+        "options": ["25% of 1,000$", "15% of 1,500$"],
+        "answer": "25% of 1,000$"
+    },
+    {
+        "question": "Mike had 180 blue and red pencils. He had 45 blue pencils. What percentage of his pencils was red?",
+        "options": ["25%", "15%", "75%", "10%"],
+        "answer": "75%"
+    },
+    {
+        "question": "add 2 to a",
+        "options": ["a+2", "a-2", "a+3", "a + 5"],
+        "answer": "a+2"
+
+
+    }
+]
