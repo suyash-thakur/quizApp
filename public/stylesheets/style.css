@@ -36,6 +36,7 @@ html {
   width: fit-content;
   margin: auto;
   margin-bottom: 40px;
+  cursor: pointer;
 }
 .button-signup {
   margin: auto;
@@ -382,7 +383,7 @@ section .section-title {
 
 .type-section {
   width: 100%;
-  padding:20px;
+  padding: 20px;
   background-color: #e4e4e4;
   padding-left: 10%;
   padding-right: 10%;
@@ -440,4 +441,27 @@ section .section-title {
   .profile-form-section {
     margin: 2rem 1rem;
   }
+}
+
+.quiz-section {
+  width: 100%;
+  padding-left: 10%;
+  padding-right: 10%;
+ 
+}
+
+.quiz-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 612px) {
+  .quiz-content { 
+    flex-direction: column;
+  }
+}
+
+.quiz-start-btn {
+  margin-top: 50px;
 }
