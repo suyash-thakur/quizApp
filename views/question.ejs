@@ -4,80 +4,53 @@
         <p id="Instruction">
         </p>
        <p>
-         <b>Question: <span id="currentquestion">10</span>/ <span id="totalquestion">10</span></b>
+         <b>Question: <span id="currentquestion">10</span>/<span id="totalquestion">10</span></b>
        </p>
       </div>
-      <div
-        style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        "
-      >
-        <div style="flex-grow: 1;">
-          <div style="display: flex;" class="margin">
-            <div style="padding: 5px;">
-              <div
-                class="timer"
-                style="
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
-                "
-              >
+      <div>
+        <div>
+          <div class="margin quiz-info-section">
+              <div class="timer">
                 <div class="timer-text" id="progressBar">
                   <img class="timer-loader" src="/assets/spinner.gif">
                 </div>
               </div>
-            </div>
-            <div style="flex-grow: 1; text-align: center;">
+            <div class="quiz-heading">
               <h1 id="heading" style="opacity: 0;">
                 Select The Correct Answer
               </h1>
             </div>
-            <div>
-              <div style="display: flex;">
+            <div class="quiz-props">
                 <div>
                   <img src="/assets/abacus.png" class="abacus-img" />
                 </div>
                 <div class="timer-text">
                   <b id="sign"> : + </b>
                 </div>
-              </div>
-              <br />
-              <div style="display: flex;">
                 <div>
                   <img src="/assets/clock.png" class="abacus-img" />
                 </div>
                 <div class="timer-text">
                   <b> : 60 </b>
                 </div>
-              </div>
             </div>
           </div>
-          <div
-            style="display: flex; justify-content: center; align-items: center;"
-            id="main"
-          >
-            <div class="number" id="question"><img class="timer-loader" src="/assets/spinner.gif"></div>
+          <div class="quiz-number-section"><div class="question-number" id="question"><img class="timer-loader" src="/assets/spinner.gif"></div></div>
+          <div id="main-quiz-section">
             <div
               id="option1"
-              style="display: none;"
               class="number choices"
             ></div>
             <div
               id="option2"
-              style="display: none;"
               class="number choices"
             ></div>
             <div
               id="option3"
-              style="display: none;"
               class="number choices"
             ></div>
             <div
               id="option4"
-              style="display: none;"
               class="number choices"
             ></div>
           </div>
@@ -86,13 +59,13 @@
             style="display: flex; justify-content: space-evenly;"
           >
             <div class="button-quiz">
-              <a onclick="reload()" style="cursor: pointer;">Restart</a>
+              <a onclick="reload()">Restart</a>
             </div>
             <div class="button-quiz" id="button-quiz">
-              <a id="next" onclick="nextQuestion()" style="cursor: pointer;">Next</a>
+              <a id="next" onclick="nextQuestion()">Next</a>
             </div>
             <div class="button-quiz">
-              <a  style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal">Change Mode</a>
+              <a data-toggle="modal" data-target="#exampleModal">Change Mode</a>
             </div>
           </div>
         </div>
@@ -152,25 +125,22 @@
               document.getElementById('totalquestion').innerHTML = noOfQuestion;
 
               var noOfDigits = questionArray[0].length;
-              var timeleft = 60;
-              var eachtime = 60/(noOfQuestion - 1);
+              var timeleft = 6;
+              var eachtime = 6/(noOfQuestion - 1);
               timer();
 
               function timer(){
                   var currentDigit = 0;
 
-                  document.getElementById("option1").style.display = "none";
-                      document.getElementById("option2").style.display = "none";
-                      document.getElementById("option3").style.display = "none";
-                      document.getElementById("option4").style.display = "none";
+                    // document.querySelectorAll(".choices")
+                      document.getElementById("option1").classList.remove("choice-view")
+                      document.getElementById("option2").classList.remove("choice-view")
+                      document.getElementById("option3").classList.remove("choice-view")
+                      document.getElementById("option4").classList.remove("choice-view")
                       document.getElementById("question").style.display = "block";
-                      document.getElementById("option1").style.color = "#FAEF6F";
-                      document.getElementById("option2").style.color = "#FAEF6F";
-                      document.getElementById("option3").style.color = "#FAEF6F";
-                      document.getElementById("option4").style.color = "#FAEF6F";
                       document.getElementById("question").style.color = "#FAEF6F";
                       document.getElementById("heading").style.opacity = 0;
-                      document.getElementById("main").style.justifyContent = "center";
+                      document.getElementById("main-quiz-section").style.justifyContent = "center";
                       document.getElementById("button-quiz").style.display = "none";
 
                   var downloadTimer = setInterval(function(){
@@ -182,11 +152,11 @@
                       document.getElementById("option2").innerHTML = options[noOfQuestion - currentquestion - 1][1];
                       document.getElementById("option3").innerHTML = options[noOfQuestion - currentquestion - 1][2];
                       document.getElementById("option4").innerHTML = options[noOfQuestion - currentquestion - 1][3];
-                      document.getElementById("main").style.justifyContent = "space-evenly";
-                      document.getElementById("option1").style.display = "block";
-                      document.getElementById("option2").style.display = "block";
-                      document.getElementById("option3").style.display = "block";
-                      document.getElementById("option4").style.display = "block";
+                      document.getElementById("main-quiz-section").style.justifyContent = "space-evenly";
+                      document.getElementById("option1").classList.add("choice-view")
+                      document.getElementById("option2").classList.add("choice-view")
+                      document.getElementById("option3").classList.add("choice-view")
+                      document.getElementById("option4").classList.add("choice-view")
                       document.getElementById("button-quiz").style.display = "block";
 
                   }
@@ -233,18 +203,18 @@
             .then((data) => {
               if(!done){
                 if (data.result) {
-                  e.style.color = "green";
-                  document.getElementById("heading").style.color = "green";
+                  e.style.color = "#82ff50";
+                  document.getElementById("heading").style.color = "#82ff50";
                   document.getElementById("heading").innerHTML = "CORRECT ANSWER";
                   points = points + 1;
                 } else {
-                  e.style.color = "Red";
-                  document.getElementById("heading").style.color = "red";
+                  e.style.color = "#f53d3d";
+                  document.getElementById("heading").style.color = "#f53d3d";
                   document.getElementById("heading").innerHTML = "WRONG ANSWER";
                 }
                 document.querySelectorAll(".choices").forEach((e,index) => {
                   if(e.innerText == data.answer){
-                    document.querySelectorAll(".choices")[index].style.color = "green";
+                    document.querySelectorAll(".choices")[index].style.color = "#82ff50";
                     done = true;
                   }}
                 )
@@ -257,15 +227,10 @@
 
       });
       function nextQuestion() {
-          timeleft = 60;
+          timeleft = 6;
           done = false;
-          document.getElementById("option1").classList.add("choices");
-          document.getElementById("option2").classList.add("choices");
-          document.getElementById("option3").classList.add("choices");
-          document.getElementById("option4").classList.add("choices");
           document.getElementById("heading").innerHTML = "Select The Correct Answer";
           document.getElementById("heading").style.opacity = 0;
-          // document.getElementById("option1").style.color = "#FAEF6F";
           if(currentquestion != noOfQuestion - 1){
             currentquestion = currentquestion + 1;
             document.getElementById('currentquestion').innerHTML = currentquestion + 1;
