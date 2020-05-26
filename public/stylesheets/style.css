@@ -37,7 +37,13 @@ html {
   margin: auto;
   margin-bottom: 40px;
   cursor: pointer;
+  transition: 0.5s all;
 }
+
+.button-login:hover {
+  transform: scale3d(1.1, 1.1, 1.1);
+}
+
 .button-signup {
   margin: auto;
   padding-top: 10px;
@@ -91,13 +97,28 @@ html {
   margin: auto;
   margin-bottom: 20px;
 }
-.UserName {
-  border-left: 1px solid gray;
-  padding-left: 10px;
-  display: none;
+
+@media (min-width: 768px) {
+  .UserName {
+    border-left: 1px solid #000000db;
+    padding-left: 10px;
+  }  
 }
+
+
+.UserName {
+  display: none;
+  font-size: 18px;
+  margin-top: 3px;
+}
+
+@media (min-width: 768px) {
+  .SignOut {
+    margin-left: -30px;
+  }
+}
+
 .SignOut {
-  padding-left: 10px;
   display: none;
   cursor: pointer;
 }
@@ -579,4 +600,19 @@ section .section-title {
     grid-column-gap: 0px;
     grid-row-gap: 0px;
   }
+}
+
+.table-heading, .table-value {
+  font-size: 20px;
+}
+
+@media (min-width: 512px) {
+  .table-bordered {
+    margin-top: 40px;
+  }
+}
+
+#signout button{
+  background: none;
+  border: none;
 }

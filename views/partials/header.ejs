@@ -31,22 +31,26 @@
                   <a class="nav-link" href="#">Word Problem</a>
                 </li>
                 <li class="nav-item navItem">
-                  <a class="nav-link" href="/login">Log In</a>
+                  <a class="nav-link" id="login-link" href="/login">Log In</a>
                 </li>
                 <li class="nav-item navItem">
                   <a class="nav-link" href="#">Contact</a>
                 </li>
+                <li class="nav-item navItem">
+                  <a class="navbar-brand" href="/profile">
+                    <div class="UserName" id="name">
+                    Name
+                    </div>
+                  </a>
+                </li>
+                <li class="nav-item navItem">
+                  <form action="clear" method="POST">
+                    <div class="SignOut" id="signout">
+                      <button type="submit" class="nav-link">Sign Out</button>
+                    </div>
+                  </form>
+                </li>
               </ul>
-              <a class="navbar-brand" href="/profile">
-                <div class="UserName" id="name">
-                Name
-                </div>
-              </a>
-              <form action="clear" method="POST">
-                <div class="SignOut" id="signout">
-                  <button type="submit" class="btn btn-link">Sign Out</button>
-                </div>
-              </form>
             </div>
             <div>
             </div>

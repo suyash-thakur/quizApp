@@ -99,6 +99,7 @@
               var operation = <%- JSON.stringify(operation)   %>;
               var points= 0;
               var currentquestion = 0;
+              var downloadTimer;
               var done = false;
               var questionArray = new Array();
               if(operation == "subAndAdd"){
@@ -125,8 +126,8 @@
               document.getElementById('totalquestion').innerHTML = noOfQuestion;
 
               var noOfDigits = questionArray[0].length;
-              var timeleft = 6;
-              var eachtime = 6/(noOfQuestion - 1);
+              var timeleft = 60;
+              var eachtime = 60/(noOfQuestion - 1);
               timer();
 
               function timer(){
@@ -143,7 +144,7 @@
                       document.getElementById("main-quiz-section").style.justifyContent = "center";
                       document.getElementById("button-quiz").style.display = "none";
 
-                  var downloadTimer = setInterval(function(){
+                  downloadTimer = setInterval(function(){
                   if(timeleft <= 0){
                       clearInterval(downloadTimer);
                       document.getElementById("question").style.display = "none";
@@ -226,27 +227,48 @@
 
 
       });
+
       function nextQuestion() {
-          timeleft = 6;
+          timeleft = 60;
           done = false;
           document.getElementById("heading").innerHTML = "Select The Correct Answer";
+          document.getElementById("heading").style.color = "#000000db";
           document.getElementById("heading").style.opacity = 0;
-          if(currentquestion != noOfQuestion - 1){
+
+          if(currentquestion < noOfQuestion){
             currentquestion = currentquestion + 1;
             document.getElementById('currentquestion').innerHTML = currentquestion + 1;
-
+            document.querySelectorAll(".choices").forEach((e) => {
+              e.style.border.color = "#000000db";
+              e.style.color = "#faef6f"
+            })
             timer();
-          }if(currentquestion + 1 === noOfQuestion) {
-            document.getElementById("heading").innerHTML = "Total Points:" + points;
-
+          }
+          if(currentquestion == noOfQuestion - 1) {
+            clearInterval(downloadTimer);
+            document.querySelector(".quiz-number-section").innerHTML = 
+            `
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col table-heading">Total Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="table-value">${points}</td>
+                </tr>
+              </tbody>
+            </table>
+            `
           }
       }
       function reload() {
         location.reload();
       }
       function goBack() {
-  window.history.back();
-}
+        window.history.back();
+      }
     </script>
   </body>
 </html>
