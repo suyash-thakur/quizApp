@@ -50,4 +50,6 @@ if(x !== undefined) {
   document.getElementById('login-button').style.display = 'none';
 } else {
   document.getElementById('login-button').style.display = 'flex';
+  document.getElementById('name').parentElement.style.display = 'None';
+  document.getElementById('signout').parentElement.parentElement.style.display = 'None';
 }
