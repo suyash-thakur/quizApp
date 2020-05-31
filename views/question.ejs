@@ -31,7 +31,7 @@
                   <img src="/assets/clock.png" class="abacus-img" />
                 </div>
                 <div class="timer-text">
-                  <b> : 60 </b>
+                  <b id="time"> : 60 </b>
                 </div>
             </div>
           </div>
@@ -97,6 +97,9 @@
               var question = <%- JSON.stringify(quizQuestion)   %> ;
               var options = <%- JSON.stringify(quizChoices)   %>;
               var operation = <%- JSON.stringify(operation)   %>;
+              var timeval = <%- JSON.stringify(time)   %>;
+              console.log(question);
+
               var points= 0;
               var currentquestion = 0;
               var downloadTimer;
@@ -110,6 +113,8 @@
                 document.getElementById('Instruction').innerHTML="Find the product of the numbers displayed in the cards below."
 
               }
+              document.getElementById('time').innerHTML=timeval;
+
               document.getElementById('currentquestion').innerHTML = currentquestion + 1;
               for( var j = 0; j < question.length; j++){
                   var stringArray = new Array();
@@ -126,8 +131,8 @@
               document.getElementById('totalquestion').innerHTML = noOfQuestion;
 
               var noOfDigits = questionArray[0].length;
-              var timeleft = 60;
-              var eachtime = 60/(noOfQuestion - 1);
+              var timeleft = timeval;
+              var eachtime = timeleft/(noOfQuestion - 1);
               timer();
 
               function timer(){
@@ -229,7 +234,7 @@
       });
 
       function nextQuestion() {
-          timeleft = 60;
+          timeleft = timeval;
           done = false;
           document.getElementById("heading").innerHTML = "Select The Correct Answer";
           document.getElementById("heading").style.color = "#000000db";

@@ -40,7 +40,7 @@ questionsGenerate = (typeOfQuestion) => {
     let question = generateQuestion(
       typeOfQuestion,
       operation,
-      quizRow[typeOfQuestion]
+      lengthNum
     );
 
     let answer = eval(question);
@@ -125,8 +125,11 @@ router.post("/profile", function(req, res) {
 router.get("/quizquestion", function (req, res, next) {
   typeOfQuestion = req.query.type;
   operation = req.query.operation;
+  lengthNum = req.query.length;
+  time = req.query.time;
+  console.log(lengthNum)
 
-  questionArr = questionsGenerate(typeOfQuestion, operation);
+  questionArr = questionsGenerate(typeOfQuestion, operation, lengthNum);
 
   arrayOfQuestions = [];
   arrayOfChoices = [];
@@ -147,7 +150,8 @@ router.get("/quizquestion", function (req, res, next) {
    return res.render("question", {
     quizQuestion: arrayOfQuestions,
     quizChoices: arrayOfChoices,
-    operation: operation
+    operation: operation,
+    time: time
   });
 
 });

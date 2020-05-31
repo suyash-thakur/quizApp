@@ -22,7 +22,8 @@ function getRandomSymbol(type) {
   );
 }
 
-function generateQuestion(digit, type = "subAndAdd", length = 5, decimal = 0) {
+function generateQuestion(digit, type, length, decimal = 0) {
+  console.log(length);
   let arithmeticExpression = "";
   let oneTwoArr = ["one", "two"];
 
