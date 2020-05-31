@@ -11,8 +11,6 @@
     <label for="option3" id="answer3" style="visibility: hidden ;"></label><br>
     <input type="radio" id="option4" name="option" value="other" style="visibility: hidden ;">
     <label for="option4" id="answer4" style="visibility: hidden ;"></label><br>
-
-
 </div>
 <button onclick="next()">Next</button>
 <button onclick="submit()">Submit</button>
@@ -24,7 +22,7 @@
     var options = <%- JSON.stringify(choices)   %>;
     var currentQuestion = 0;
     var isClicked = false;
-     var prevOption
+    var prevOption;
 
     document.getElementById('word-question').innerHTML = question[currentQuestion];
     for(let i = 0; i < options[currentQuestion].length; i++){
@@ -33,28 +31,26 @@
         document.getElementById("answer" + num.toString()).style.visibility = "visible";
         document.getElementById("option" + num.toString()).style.visibility = "visible"
         document.getElementById("option" + num.toString()).value = options[currentQuestion][i];
-
-
-        console.log()
     }
+
     function next(){
         if (currentQuestion != question.length - 1){
             currentQuestion = currentQuestion + 1;
-        document.getElementById('word-question').innerHTML = question[currentQuestion];
+            document.getElementById('word-question').innerHTML = question[currentQuestion];
 
         
-        for(let i = 0; i < options[currentQuestion].length; i++){
-        let num = i + 1;
-        document.getElementById("answer" + num.toString()).innerHTML = options[currentQuestion][i];
-        document.getElementById("answer" + num.toString()).style.visibility = "visible";
-        document.getElementById("option" + num.toString()).style.visibility = "visible";
-        document.getElementById("option" + num.toString()).value = options[currentQuestion][i];
-        isClicked = false;
-        document.getElementById("answer" + prevOption.toString()).style.color = "black";
-
+            for(let i = 0; i < options[currentQuestion].length; i++){
+                let num = i + 1;
+                document.getElementById("answer" + num.toString()).innerHTML = options[currentQuestion][i];
+                document.getElementById("answer" + num.toString()).style.visibility = "visible";
+                document.getElementById("option" + num.toString()).style.visibility = "visible";
+                document.getElementById("option" + num.toString()).value = options[currentQuestion][i];
+                isClicked = false;
+                document.getElementById("answer" + prevOption.toString()).style.color = "black";
+            }
         }
     }
-    }
+
     function submit() {
         var options = document.getElementsByName('option');
         for(i = 0; i < options.length; i++) {

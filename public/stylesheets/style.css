@@ -616,3 +616,22 @@ section .section-title {
   background: none;
   border: none;
 }
+
+.flash-img {
+  max-height: 350px;
+}
+
+.flash-btns {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 20px auto 40px;
+}
+
+.flash-option {
+  margin: 20px;
+}
+
+.selected {
+  background-color: #faef6f;
+  color: #000000db !important;
+}

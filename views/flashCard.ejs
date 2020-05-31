@@ -1,0 +1,141 @@
+<%- include("./partials/header.ejs") %>
+
+<div class="container">
+  <div class="flash-quiz">
+    <div class="second-content">
+      <p id="Instruction">Find the value of the abacus displayed in the card below.</p>
+     <p>
+       <b>Question: <span id="currentquestion">1</span>/<span id="totalquestion"></span></b>
+     </p>
+    </div>
+    <div class="flash-question-section">
+      <div class="flash-question">
+        <div class="text-center">
+        <img
+          id="flash-img-src"
+          alt="image-abacus"
+          class="flash-img img-thumbnail"
+        />
+        </div>
+      </div>
+    </div>
+    <div class="flash-answers-section" id="main-quiz-section"></div>
+    <div class="flash-btns">
+    <div class="button-quiz" id="button-quiz">
+      <a id="next" onclick="next()">Next</a>
+    </div>
+    <div class="button-quiz" id="button-quiz">
+      <a id="next" onclick="submit()">Submit</a>
+    </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    const question = <%- JSON.stringify(flashQuestion) %>;
+    const options = <%- JSON.stringify(flashChoices) %>;
+    
+    let currentQuestion = 0;
+    let optionsSelected = [];
+
+    const clearFields = () => {
+      document
+          .querySelectorAll(".flash-option")
+          .forEach((e) => {
+            if(e.classList.contains("selected")){
+              e.classList.remove("selected");
+            }
+        })
+    }
+
+    const main = () => {
+        document.getElementById("flash-img-src").src = question[currentQuestion];
+        document.querySelector(".flash-answers-section").innerHTML = generateOption(options[currentQuestion], options[currentQuestion].length)
+        document.getElementById("totalquestion").innerText = question.length;
+
+        document
+          .querySelectorAll(".flash-option")
+          .forEach((e) => {
+            e.addEventListener("click", (event) => {
+              clearFields();
+              event.target.classList.add("selected");
+            })
+        })
+    }
+
+    const optionHandler = () => {
+      optionsSelected[currentQuestion] = getSelected() || "";
+      currentQuestion += 1;
+    }
+
+    const generateOption = (values, count) => {
+        let html = "";
+        for(let i=0;i<count;i++){
+            html += `<div class="number flash-option">${values[i]}</div>`
+        }
+        return html;
+    }
+
+    const getSelected = () => {
+        let answer;
+        document.querySelectorAll(".flash-option").forEach((e) => {
+            if(e.classList.contains("selected")){
+              answer = e.innerText;
+            }
+        })
+
+        return answer;
+    }
+
+    const next = () => {
+      optionHandler();
+      if (currentQuestion < question.length){
+        main();
+      }
+      else{
+        submit();
+      }
+    }
+
+    const submit = () => {
+      optionHandler();
+
+      const url = "/flashCard";
+      
+      const param = {
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(optionsSelected),
+        method: "post",
+      };
+
+      fetch(url, param)
+        .then((response) => {
+          response = response.json();
+          return response;
+        })
+        .then((data) => {
+          document.querySelector(".flash-quiz").innerHTML = 
+            `
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col table-heading">Total Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="table-value">${data.points}</td>
+                </tr>
+              </tbody>
+            </table>
+            `
+        })
+    }
+
+    main();
+
+</script>
+
+<%- include("./partials/footer.ejs") %>
