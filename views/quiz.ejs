@@ -1,26 +1,27 @@
 <%- include("./partials/header.ejs") %>
-    <div style="display: flex; width: 100%;  padding-left: 10%; padding-right: 10%; align-items: center; justify-content: center;" class="row">
-        <div class="imageContainer col-xs-12 col-md-6">
+<div class="quiz-section">
+    <div class="quiz-content">
+        <div class="imageContainer col-lg-6 col-xs-12 col-md-6">
             <img src="/assets/reading.png" class="quiz-image">
         </div>
-        <div style="" class="imageContainer  col-xs-12 col-md-6">
-            <h1 class="second-header">Quiz Me</h1>
-            <!-- <input list="expression" name="operation" placeholder="Operation" class="quiz-input" id="arithmetic" > -->
-            <select  class="quiz-input" id="arithmetic" style="width: 100%; padding-left: 15px;">
-                <option value="subAndAdd" >Addition/Subtraction</option>
+        <div class="imageContainer col-lg-6 col-xs-12 col-md-6">
+            <h1 class="second-header"> Quiz Me</h1>
+            <select class="quiz-input" id="arithmetic">
+                <option value="subAndAdd">Addition/Subtraction</option>
                 <option value="mulAndDiv">Multiplication/Division</option>
             </select>
-            <!-- <input list="operation" name="operation" placeholder="Mode" class="quiz-input" id="questionType"> -->
-            <select  id="questionType" placeholder="Mode" class="quiz-input" style="width: 100%;">
+            <select id="questionType" placeholder="Mode" class="quiz-input">
                 <option value="one">One</option>
                 <option value="two">Two</option>
                 <option value="three">Three</option>
                 <option value="onetwo">OneTwo</option>
             </select>
             <br>
-            <a class="button-login" style="border: none; margin-top: 50px; cursor: pointer;"  onclick="onInput()">Start</a>
+            <a class="quiz-start-btn button-login" onclick="onInput()">Start</a>
         </div>
     </div>
-    <%- include("./partials/footer.ejs") %>
+</div>
+<%- include("./partials/footer.ejs") %>
 </body>
+
 </html>

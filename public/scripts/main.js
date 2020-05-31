@@ -44,11 +44,12 @@ var x = getCookie("userData");
 if(x !== undefined) {
   isLoggedin = true;
   document.getElementById('name').style.display = 'block';
-  document.getElementById('name').innerHTML = x;
+  document.getElementById('name').innerHTML = `Hello, ${x}`;
   document.getElementById('signout').style.display = 'block';
-  document.getElementById('login').style.display = 'none';
+  document.getElementById('login-link').parentElement.style.display = 'None';
   document.getElementById('login-button').style.display = 'none';
 } else {
   document.getElementById('login-button').style.display = 'flex';
-
+  document.getElementById('name').parentElement.style.display = 'None';
+  document.getElementById('signout').parentElement.parentElement.style.display = 'None';
 }
