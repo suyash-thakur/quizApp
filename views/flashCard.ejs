@@ -3,6 +3,9 @@
 <div class="container">
   <div class="flash-quiz">
     <div class="second-content">
+      <% if(isDemo == true){ %>
+        <p><b>This is a demo. Login for a better experience</b></p>
+    <% }%>
       <p id="Instruction">Find the value of the abacus displayed in the card below.</p>
      <p>
        <b>Question: <span id="currentquestion">1</span>/<span id="totalquestion"></span></b>

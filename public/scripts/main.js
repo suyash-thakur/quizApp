@@ -111,6 +111,14 @@ document.getElementById('login-button').style.display = 'block';
 
 
 }
+function wordProbStart() {
+  window.location.href = "/wordProblem";
+
+}
+function flashStart() {
+  window.location.href = "/flashCard";
+
+}
 function quizUrl() {
 if(isLoggedin == true) {
 window.location.href = "/quiz";
@@ -119,6 +127,24 @@ window.location.href = "/quiz";
   
 }
 }
+
+function wordprobUrl() {
+  if(isLoggedin == true) {
+  window.location.href = "/WordStart";
+  } else {
+    window.location.href = "/DemoWord";
+    
+  }
+  }
+  function flashUrl() {
+    if(isLoggedin == true) {
+    window.location.href = "/flashStart";
+    } else {
+      window.location.href = "/DemoFlash";
+      
+    }
+    }
+
 var x = getCookie("userData");
 if(x !== undefined) {
   isLoggedin = true;

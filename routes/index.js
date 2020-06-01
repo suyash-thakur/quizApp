@@ -7,6 +7,8 @@ const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const connection = require("../connection");
 const problem = fs.readFileSync(__dirname + "/wordproblem.json");
+const flash = fs.readFileSync(__dirname + "/flashCard.json");
+
 
 const quizFunctionCall = {
   one: 7,
@@ -105,7 +107,14 @@ router.get("/login", (req, res, next) => {
 router.get("/DemoQuiz", (req, res, next) => {
   res.render("DemoQuiz");
 });
+router.get("/WordStart", (req, res, next) => {
+  res.render("WordStart");
+});
+router.get("/flashStart", (req, res, next) => {
+  res.render("flashStart");
+});
 router.get("/DemoWord", (req, res, next) => {
+  let isDemo;
   let problemsJSON;
   let problemQuestions = [];
   let problemChoices = [];
@@ -118,11 +127,36 @@ router.get("/DemoWord", (req, res, next) => {
       });
 
       useVar[userID] = { problem: problemsJSON };
-
+      isDemo = true;
       res.render("wordProblem", {
         problemQuestions,
         problemChoices,
+        isDemo
       });
+});
+
+router.get("/DemoFlash", async (req, res, next) => {
+  let flashJSON;
+  let flashChoices = [];
+  let flashQuestion = [];
+
+
+    flashJSON = JSON.parse(flash);
+
+    flashJSON.forEach((e) => {
+      flashQuestion.push(e.question);
+      flashChoices.push(e.options);
+    });
+    
+    useVar[userID] = { flash: flashJSON };
+    isDemo = true;
+
+    res.render("flashCard", {
+      flashQuestion,
+      flashChoices,
+      isDemo
+    });
+
 });
 router.get("/profile", (req, res, next) => {
   res.render("profile", { profileData: req.cookies.profileData });
@@ -145,10 +179,11 @@ router.get("/wordProblem", async (req, res, next) => {
       });
 
       useVar[userID] = { problem: problemsJSON };
-
+      isDemo = false;
       res.render("wordProblem", {
         problemQuestions,
         problemChoices,
+        isDemo
       });
   });
 });
@@ -186,10 +221,12 @@ router.get("/flashCard", async (req, res, next) => {
     });
     
     useVar[userID] = { flash: flashJSON };
-  
+    isDemo = false;
+
     res.render("flashCard", {
       flashQuestion,
       flashChoices,
+      isDemo
     });
 
   });
