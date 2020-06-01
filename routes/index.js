@@ -41,11 +41,7 @@ const questionsGenerate = (typeOfQuestion) => {
   questionArr = [];
 
   while (numOfQuestion > 0) {
-    let question = generateQuestion(
-      typeOfQuestion,
-      operation,
-      lengthNum
-    );
+    let question = generateQuestion(typeOfQuestion, operation, lengthNum);
 
     let answer = eval(question);
     let choices = [answer];
@@ -125,7 +121,7 @@ router.get("/wordProblem", function (req, res, next) {
     arrayOfChoices.push(shuffle(problem.options));
   });
 
-  useVar[userID] = {"problem" :problems};
+  useVar[userID] = { problem: problems };
 
   res.render("wordProblem", {
     questions: arrayOfQuestions,
@@ -135,51 +131,60 @@ router.get("/wordProblem", function (req, res, next) {
 
 router.post("/wordProblem", function (req, res, next) {
   let flashJSON = useVar[userID]["problem"];
-  
+
   const arr = req.body;
   let points = 0;
-  
+
   flashJSON.forEach((e, i) => {
-    if(e.answer == arr[i]){
+    if (e.answer == arr[i]) {
       points += 1;
     }
-  })
+  });
 
-  res.send({points})
-})
+  res.send({ points });
+});
 
-router.get("/flashCard", function (req, res, next) {
-  let flashJSON = JSON.parse(flash);
+router.get("/flashCard", async (req, res, next) => {
+  let flashJSON;
   let flashChoices = [];
   let flashQuestion = [];
 
-  flashJSON.forEach((e) => {
-    flashQuestion.push(e.question);
-    flashChoices.push(e.options);
-  })
-  
-  useVar[userID] = {"flash" :flashJSON};
-  res.render("flashCard", {
-    flashQuestion,
-    flashChoices,
-  });
+  await connection.query("select * from flashCards", function (
+    error,
+    results,
+    fields
+  ) {
+    flashJSON = shuffle(results);
 
+    flashJSON.forEach((e) => {
+      flashQuestion.push(e.question);
+      flashChoices.push(shuffle([e.first, e.second, e.third, e.fourth]));
+    });
+    
+    useVar[userID] = { flash: flashJSON };
+  
+    res.render("flashCard", {
+      flashQuestion,
+      flashChoices,
+    });
+
+  });
 });
 
 router.post("/flashCard", function (req, res, next) {
   let flashJSON = useVar[userID]["flash"];
-  
+
   const arr = req.body;
   let points = 0;
-  
+
   flashJSON.forEach((e, i) => {
-    if(e.answer == arr[i]){
+    if (e.answer == arr[i]) {
       points += 1;
     }
-  })
+  });
 
-  res.send({points})
-})
+  res.send({ points });
+});
 
 router.post("/profile", function (req, res) {
   const { username, email, password } = req.body;
@@ -217,7 +222,6 @@ router.get("/quizquestion", function (req, res, next) {
   operation = req.query.operation;
   lengthNum = req.query.length;
   time = req.query.time;
-  console.log(lengthNum)
 
   questionArr = questionsGenerate(typeOfQuestion, operation, lengthNum);
 
@@ -229,19 +233,21 @@ router.get("/quizquestion", function (req, res, next) {
     arrayOfChoices.push(shuffle(quiz.choices));
   });
 
-  useVar[userID] = {"quiz" :questionArr};
+  useVar[userID] = { quiz: questionArr };
   res.cookie("userID", userID); // options is optional
 
   res.render("question", {
     quizQuestion: arrayOfQuestions,
     quizChoices: arrayOfChoices,
-    operation: operation,
-    time: time
+    operation,
+    time,
   });
 });
 
 router.post("/quizquestion", function (req, res, next) {
-  result = useVar[req.cookies.userID]["quiz"][req.body.index].answer == req.body.answer;
+  result =
+    useVar[req.cookies.userID]["quiz"][req.body.index].answer ==
+    req.body.answer;
   res.json({
     result: result,
     answer: useVar[req.cookies.userID]["quiz"][req.body.index].answer,
