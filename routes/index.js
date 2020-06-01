@@ -6,6 +6,7 @@ const shuffle = require("../helper/arrayShuffle");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const connection = require("../connection");
+const problem = fs.readFileSync(__dirname + "/wordproblem.json");
 
 const quizFunctionCall = {
   one: 7,
@@ -104,7 +105,25 @@ router.get("/login", (req, res, next) => {
 router.get("/DemoQuiz", (req, res, next) => {
   res.render("DemoQuiz");
 });
+router.get("/DemoWord", (req, res, next) => {
+  let problemsJSON;
+  let problemQuestions = [];
+  let problemChoices = [];
 
+      problemsJSON =  JSON.parse(problem);
+
+      problemsJSON.forEach((e) => {
+        problemQuestions.push(e.question);
+        problemChoices.push(e.options);
+      });
+
+      useVar[userID] = { problem: problemsJSON };
+
+      res.render("wordProblem", {
+        problemQuestions,
+        problemChoices,
+      });
+});
 router.get("/profile", (req, res, next) => {
   res.render("profile", { profileData: req.cookies.profileData });
 });
