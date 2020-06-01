@@ -23,7 +23,6 @@ function getRandomSymbol(type) {
 }
 
 function generateQuestion(digit, type, length, decimal = 0) {
-  console.log(length);
   let arithmeticExpression = "";
   let oneTwoArr = ["one", "two"];
 
@@ -49,13 +48,3 @@ function generateQuestion(digit, type, length, decimal = 0) {
 }
 
 module.exports = generateQuestion;
-
-// console.log(generateQuestion("one"));
-
-// console.log(generateQuestion("two"));
-
-// console.log(generateQuestion("two", "mulAndDiv"));
-
-// console.log(generateQuestion("three"));
-
-// console.log(generateQuestion("onetwo", "mulAndDiv", 7));

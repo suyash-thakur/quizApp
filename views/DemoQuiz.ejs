@@ -173,7 +173,6 @@
               var noOfDigits = questionArray[0].length;
               var timeleft = 60;
               var eachtime = 60/(noOfQuestion - 1);
-              console.log(this.questionArray);
               timer();
 
               function timer(){
@@ -213,8 +212,7 @@
                   }
 
               document.getElementById("progressBar").textContent = timeleft;
-                  document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion -1 ][currentDigit];
-              console.log(questionArray[noOfQuestion - currentquestion -1 ][currentDigit ]);
+              document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion -1 ][currentDigit];
 
 
 
@@ -256,7 +254,6 @@
                   }
                  
                 }
-                console.log(done);
                 document.querySelectorAll(".choices").forEach((e,index) => {
                   if(e.innerText == answer[noOfQuestion - currentquestion - 1]){
                     if(done == false){

@@ -35,7 +35,7 @@ let questionArr = [];
 
 let useVar = {};
 
-let userID = 440 || randomNumber(1, 10000);
+let userID;
 
 const questionsGenerate = (typeOfQuestion) => {
   numOfQuestion = quizFunctionCall[typeOfQuestion];
@@ -84,6 +84,7 @@ router.post("/", (req, res) => {
             name: results[0].name,
             email: results[0].email,
           });
+          userID = results[0].password;
           res.redirect("/");
         } else {
           res.render("index", { error: "Incorrect email and/or Password!" });
