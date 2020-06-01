@@ -4,10 +4,83 @@
 // );
 var questType;
 var operation;
+var questLength;
+var time;
+
+
+function time(val) {
+  var elementExists = document.getElementById("timeField");
+  if( elementExists != null) {
+    elementExists.remove();
+  }
+  console.log(val);
+  if(val == 10) {
+    console.log('10');
+  }
+  var select = document.createElement("select");
+  select.id = 'timeField';
+  select.classList.add("quiz-input");
+
+var timeTen = [90, 60, 45, 30, 15, 10];
+var timeFive = [90, 60, 45, 30, 15, 10, 5];
+var timeFifteen = [90, 60, 45, 30, 15];
+var timeTwenty = [90, 60, 45, 30, 20];
+
+
+
+switch(val) {
+  case '5':
+    for (const val of timeFive) {
+      var option = document.createElement("option");
+      option.value = val;
+      option.text = val;
+      select.appendChild(option);
+    }
+    break;
+    case '10':
+      for (const val of timeTen) {
+        var option = document.createElement("option");
+        option.value = val;
+        option.text = val;
+        select.appendChild(option);
+      }
+      console.log('yes');
+
+      break;
+      case '15':
+        for (const val of timeFifteen) {
+          var option = document.createElement("option");
+          option.value = val;
+          option.text = val;
+          select.appendChild(option);
+        }
+        console.log('yes');
+
+        break;
+        case '20':
+          for (const val of timeTwenty) {
+            var option = document.createElement("option");
+            option.value = val;
+            option.text = val;
+            select.appendChild(option);
+          }
+          console.log('yes');
+          break;
+          
+}
+document.getElementById("container").appendChild(select);
+ }
+
+
+
+
+
 function onInput() {
   this.questType = document.getElementById("questionType").value;
   this.operation = document.getElementById("arithmetic").value;
-  location.href += `question?type=${this.questType}&operation=${this.operation}`;
+  this.questLength = document.getElementById("questionRows").value;
+  this.time = document.getElementById("timeField").value;
+  location.href += `question?type=${this.questType}&operation=${this.operation}&length=${this.questLength}&time=${this.time}`;
 
 }
 var isLoggedin = false;
