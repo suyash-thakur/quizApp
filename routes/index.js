@@ -6,8 +6,6 @@ const shuffle = require("../helper/arrayShuffle");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const connection = require("../connection");
-const problem = fs.readFileSync(__dirname + "/wordproblem.json");
-const flash = fs.readFileSync(__dirname + "/flashCard.json");
 
 const quizFunctionCall = {
   one: 7,
@@ -64,18 +62,18 @@ const questionsGenerate = (typeOfQuestion) => {
 };
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
+router.get("/", (req, res, next) => {
   res.render("index");
 });
 
-router.post("/", function (req, res) {
+router.post("/", (req, res) => {
   const { email, password } = req.body;
 
   if (email && password) {
     connection.query(
       "SELECT * FROM users WHERE email = ? AND password = ?",
       [email, password],
-      function (error, results, fields) {
+      (error, results, fields) => {
         if (results.length > 0) {
           const name = results[0].name;
           res.cookie("userData", name);
@@ -94,42 +92,49 @@ router.post("/", function (req, res) {
   }
 });
 
-router.get("/quiz", function (req, res, next) {
+router.get("/quiz", (req, res, next) => {
   res.render("quiz");
 });
-router.get("/teacher", function (req, res, next) {
+router.get("/teacher", (req, res, next) => {
   res.render("teacher");
 });
-router.get("/login", function (req, res, next) {
+router.get("/login", (req, res, next) => {
   res.render("login");
 });
-router.get("/DemoQuiz", function (req, res, next) {
+router.get("/DemoQuiz", (req, res, next) => {
   res.render("DemoQuiz");
 });
 
-router.get("/profile", function (req, res, next) {
+router.get("/profile", (req, res, next) => {
   res.render("profile", { profileData: req.cookies.profileData });
 });
 
-router.get("/wordProblem", function (req, res, next) {
-  let problems = JSON.parse(problem);
-  arrayOfQuestions = [];
-  arrayOfChoices = [];
+router.get("/wordProblem", async (req, res, next) => {
+  let problemsJSON;
+  let problemQuestions = [];
+  let problemChoices = [];
 
-  problems.forEach((problem) => {
-    arrayOfQuestions.push(problem.question);
-    arrayOfChoices.push(shuffle(problem.options));
-  });
+  await connection.query("select * from wordProblems", (
+    error,
+    results,
+    fields) => {
+      problemsJSON = shuffle(results);
 
-  useVar[userID] = { problem: problems };
+      problemsJSON.forEach((e) => {
+        problemQuestions.push(e.question);
+        problemChoices.push(shuffle([e.first, e.second, e.third, e.fourth]));
+      });
 
-  res.render("wordProblem", {
-    questions: arrayOfQuestions,
-    choices: arrayOfChoices,
+      useVar[userID] = { problem: problemsJSON };
+
+      res.render("wordProblem", {
+        problemQuestions,
+        problemChoices,
+      });
   });
 });
 
-router.post("/wordProblem", function (req, res, next) {
+router.post("/wordProblem", (req, res, next) => {
   let flashJSON = useVar[userID]["problem"];
 
   const arr = req.body;
@@ -149,11 +154,11 @@ router.get("/flashCard", async (req, res, next) => {
   let flashChoices = [];
   let flashQuestion = [];
 
-  await connection.query("select * from flashCards", function (
+  await connection.query("select * from flashCards", (
     error,
     results,
     fields
-  ) {
+  ) => {
     flashJSON = shuffle(results);
 
     flashJSON.forEach((e) => {
@@ -171,7 +176,7 @@ router.get("/flashCard", async (req, res, next) => {
   });
 });
 
-router.post("/flashCard", function (req, res, next) {
+router.post("/flashCard", (req, res, next) => {
   let flashJSON = useVar[userID]["flash"];
 
   const arr = req.body;
@@ -186,13 +191,13 @@ router.post("/flashCard", function (req, res, next) {
   res.send({ points });
 });
 
-router.post("/profile", function (req, res) {
+router.post("/profile", (req, res) => {
   const { username, email, password } = req.body;
 
   connection.query(
     "SELECT * FROM users WHERE email = ? AND password = ?",
     [email, password],
-    function (error, results) {
+    (error, results) => {
       if (results.length > 0) {
         const name = results[0].name;
         res.cookie("userData", name);
@@ -203,7 +208,7 @@ router.post("/profile", function (req, res) {
         connection.query(
           "UPDATE users SET name= ? WHERE email = ? AND password = ?",
           [username, email, password],
-          function (error, results) {
+          (error, results) => {
             res.status(200).redirect("/");
           }
         );
@@ -217,7 +222,7 @@ router.post("/profile", function (req, res) {
   );
 });
 
-router.get("/quizquestion", function (req, res, next) {
+router.get("/quizquestion", (req, res, next) => {
   typeOfQuestion = req.query.type;
   operation = req.query.operation;
   lengthNum = req.query.length;
@@ -244,7 +249,7 @@ router.get("/quizquestion", function (req, res, next) {
   });
 });
 
-router.post("/quizquestion", function (req, res, next) {
+router.post("/quizquestion", (req, res, next) => {
   result =
     useVar[req.cookies.userID]["quiz"][req.body.index].answer ==
     req.body.answer;
@@ -254,20 +259,7 @@ router.post("/quizquestion", function (req, res, next) {
   });
 });
 
-router.post("/check", function (req, res, next) {
-  let isCorrect;
-  if (req.body.result === arrayofAnswers[req.body.id]) {
-    isCorrect = true;
-  } else {
-    isCorrect = false;
-  }
-  res.json({
-    check: isCorrect,
-    answer: arrayofAnswers[req.body.id],
-  });
-});
-
-router.post("/clear", function (req, res, next) {
+router.post("/clear", (req, res, next) => {
   res.clearCookie("profileData");
   res.clearCookie("userData");
   res.redirect("/");

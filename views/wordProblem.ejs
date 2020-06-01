@@ -1,98 +1,137 @@
 <%- include("./partials/header.ejs") %>
-<div id="word-question">
+<div class="container">
+    <div class="word-quiz">
+      <div class="second-content">
+        <p id="Instruction">Select the correct answer for the options below.</p>
+       <p>
+         <b>Question: <span id="currentquestion">1</span>/<span id="totalquestion"></span></b>
+       </p>
+      </div>
+      <div class="word-question-section">
+        <div id="word-question">
+          <div class="text-center">
+          </div>
+        </div>
+      </div>
+      <div class="word-answers-section" id="main-quiz-section"></div>
+      <div class="flash-btns">
+      <div class="button-quiz" id="button-quiz">
+        <a onclick="next()">Next</a>
+      </div>
+      <div class="button-quiz" id="button-quiz">
+        <a onclick="submit()">Submit</a>
+      </div>
+      </div>
+    </div>
+  </div>
 
-</div>
-<div>
-    <input type="radio" id="option1" name="option" value="male" style="visibility: hidden ;">
-    <label for="option1" id="answer1" style="visibility: hidden ;">option1</label><br>
-    <input type="radio" id="option2" name="option" value="female" style="visibility: hidden ;">
-    <label for="option2" id="answer2" style="visibility: hidden ;">option2</label><br>
-    <input type="radio" id="option3" name="option" value="other" style="visibility: hidden ;">
-    <label for="option3" id="answer3" style="visibility: hidden ;"></label><br>
-    <input type="radio" id="option4" name="option" value="other" style="visibility: hidden ;">
-    <label for="option4" id="answer4" style="visibility: hidden ;"></label><br>
-</div>
-<button onclick="next()">Next</button>
-<button onclick="submit()">Submit</button>
+  <script>
+    const question = <%- JSON.stringify(problemQuestions) %>;
+    const options = <%- JSON.stringify(problemChoices) %>;
+    
+    let currentQuestion = 0;
+    let optionsSelected = [];
 
-<%- include("./partials/footer.ejs") %>
-
-<script>
-    var question = <%- JSON.stringify(questions)   %> ;
-    var options = <%- JSON.stringify(choices)   %>;
-    var currentQuestion = 0;
-    var isClicked = false;
-    var prevOption;
-
-    document.getElementById('word-question').innerHTML = question[currentQuestion];
-    for(let i = 0; i < options[currentQuestion].length; i++){
-        let num = i + 1;
-        document.getElementById("answer" + num.toString()).innerHTML = options[currentQuestion][i];
-        document.getElementById("answer" + num.toString()).style.visibility = "visible";
-        document.getElementById("option" + num.toString()).style.visibility = "visible"
-        document.getElementById("option" + num.toString()).value = options[currentQuestion][i];
+    const clearFields = () => {
+      document
+          .querySelectorAll(".flash-option")
+          .forEach((e) => {
+            if(e.classList.contains("selected")){
+              e.classList.remove("selected");
+            }
+        })
     }
 
-    function next(){
-        if (currentQuestion != question.length - 1){
-            currentQuestion = currentQuestion + 1;
-            document.getElementById('word-question').innerHTML = question[currentQuestion];
+    const main = () => {
+        document.getElementById("word-question").innerText = question[currentQuestion];
+        document.querySelector(".word-answers-section").innerHTML = generateOption(options[currentQuestion], options[currentQuestion].length)
+        document.getElementById("totalquestion").innerText = question.length;
 
-        
-            for(let i = 0; i < options[currentQuestion].length; i++){
-                let num = i + 1;
-                document.getElementById("answer" + num.toString()).innerHTML = options[currentQuestion][i];
-                document.getElementById("answer" + num.toString()).style.visibility = "visible";
-                document.getElementById("option" + num.toString()).style.visibility = "visible";
-                document.getElementById("option" + num.toString()).value = options[currentQuestion][i];
-                isClicked = false;
-                document.getElementById("answer" + prevOption.toString()).style.color = "black";
+        document
+          .querySelectorAll(".flash-option")
+          .forEach((e) => {
+            e.addEventListener("click", (event) => {
+              clearFields();
+              event.target.classList.add("selected");
+            })
+        })
+    }
+
+    const optionHandler = () => {
+      optionsSelected[currentQuestion] = getSelected() || "";
+      currentQuestion += 1;
+    }
+
+    const generateOption = (values, count) => {
+        let html = "";
+        for(let i=0;i<count;i++){
+            if(values[i] !== null){
+                html += `<div class="number flash-option">${values[i]}</div>`
             }
         }
+        return html;
     }
 
-    function submit() {
-        var options = document.getElementsByName('option');
-        for(i = 0; i < options.length; i++) {
-                if(options[i].checked) {
-                    var optionNum = i + 1;
-                    const data = {
-                        id: currentQuestion,
-                        result: options[i].value
-                    };
-                    const url = "/check";
-                    const param = {
-                        headers: {
-                            "content-type": "application/json; charset=UTF-8",
-                            },
-                        body: JSON.stringify(data),
-                        method: "post",
-                    };
-                    fetch(url, param)
-                        .then((response) => {
-                            response = response.json();
-                            return response;
-                        }).then((data)=> {
-                            console.log(data);
-                            if(data.check && !isClicked) {
-                                
-                                document.getElementById("answer" + optionNum.toString()).style.color = "green";
-                                isClicked = true;
-                                prevOption = optionNum;
-
-                            } else {
-                                if(!isClicked) {
-                                document.getElementById("answer" + optionNum.toString()).style.color = "red";
-                                isClicked = true;
-                                prevOption = optionNum;
-                                }
-                                
-                         }
-                     })
-                }
-
+    const getSelected = () => {
+        let answer;
+        document.querySelectorAll(".flash-option").forEach((e) => {
+            if(e.classList.contains("selected")){
+              answer = e.innerText;
             }
+        })
+
+        return answer;
     }
+
+    const next = () => {
+      optionHandler();
+      if (currentQuestion < question.length){
+        main();
+      }
+      else{
+        submit();
+      }
+    }
+
+    const submit = () => {
+      optionHandler();
+
+      const url = "/wordProblem";
+      
+      const param = {
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(optionsSelected),
+        method: "post",
+      };
+
+      fetch(url, param)
+        .then((response) => {
+          response = response.json();
+          return response;
+        })
+        .then((data) => {
+          document.querySelector(".word-quiz").innerHTML = 
+            `
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col table-heading">Total Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="table-value">${data.points}</td>
+                </tr>
+              </tbody>
+            </table>
+            `
+        })
+    }
+
+    main();
+
 </script>
-</body>
-</html>
+
+<%- include("./partials/footer.ejs") %>
