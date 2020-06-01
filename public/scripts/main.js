@@ -26,7 +26,11 @@ var timeFive = [90, 60, 45, 30, 15, 10, 5];
 var timeFifteen = [90, 60, 45, 30, 15];
 var timeTwenty = [90, 60, 45, 30, 20];
 
-
+var optiondef = document.createElement("option");
+optiondef.text = "Select Time";
+optiondef.selected = true;
+optiondef.disabled = true;
+select.appendChild(optiondef);
 
 switch(val) {
   case '5':
@@ -66,8 +70,10 @@ switch(val) {
           }
           console.log('yes');
           break;
-          
+         
 }
+
+
 document.getElementById("container").appendChild(select);
  }
 

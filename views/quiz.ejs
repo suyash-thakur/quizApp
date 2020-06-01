@@ -7,16 +7,19 @@
         <div class="imageContainer col-lg-6 col-xs-12 col-md-6">
             <h1 class="second-header"> Quiz Me</h1>
             <select class="quiz-input" id="arithmetic">
+                <option disabled selected>Select Operation</option>
                 <option value="subAndAdd">Addition/Subtraction</option>
                 <option value="mulAndDiv">Multiplication/Division</option>
             </select>
             <select id="questionType" placeholder="Mode" class="quiz-input">
+                <option disabled selected>Select Digits</option>
                 <option value="one">One</option>
                 <option value="two">Two</option>
                 <option value="three">Three</option>
                 <option value="onetwo">OneTwo</option>
             </select>
             <select id="questionRows" placeholder="Rows" class="quiz-input" onchange="time(this.value)">
+                <option disabled selected>Select Rows</option>
                 <option value="5">Five</option>
                 <option value="10">Ten</option>
                 <option value="15">Fifteen</option>
