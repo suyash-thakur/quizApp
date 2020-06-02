@@ -62,10 +62,43 @@ const questionsGenerate = (typeOfQuestion) => {
 
   return questionArr;
 };
+let isLoggedin = function(req, res, next) {
+  cookie = JSON.stringify(req.cookies);
+  console.log(cookie);
+  if( cookie == '{}'){
+    return false;
+
+  } else {
+    var email = req.cookies.profileData;
+    console.log(email);
+    connection.query(
+      "SELECT * FROM users WHERE email = ?",
+      [email],
+      (error, results, fields) => {
+        if(error) {
+          res.redirect("error");
+        }
+        if (results.length > 0) {
+          var data = JSON.stringify(results[0].name);
+
+          console.log(data);
+         return true;
+        } else {
+         return false;
+        }
+    
+  });
+}
+next()
+
+};
+
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
+ 
   res.render("index");
+
 });
 
 router.get("/onboard", (req, res, next) => {

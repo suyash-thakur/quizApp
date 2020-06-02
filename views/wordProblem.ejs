@@ -5,7 +5,7 @@
         <% if(isDemo == true){ %>
           <p><b>This is a demo. Login for a better experience</b></p>
       <% }%>
-        <p id="Instruction">Select the correct answer for the options below.</p>
+        <div id="Instruction" style="display: flex;"><div>Select the correct answer for the options below. </div><div style="flex-grow: 2;"></div><div> <b>Time:</b>&nbsp;<span id="minutes"></span>:<span id="seconds"></span></div></div>
        <p>
          <b>Question: <span id="currentquestion">1</span>/<span id="totalquestion"></span></b>
        </p>
@@ -22,18 +22,53 @@
         <a onclick="next()">Next</a>
       </div>
       <div class="button-quiz" id="button-quiz">
-        <a onclick="submit()">Submit</a>
+        <a data-toggle="modal" data-target="#exampleModal">Submit</a>
       </div>
       </div>
     </div>
   </div>
-
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Submit Quiz</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Submiting will result in end of the quiz. Make sure you have answered all the questions.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="submit()" style="background-color: #F2D984 !important;">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script>
     const question = <%- JSON.stringify(problemQuestions) %>;
     const options = <%- JSON.stringify(problemChoices) %>;
     
     let currentQuestion = 0;
     let optionsSelected = [];
+    var timeleft = 2400;
+    timer();
+    function timer(){
+      downloadTimer =  setInterval(function(){
+                  if(timeleft <= 0){ 
+                    window.alert("Time is up");
+                    submit();
+                    clearInterval(downloadTimer);
+                  }
+                  var minutes = Math.floor(timeleft / 60);
+                  var seconds = timeleft - minutes * 60;
+                  document.getElementById("minutes").innerHTML = minutes;
+                  document.getElementById("seconds").innerHTML = seconds;
+
+                  timeleft -= 1;
+              }, 1000);
+    }
 
     const clearFields = () => {
       document
@@ -98,7 +133,7 @@
 
     const submit = () => {
       optionHandler();
-
+      $('#exampleModal').modal('hide');
       const url = "/wordProblem";
       
       const param = {
