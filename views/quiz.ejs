@@ -13,10 +13,10 @@
             </select>
             <select id="questionType" placeholder="Mode" class="quiz-input">
                 <option disabled selected>Select Digits</option>
-                <option value="one">One</option>
-                <option value="two">Two</option>
-                <option value="three">Three</option>
-                <option value="onetwo">OneTwo</option>
+                <option value="one">Single Digit</option>
+                <option value="two">Double Digit</option>
+                <option value="three">Triple Digit</option>
+                <option value="onetwo">Mix Digits (1 + 2)</option>
             </select>
             <select id="questionRows" placeholder="Rows" class="quiz-input" onchange="time(this.value)">
                 <option disabled selected>Select Rows</option>
@@ -29,7 +29,7 @@
 
             </div>
             <br>
-            <a class="quiz-start-btn button-login" onclick="onInput()">Start</a>
+            <a class="btn btn-warning btn-btn" onclick="onInput()">Start</a>
         </div>
     </div>
 </div>
