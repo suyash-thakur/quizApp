@@ -475,7 +475,7 @@ section .section-title {
   margin-left: 20px;
 }
 
-.login-link {
+a.login-link {
   text-decoration: none;
   color: inherit;
 }
