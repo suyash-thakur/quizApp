@@ -69,7 +69,19 @@ router.get("/", (req, res, next) => {
   res.render("index");
 });
 
-router.post("/", (req, res) => {
+router.get("/quiz", (req, res, next) => {
+  res.render("quiz");
+});
+
+router.get("/teacher", (req, res, next) => {
+  res.render("teacher");
+});
+
+router.get("/login", (req, res, next) => {
+  res.render("login");
+});
+
+router.post("/login", (req, res) => {
   const { email, password } = req.body;
 
   if (email && password) {
@@ -78,14 +90,22 @@ router.post("/", (req, res) => {
       [email, password],
       (error, results, fields) => {
         if (results.length > 0) {
-          const name = results[0].name;
+          const userObj = results[0];
+          const name = userObj.name;
           res.cookie("userData", name);
           res.cookie("profileData", {
-            name: results[0].name,
-            email: results[0].email,
+            name: userObj.name,
+            email: userObj.email,
           });
-          userID = results[0].password;
-          res.redirect("/");
+          userID = userObj.password;
+          
+          if(userObj.onboarded){
+            res.redirect("/");
+          }
+          else{
+            res.redirect("/profile");
+          }
+
         } else {
           res.render("index", { error: "Incorrect email and/or Password!" });
         }
@@ -96,15 +116,6 @@ router.post("/", (req, res) => {
   }
 });
 
-router.get("/quiz", (req, res, next) => {
-  res.render("quiz");
-});
-router.get("/teacher", (req, res, next) => {
-  res.render("teacher");
-});
-router.get("/login", (req, res, next) => {
-  res.render("login");
-});
 router.get("/DemoQuiz", (req, res, next) => {
   res.render("DemoQuiz");
 });
@@ -161,6 +172,38 @@ router.get("/DemoFlash", async (req, res, next) => {
 });
 router.get("/profile", (req, res, next) => {
   res.render("profile", { profileData: req.cookies.profileData });
+});
+
+router.post("/profile", (req, res) => {
+  const { username, email, password } = req.body;
+
+  connection.query(
+    "SELECT * FROM users WHERE email = ? AND password = ?",
+    [email, password],
+    (error, results) => {
+      if (results.length > 0) {
+        const name = results[0].name;
+        res.cookie("userData", name);
+        res.cookie("profileData", {
+          name: results[0].name,
+          email: results[0].email,
+        });
+        console.log(results)
+        connection.query(
+          "UPDATE users SET name= ?, onboarded = 1 WHERE email = ? AND password = ?",
+          [username, email, password],
+          (error, results) => {
+            res.status(200).redirect("/");
+          }
+        );
+      } else {
+        res.render("profile", {
+          profileData: req.cookies.profileData,
+          error: "Incorrect Password!",
+        });
+      }
+    }
+  );
 });
 
 router.get("/wordProblem", async (req, res, next) => {
@@ -246,37 +289,6 @@ router.post("/flashCard", (req, res, next) => {
   });
 
   res.send({ points });
-});
-
-router.post("/profile", (req, res) => {
-  const { username, email, password } = req.body;
-
-  connection.query(
-    "SELECT * FROM users WHERE email = ? AND password = ?",
-    [email, password],
-    (error, results) => {
-      if (results.length > 0) {
-        const name = results[0].name;
-        res.cookie("userData", name);
-        res.cookie("profileData", {
-          name: results[0].name,
-          email: results[0].email,
-        });
-        connection.query(
-          "UPDATE users SET name= ? WHERE email = ? AND password = ?",
-          [username, email, password],
-          (error, results) => {
-            res.status(200).redirect("/");
-          }
-        );
-      } else {
-        res.render("profile", {
-          profileData: req.cookies.profileData,
-          error: "Incorrect Password!",
-        });
-      }
-    }
-  );
 });
 
 router.get("/quizquestion", (req, res, next) => {
