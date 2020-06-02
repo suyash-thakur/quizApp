@@ -243,7 +243,7 @@ html {
     font-size: 20px;
   }
   .small-content {
-    font-size: 10px;
+    font-size: 13px;
   }
   .quiz-input {
     font-size: 20px;
@@ -422,6 +422,7 @@ section .section-title {
 
 .type-category {
   text-align: center;
+  margin: 20px auto;
 }
 
 .type-content {
@@ -679,4 +680,8 @@ section .section-title {
   background-color: #f5db69;
   transform: scale(1.1);
   border: 2px solid #000000db;
+}
+
+.clickable {
+  cursor: pointer;
 }
