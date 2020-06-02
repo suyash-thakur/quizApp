@@ -92,6 +92,9 @@ router.post("/login", (req, res) => {
       "SELECT * FROM users WHERE email = ? AND password = ?",
       [email, password],
       (error, results, fields) => {
+        if(error) {
+          res.redirect("error");
+        }
         if (results.length > 0) {
           const userObj = results[0];
           res.cookie("userData", userObj.name);
@@ -104,7 +107,7 @@ router.post("/login", (req, res) => {
             res.redirect("/profile");
           }
         } else {
-          res.render("index", { error: "Incorrect email and/or Password!" });
+          res.render("login", { error: "Incorrect email and/or Password!" });
         }
       }
     );
@@ -177,6 +180,10 @@ router.get("/profile", (req, res, next) => {
       "SELECT * FROM users WHERE email = ?",
       [req.cookies.profileData],
       (error, results) => {
+        if(error) {
+          res.redirect("error");
+        }
+
         if (results.length > 0) {
           let profileData = results[0];
           delete profileData["password"];
@@ -194,6 +201,11 @@ router.post("/profile", (req, res) => {
     "SELECT * FROM users WHERE email = ? AND password = ?",
     [email, password],
     (error, results) => {
+      
+      if(error) {
+        res.redirect("error");
+      }
+
       if (results.length > 0) {
         const name = results[0].name;
         res.cookie("userData", name);
@@ -217,7 +229,7 @@ router.post("/profile", (req, res) => {
             }
           }
         );
-        
+
       }
     }
   );
@@ -231,6 +243,11 @@ router.get("/wordProblem", async (req, res, next) => {
   await connection.query(
     "select * from wordProblems",
     (error, results, fields) => {
+
+      if(error) {
+        res.redirect("error");
+      }
+
       problemsJSON = shuffle(results);
 
       problemsJSON.forEach((e) => {
@@ -272,6 +289,10 @@ router.get("/flashCard", async (req, res, next) => {
   await connection.query(
     "select * from flashCards",
     (error, results, fields) => {
+      if(error) {
+        res.redirect("error");
+      }
+
       flashJSON = shuffle(results);
 
       flashJSON.forEach((e) => {
@@ -348,5 +369,9 @@ router.post("/clear", (req, res, next) => {
   res.clearCookie("userData");
   res.redirect("/");
 });
+
+router.get("/:", (req, res, next) => {
+  res.render("error");
+})
 
 module.exports = router;
