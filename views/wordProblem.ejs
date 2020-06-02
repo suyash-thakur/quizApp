@@ -84,6 +84,7 @@
         document.getElementById("word-question").innerText = question[currentQuestion];
         document.querySelector(".word-answers-section").innerHTML = generateOption(options[currentQuestion], options[currentQuestion].length)
         document.getElementById("totalquestion").innerText = question.length;
+        document.getElementById("currentquestion").innerText = currentQuestion + 1;
 
         document
           .querySelectorAll(".flash-option")
@@ -150,6 +151,17 @@
           return response;
         })
         .then((data) => {
+          let tableData = "";
+          
+          data.arrayOfAnswers.forEach((answer, index) => {
+            tableData += `<tr>
+              <td class="table-value">${index + 1}</td>
+              <td class="table-value">${answer.question}</td>
+              <td class="table-value">${answer.selected}</td>
+              <td class="table-value">${answer.answer}</td>
+              </tr>`
+            })
+
           document.querySelector(".word-quiz").innerHTML = 
             `
             <table class="table table-bordered">
@@ -162,6 +174,21 @@
                 <tr>
                   <td class="table-value">${data.points}</td>
                 </tr>
+              </tbody>
+            </table>
+            <br>
+            <h2>Answer Sheet</h2>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col table-heading">Question No.</th>
+                  <th scope="col table-heading">Question</th>
+                  <th scope="col table-heading">Selected Answer</th>
+                  <th scope="col table-heading">Correct Answer</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${tableData}
               </tbody>
             </table>
             `

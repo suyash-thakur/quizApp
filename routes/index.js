@@ -3,7 +3,6 @@ const express = require("express"),
 const generateQuestion = require("../helper/questions");
 const randomNumber = require("../helper/randomNumber");
 const shuffle = require("../helper/arrayShuffle");
-const cookieParser = require("cookie-parser");
 const fs = require("fs");
 const connection = require("../connection");
 const problem = fs.readFileSync(__dirname + "/wordproblem.json");
@@ -14,20 +13,6 @@ const quizFunctionCall = {
   two: 6,
   three: 5,
   onetwo: 5,
-};
-
-const quizTime = {
-  one: [90, 60, 45, 30, 15, 10, 5],
-  two: [90, 60, 50, 30, 20, 10],
-  three: [90, 60, 45, 30, 15],
-  onetwo: [90, 60, 45, 30, 15],
-};
-
-const quizRow = {
-  one: 5,
-  two: 10,
-  three: 15,
-  onetwo: 20,
 };
 
 let questionArr = [];
@@ -93,6 +78,27 @@ next()
 
 };
 
+
+const verifyQuestion = (questionObj, selectedAnswers) => {
+  let arrayOfAnswers = [], points = 0;
+
+  questionObj.forEach((e, i) => {
+
+    let answers = {
+      "question": e.question,
+      "selected": selectedAnswers[i],
+      "answer": e.answer
+    }
+
+    arrayOfAnswers.push(answers)
+
+    if (e.answer == selectedAnswers[i]) {
+      points += 1;
+    }
+
+  })
+  return {points, arrayOfAnswers};
+}
 
 /* GET home page. */
 router.get("/", (req, res, next) => {
@@ -246,6 +252,9 @@ router.post("/profile", (req, res) => {
           "UPDATE users SET name= ?,number= ?,address= ?,age= ?, onboarded = 1 WHERE email = ? AND password = ?",
           [username, number, address, age, email, password],
           (error, results) => {
+            if(error) {
+              res.redirect("error");
+            }
             res.status(200).redirect("/");
           }
         );
@@ -300,18 +309,13 @@ router.get("/wordProblem", async (req, res, next) => {
 });
 
 router.post("/wordProblem", (req, res, next) => {
-  let flashJSON = useVar[userID]["problem"];
+  let wordJSON = useVar[userID]["problem"];
 
   const arr = req.body;
-  let points = 0;
 
-  flashJSON.forEach((e, i) => {
-    if (e.answer == arr[i]) {
-      points += 1;
-    }
-  });
+  const {points, arrayOfAnswers} = verifyQuestion(wordJSON, arr);
 
-  res.send({ points });
+  res.send({ points, arrayOfAnswers });
 });
 
 router.get("/flashCard", async (req, res, next) => {
@@ -349,15 +353,10 @@ router.post("/flashCard", (req, res, next) => {
   let flashJSON = useVar[userID]["flash"];
 
   const arr = req.body;
-  let points = 0;
+  
+  const {points, arrayOfAnswers} = verifyQuestion(flashJSON, arr);
 
-  flashJSON.forEach((e, i) => {
-    if (e.answer == arr[i]) {
-      points += 1;
-    }
-  });
-
-  res.send({ points });
+  res.send({ points, arrayOfAnswers });
 });
 
 router.get("/quizquestion", (req, res, next) => {
