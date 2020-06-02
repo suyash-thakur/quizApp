@@ -69,6 +69,10 @@ router.get("/", (req, res, next) => {
   res.render("index");
 });
 
+router.get("/onboard", (req, res, next) => {
+  res.render("onboard");
+});
+
 router.get("/quiz", (req, res, next) => {
   res.render("quiz");
 });
@@ -119,12 +123,15 @@ router.post("/login", (req, res) => {
 router.get("/DemoQuiz", (req, res, next) => {
   res.render("DemoQuiz");
 });
+
 router.get("/WordStart", (req, res, next) => {
   res.render("WordStart");
 });
+
 router.get("/flashStart", (req, res, next) => {
   res.render("flashStart");
 });
+
 router.get("/DemoWord", (req, res, next) => {
   let isDemo;
   let problemsJSON;
@@ -170,6 +177,7 @@ router.get("/DemoFlash", async (req, res, next) => {
     });
 
 });
+
 router.get("/profile", (req, res, next) => {
   res.render("profile", { profileData: req.cookies.profileData });
 });

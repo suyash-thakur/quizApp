@@ -1,11 +1,12 @@
 .footer {
-  padding-left: 10%;
-  padding-right: 10%;
+  margin-top: 40px;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 .footer-content {
   border-top: 1px solid #000000;
-  padding-top: 40px;
+  padding-top: 20px;
   padding-bottom: 20px;
 }
 
