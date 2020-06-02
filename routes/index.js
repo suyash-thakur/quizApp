@@ -9,7 +9,6 @@ const connection = require("../connection");
 const problem = fs.readFileSync(__dirname + "/wordproblem.json");
 const flash = fs.readFileSync(__dirname + "/flashCard.json");
 
-
 const quizFunctionCall = {
   one: 7,
   two: 6,
@@ -95,21 +94,15 @@ router.post("/login", (req, res) => {
       (error, results, fields) => {
         if (results.length > 0) {
           const userObj = results[0];
-          const name = userObj.name;
-          res.cookie("userData", name);
-          res.cookie("profileData", {
-            name: userObj.name,
-            email: userObj.email,
-          });
+          res.cookie("userData", userObj.name);
+          res.cookie("profileData", userObj.email);
           userID = userObj.password;
-          
-          if(userObj.onboarded){
+
+          if (userObj.onboarded) {
             res.redirect("/");
-          }
-          else{
+          } else {
             res.redirect("/profile");
           }
-
         } else {
           res.render("index", { error: "Incorrect email and/or Password!" });
         }
@@ -138,20 +131,20 @@ router.get("/DemoWord", (req, res, next) => {
   let problemQuestions = [];
   let problemChoices = [];
 
-      problemsJSON =  JSON.parse(problem);
+  problemsJSON = JSON.parse(problem);
 
-      problemsJSON.forEach((e) => {
-        problemQuestions.push(e.question);
-        problemChoices.push(e.options);
-      });
+  problemsJSON.forEach((e) => {
+    problemQuestions.push(e.question);
+    problemChoices.push(e.options);
+  });
 
-      useVar[userID] = { problem: problemsJSON };
-      isDemo = true;
-      res.render("wordProblem", {
-        problemQuestions,
-        problemChoices,
-        isDemo
-      });
+  useVar[userID] = { problem: problemsJSON };
+  isDemo = true;
+  res.render("wordProblem", {
+    problemQuestions,
+    problemChoices,
+    isDemo,
+  });
 });
 
 router.get("/DemoFlash", async (req, res, next) => {
@@ -159,31 +152,43 @@ router.get("/DemoFlash", async (req, res, next) => {
   let flashChoices = [];
   let flashQuestion = [];
 
+  flashJSON = JSON.parse(flash);
 
-    flashJSON = JSON.parse(flash);
+  flashJSON.forEach((e) => {
+    flashQuestion.push(e.question);
+    flashChoices.push(e.options);
+  });
 
-    flashJSON.forEach((e) => {
-      flashQuestion.push(e.question);
-      flashChoices.push(e.options);
-    });
-    
-    useVar[userID] = { flash: flashJSON };
-    isDemo = true;
+  useVar[userID] = { flash: flashJSON };
+  isDemo = true;
 
-    res.render("flashCard", {
-      flashQuestion,
-      flashChoices,
-      isDemo
-    });
-
+  res.render("flashCard", {
+    flashQuestion,
+    flashChoices,
+    isDemo,
+  });
 });
 
 router.get("/profile", (req, res, next) => {
-  res.render("profile", { profileData: req.cookies.profileData });
+  if (Object.keys(req.cookies).length === 0) {
+    res.redirect("/");
+  } else {
+    connection.query(
+      "SELECT * FROM users WHERE email = ?",
+      [req.cookies.profileData],
+      (error, results) => {
+        if (results.length > 0) {
+          let profileData = results[0];
+          delete profileData["password"];
+          res.render("profile", { profileData });
+        }
+      }
+    );
+  }
 });
 
 router.post("/profile", (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, number, address, age, password } = req.body;
 
   connection.query(
     "SELECT * FROM users WHERE email = ? AND password = ?",
@@ -192,23 +197,27 @@ router.post("/profile", (req, res) => {
       if (results.length > 0) {
         const name = results[0].name;
         res.cookie("userData", name);
-        res.cookie("profileData", {
-          name: results[0].name,
-          email: results[0].email,
-        });
-        console.log(results)
         connection.query(
-          "UPDATE users SET name= ?, onboarded = 1 WHERE email = ? AND password = ?",
-          [username, email, password],
+          "UPDATE users SET name= ?,number= ?,address= ?,age= ?, onboarded = 1 WHERE email = ? AND password = ?",
+          [username, number, address, age, email, password],
           (error, results) => {
             res.status(200).redirect("/");
           }
         );
       } else {
-        res.render("profile", {
-          profileData: req.cookies.profileData,
-          error: "Incorrect Password!",
-        });
+
+        connection.query(
+          "SELECT * FROM users WHERE email = ?",
+          [req.cookies.profileData],
+          (error, results) => {
+            if (results.length > 0) {
+              let profileData = results[0];
+              delete profileData["password"];
+              res.render("profile", { profileData, error: "Incorrect Password!", });
+            }
+          }
+        );
+        
       }
     }
   );
@@ -219,10 +228,9 @@ router.get("/wordProblem", async (req, res, next) => {
   let problemQuestions = [];
   let problemChoices = [];
 
-  await connection.query("select * from wordProblems", (
-    error,
-    results,
-    fields) => {
+  await connection.query(
+    "select * from wordProblems",
+    (error, results, fields) => {
       problemsJSON = shuffle(results);
 
       problemsJSON.forEach((e) => {
@@ -235,9 +243,10 @@ router.get("/wordProblem", async (req, res, next) => {
       res.render("wordProblem", {
         problemQuestions,
         problemChoices,
-        isDemo
+        isDemo,
       });
-  });
+    }
+  );
 });
 
 router.post("/wordProblem", (req, res, next) => {
@@ -260,28 +269,26 @@ router.get("/flashCard", async (req, res, next) => {
   let flashChoices = [];
   let flashQuestion = [];
 
-  await connection.query("select * from flashCards", (
-    error,
-    results,
-    fields
-  ) => {
-    flashJSON = shuffle(results);
+  await connection.query(
+    "select * from flashCards",
+    (error, results, fields) => {
+      flashJSON = shuffle(results);
 
-    flashJSON.forEach((e) => {
-      flashQuestion.push(e.question);
-      flashChoices.push(shuffle([e.first, e.second, e.third, e.fourth]));
-    });
-    
-    useVar[userID] = { flash: flashJSON };
-    isDemo = false;
+      flashJSON.forEach((e) => {
+        flashQuestion.push(e.question);
+        flashChoices.push(shuffle([e.first, e.second, e.third, e.fourth]));
+      });
 
-    res.render("flashCard", {
-      flashQuestion,
-      flashChoices,
-      isDemo
-    });
+      useVar[userID] = { flash: flashJSON };
+      isDemo = false;
 
-  });
+      res.render("flashCard", {
+        flashQuestion,
+        flashChoices,
+        isDemo,
+      });
+    }
+  );
 });
 
 router.post("/flashCard", (req, res, next) => {
