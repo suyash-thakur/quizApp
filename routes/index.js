@@ -20,6 +20,7 @@ let questionArr = [];
 let useVar = {};
 
 let userID;
+let Loogedin;
 
 const questionsGenerate = (typeOfQuestion) => {
   numOfQuestion = quizFunctionCall[typeOfQuestion];
@@ -47,11 +48,11 @@ const questionsGenerate = (typeOfQuestion) => {
 
   return questionArr;
 };
-let isLoggedin = function(req, res, next) {
+  function isLoggedin (req, res, next) {
   cookie = JSON.stringify(req.cookies);
   console.log(cookie);
   if( cookie == '{}'){
-    return false;
+    Loogedin  = false;
 
   } else {
     var email = req.cookies.profileData;
@@ -67,9 +68,9 @@ let isLoggedin = function(req, res, next) {
           var data = JSON.stringify(results[0].name);
 
           console.log(data);
-         return true;
+          Loogedin = true;
         } else {
-         return false;
+          Loogedin =  false;
         }
     
   });
@@ -101,8 +102,8 @@ const verifyQuestion = (questionObj, selectedAnswers) => {
 }
 
 /* GET home page. */
+
 router.get("/", (req, res, next) => {
- 
   res.render("index");
 
 });
