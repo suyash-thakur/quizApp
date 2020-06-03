@@ -1,0 +1,388 @@
+[33mcommit c8ec169f270727b1aca5e824df983e711bd3592c[m[33m ([m[1;36mHEAD -> [m[1;32mdevelopment[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/development[m[33m)[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Wed Jun 3 11:40:35 2020 +0530
+
+    [add] margin to footer, modal to flash, and btn styling
+
+[33mcommit 8acd9970a7e8d2ec64f88d3bb2988451753b0cf8[m
+Merge: f679649 34121ff
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Wed Jun 3 04:13:08 2020 +0530
+
+    Merge branch 'development' of https://github.com/suyash-thakur/quizApp into development
+
+[33mcommit f6796492c7b02fcb9aaf8537c42fe4cdd954a003[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Wed Jun 3 04:13:04 2020 +0530
+
+    Wordproblem Timer, Footer Content, Teacher Section
+
+[33mcommit 34121fff3fa5853f1313b14f7efc6f4707c146b2[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Tue Jun 2 23:36:31 2020 +0530
+
+    [add] answers sheet logic
+
+[33mcommit 38b8f86162876652b0274ab9ec19fd3db88a430f[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Tue Jun 2 21:18:18 2020 +0530
+
+    [add] 404 page
+
+[33mcommit 1793c9800c471b443b9978355a34f651d1643947[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Tue Jun 2 20:59:48 2020 +0530
+
+    [update] profile page
+
+[33mcommit 2c67aa69375b785b2d3f0d0e172ed6ba3f25c759[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Tue Jun 2 20:13:10 2020 +0530
+
+    [add] second section to why sharpmind?
+
+[33mcommit ca62ef5cc1b8a4a7babd4fd564dc6772ff54ba16[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Tue Jun 2 19:54:44 2020 +0530
+
+    [fix] styling
+
+[33mcommit 4f59e0f9da4afa15f3b6fd57dcd0bf34fcac0679[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Tue Jun 2 19:49:26 2020 +0530
+
+    [fix] Lorem Ipsum to text
+
+[33mcommit f45a06a465d6f54dce399517cec32bede81ee95a[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Tue Jun 2 19:34:06 2020 +0530
+
+    [add] onboard section and changed button style
+
+[33mcommit f4864b538058b6e364b431f623b6f7d887d403cb[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Tue Jun 2 18:45:00 2020 +0530
+
+    [add] profile page logic
+
+[33mcommit d8636d9a6114d9c5bc47d0f2439a6ed7e43837ca[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon Jun 1 22:48:24 2020 +0530
+
+    [remo] console and static id
+
+[33mcommit bef9a66aaaf7ef027a51951c33da4dc4dbe08329[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon Jun 1 21:44:52 2020 +0530
+
+    [fix] demo quiz design
+
+[33mcommit 8ff76d69bb5a8678e5cb7d4c593154322205e76b[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Mon Jun 1 20:11:57 2020 +0530
+
+    Start Page for wordproblem and flash card.
+
+[33mcommit 6c221182e2097e7843c193d996b48e0f763a0166[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Mon Jun 1 17:30:48 2020 +0530
+
+    Wordproblem Demo
+
+[33mcommit 4b7c08db926b491af4de818baca73e5cf0f2a80c[m[33m ([m[1;32mmaster[m[33m)[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Mon Jun 1 16:11:04 2020 +0530
+
+    Demo Quiz Route
+
+[33mcommit 8e29137e5cac909aecfa8315a8ac9170e4cf4a5b[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon Jun 1 15:26:40 2020 +0530
+
+    [fix] word problem ui
+
+[33mcommit 145bd58c37933f00f26c4b873d7026495beaffd0[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon Jun 1 13:05:28 2020 +0530
+
+    [add] random route for flash cards
+
+[33mcommit 6a64290261164f33bd0bb8e1703646a7f09ea604[m
+Merge: 51a3568 21889fb
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon Jun 1 12:29:53 2020 +0530
+
+    [pull] changes
+
+[33mcommit 21889fba4cb151ed2c874e884599dd5da9d56a4c[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Mon Jun 1 03:35:54 2020 +0530
+
+    Variable Timer and number of rows
+
+[33mcommit 51a35687841507b2b0c7b4b3077af4b9aa26a478[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon Jun 1 02:16:45 2020 +0530
+
+    [add] flash card logic
+
+[33mcommit d12299f0aa66f6b61d64a63cda655936d02a8bd5[m
+Merge: 595b73f 5164358
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Sun May 31 21:57:40 2020 +0530
+
+    [merge] branches
+
+[33mcommit 51643588366b206bb75b20172cfe18da0b514aed[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Tue May 26 06:47:24 2020 +0530
+
+    [removed] login and signout for non logged in users
+
+[33mcommit 9335926a54671ad81afc3fddcbbff96b3771b68c[m[33m ([m[1;31morigin/css-fix[m[33m)[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Tue May 26 06:43:05 2020 +0530
+
+    [fix] navbar and added table for result
+
+[33mcommit 3ccb1e519dfb5bc1a05037adac3ae0df4bcec052[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon May 25 20:25:57 2020 +0530
+
+    [fix] quiz layout
+
+[33mcommit 12dbfb4f9eaf92b39ad808fdbbf44772c575bb87[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon May 25 04:07:54 2020 +0530
+
+    [update-fix] question
+
+[33mcommit 43e040b347289a4b603e27fd93d6ed8ecc188f16[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon May 25 03:54:06 2020 +0530
+
+    [fix] quiz section
+
+[33mcommit 595b73fc57689af7aa4901c63356484c2432057c[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Mon May 25 03:31:45 2020 +0530
+
+    WordProblem Logic
+
+[33mcommit dc3d0bf452c82612dfb404a3f67cb92298e90772[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon May 25 03:23:26 2020 +0530
+
+    [fix] quiz start section
+
+[33mcommit db2dc7c46c38590b388ce4f8e352e4fd4cd8caa9[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon May 25 02:54:46 2020 +0530
+
+    [fix] contact form
+
+[33mcommit 9b9436a9298966b3984db82549623950b4df571c[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon May 25 02:45:48 2020 +0530
+
+    [fix] index css
+
+[33mcommit dd77a32ac07519f92d7a8be3f6d3a7da095bbff0[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Sun May 24 20:20:33 2020 +0530
+
+    Solved Multiple Option Select
+
+[33mcommit 8d61666ea75da6fec8d0d88cfb5b0864218989d5[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Sat May 23 22:55:46 2020 +0530
+
+    Increases Size Of Question Number
+
+[33mcommit 1cc228457da6bcaaf45e91cb482848523428ea07[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Sat May 23 22:45:09 2020 +0530
+
+    Demo Quiz Completed
+
+[33mcommit 055929f829ce5fe3a0616ba4e9ab20f03bb34afe[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Sat May 23 14:26:27 2020 +0530
+
+    Seperate Login Page
+
+[33mcommit b0e1f2dd4606e88b827bfad47910d41f1c02b848[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Sat May 23 03:20:56 2020 +0530
+
+    Added Image In Teacher Section
+
+[33mcommit 2514b2689cba857d469ca3f40f390f47ee8af420[m
+Merge: c5db6bb bd7060a
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Thu May 21 01:33:57 2020 +0530
+
+    Merge branch 'development'
+
+[33mcommit bd7060ac0a180de5c7cc2236d3499a5cfe09a892[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Thu May 21 01:13:49 2020 +0530
+
+    [add] profile section and removed jquery and poppin
+
+[33mcommit c5db6bb6151754659db028804804a55dca53f850[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Tue May 19 22:59:14 2020 +0530
+
+    Modal Prompt
+
+[33mcommit 2d0545ded58578e9abc03657359ee51e2103e627[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Tue May 19 22:30:01 2020 +0530
+
+    Login Section Center Alligned
+
+[33mcommit 0cfe03f1fd633895176387abf032d9be72144041[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Tue May 19 21:59:06 2020 +0530
+
+    Question Details Displayed, Login Hidden
+
+[33mcommit 7c328904e218096b72290876369d0c31f1a00a79[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Mon May 18 21:32:08 2020 +0530
+
+    Quiz only on login. Operation Sign Dynamic.
+
+[33mcommit 3b7e049814b2729a59cedf77227178e32b5b30aa[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Mon May 18 16:03:31 2020 +0530
+
+    Login system
+
+[33mcommit 3c04c23c7f9c8f4baa3d85d8545422841cdf3086[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Mon May 18 13:43:37 2020 +0530
+
+    Sql connection in index
+
+[33mcommit 18cbacc388548f07c49892d4f62154c5929a615c[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Mon May 18 13:33:30 2020 +0530
+
+    Database
+
+[33mcommit 896bdf269289ca934c9f55c29ca537ed8e28aef2[m
+Merge: 2f12318 80b4d47
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Sun May 17 23:31:11 2020 +0530
+
+    merge conflict
+
+[33mcommit 2f123185eb22300cf33f5fb48ab048201fee7e9b[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Sun May 17 23:08:49 2020 +0530
+
+    Quiz dropdown fixxed
+
+[33mcommit 80b4d47ef4944ca9fc525476c0c38475705b9f16[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Sun May 17 19:25:11 2020 +0530
+
+    [add] table config
+
+[33mcommit a9d71385a4befcf50fa72ae4d58a97e8bb2e82bd[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Sun May 17 18:29:03 2020 +0530
+
+    [add] mysql config
+
+[33mcommit 6e6e4e67a3fb65d53f52e224ebb88d25cd794668[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Sun May 17 16:19:39 2020 +0530
+
+    Our Teachers Page
+
+[33mcommit adf7b9bc78ff024c1bf4b2a52382b41c4bb50f15[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Sun May 17 15:31:08 2020 +0530
+
+    Added Some Content and Imbeded Video
+
+[33mcommit 6c4ee2ae85c136dccc080fdcfceba19c6eb4d258[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Fri May 15 16:30:45 2020 +0530
+
+    Buttons Functioning
+
+[33mcommit 594fcf6c6afede2bb64629ad119f6e0e04a56dec[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Thu May 14 15:13:31 2020 +0530
+
+    Multiplication And Division
+
+[33mcommit 2ec75cbd0148e89b7eb3ed65e7772a7f67d53b36[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Thu May 7 22:37:25 2020 +0530
+
+    [fix] question click bug
+
+[33mcommit 82778898d08ac53f7dc1e3a2f68751daac4deab2[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Thu May 7 22:05:02 2020 +0530
+
+    Bug Fix
+
+[33mcommit b5f4f6671bb0735f9b16cabd0288e70c21f50d73[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Mon May 4 23:20:31 2020 +0530
+
+    Next Question Working
+
+[33mcommit 77d97cc3b49d5aa6afc62655e192c5bb152e2e90[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Sun May 3 04:06:45 2020 +0530
+
+    Timer and Question Displayed
+
+[33mcommit ba787aad8846288852ba0e4a783a76b6ff686b24[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Sat May 2 03:18:02 2020 +0530
+
+    ERROR at index.js render question.ejs
+
+[33mcommit 8cd87810b893c464eeee4c508b7f82c24040ea90[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Fri May 1 05:15:30 2020 +0530
+
+    Question Page
+
+[33mcommit 8e49ef228b712304ca8fc4f33f5c8897dca4327e[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Fri May 1 02:58:13 2020 +0530
+
+    Quiz select front-end
+
+[33mcommit 1c64764b8fd7332bc0a5330e575849478711999b[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Thu Apr 30 21:43:06 2020 +0530
+
+    Home Page Desktop View
+
+[33mcommit 2255764a6f7107de234b03763b65924e038ebc11[m
+Author: suyash-thakur <47927368+suyash-thakur@users.noreply.github.com>
+Date:   Wed Apr 15 18:41:27 2020 +0530
+
+    first commit
+
+[33mcommit e791bc4b2b9c3fe1ecb9b00206af31b8dba09419[m
+Author: Hardik <hardikkhandelwal500@gmail.com>
+Date:   Tue Apr 14 09:21:59 2020 +0530
+
+    Modified questions pattern and added temp userid
+
+[33mcommit 3c41603b56ebbd79473f56aabcae995be8769270[m
+Author: Hardik Khandelwal <hardikkhandelwal500@gmail.com>
+Date:   Sat Nov 9 12:06:48 2019 +0530
+
+    Initial Commit
