@@ -16,11 +16,7 @@ const quizFunctionCall = {
 };
 
 let questionArr = [];
-
 let useVar = {};
-
-let userID;
-let Loogedin;
 
 const questionsGenerate = (typeOfQuestion) => {
   numOfQuestion = quizFunctionCall[typeOfQuestion];
@@ -48,64 +44,52 @@ const questionsGenerate = (typeOfQuestion) => {
 
   return questionArr;
 };
-  function isLoggedin (req, res, next) {
-  cookie = JSON.stringify(req.cookies);
-  console.log(cookie);
-  if( cookie == '{}'){
-    Loogedin  = false;
 
-  } else {
+router.use((req, res, next) => {
+  if (Object.keys(req.cookies).length !== 0) {
     var email = req.cookies.profileData;
-    console.log(email);
     connection.query(
       "SELECT * FROM users WHERE email = ?",
       [email],
       (error, results, fields) => {
-        if(error) {
+        if (error) {
           res.redirect("error");
         }
         if (results.length > 0) {
-          var data = JSON.stringify(results[0].name);
-
-          console.log(data);
-          Loogedin = true;
+          useVar[email] = { loggedIn: true };
         } else {
-          Loogedin =  false;
+          useVar[email] = { loggedIn: false };
         }
-    
-  });
-}
-next()
-
-};
-
+      }
+    );
+  }
+  next();
+});
 
 const verifyQuestion = (questionObj, selectedAnswers) => {
-  let arrayOfAnswers = [], points = 0;
+  let arrayOfAnswers = [],
+    points = 0;
 
   questionObj.forEach((e, i) => {
-
     let answers = {
-      "question": e.question,
-      "selected": selectedAnswers[i],
-      "answer": e.answer
-    }
+      question: e.question,
+      selected: selectedAnswers[i],
+      answer: e.answer,
+    };
 
-    arrayOfAnswers.push(answers)
+    arrayOfAnswers.push(answers);
 
     if (e.answer == selectedAnswers[i]) {
       points += 1;
     }
-
-  })
-  return {points, arrayOfAnswers};
-}
+  });
+  return { points, arrayOfAnswers };
+};
 
 /* GET home page. */
 
-router.get("/", (req, res, next) => {
+router.get("/", async (req, res, next) => {
   res.render("index");
-
 });
 
 router.get("/onboard", (req, res, next) => {
@@ -132,14 +116,13 @@ router.post("/login", (req, res) => {
       "SELECT * FROM users WHERE email = ? AND password = ?",
       [email, password],
       (error, results, fields) => {
-        if(error) {
+        if (error) {
           res.redirect("error");
         }
         if (results.length > 0) {
           const userObj = results[0];
           res.cookie("userData", userObj.name);
           res.cookie("profileData", userObj.email);
-          userID = userObj.password;
 
           if (userObj.onboarded) {
             res.redirect("/");
@@ -169,7 +152,6 @@ router.get("/flashStart", (req, res, next) => {
 });
 
 router.get("/DemoWord", (req, res, next) => {
-  let isDemo;
   let problemsJSON;
   let problemQuestions = [];
   let problemChoices = [];
@@ -181,12 +163,12 @@ router.get("/DemoWord", (req, res, next) => {
     problemChoices.push(e.options);
   });
 
-  useVar[userID] = { problem: problemsJSON };
-  isDemo = true;
+  useVar[404] = { problem: problemsJSON };
+
   res.render("wordProblem", {
     problemQuestions,
     problemChoices,
-    isDemo,
+    isDemo: true,
   });
 });
 
@@ -202,13 +184,12 @@ router.get("/DemoFlash", async (req, res, next) => {
     flashChoices.push(e.options);
   });
 
-  useVar[userID] = { flash: flashJSON };
-  isDemo = true;
+  useVar[404] = { flash: flashJSON };
 
   res.render("flashCard", {
     flashQuestion,
     flashChoices,
-    isDemo,
+    isDemo: true,
   });
 });
 
@@ -220,7 +201,7 @@ router.get("/profile", (req, res, next) => {
       "SELECT * FROM users WHERE email = ?",
       [req.cookies.profileData],
       (error, results) => {
-        if(error) {
+        if (error) {
           res.redirect("error");
         }
 
@@ -241,8 +222,7 @@ router.post("/profile", (req, res) => {
     "SELECT * FROM users WHERE email = ? AND password = ?",
     [email, password],
     (error, results) => {
-      
-      if(error) {
+      if (error) {
         res.redirect("error");
       }
 
@@ -253,14 +233,13 @@ router.post("/profile", (req, res) => {
           "UPDATE users SET name= ?,number= ?,address= ?,age= ?, onboarded = 1 WHERE email = ? AND password = ?",
           [username, number, address, age, email, password],
           (error, results) => {
-            if(error) {
+            if (error) {
               res.redirect("error");
             }
             res.status(200).redirect("/");
           }
         );
       } else {
-
         connection.query(
           "SELECT * FROM users WHERE email = ?",
           [req.cookies.profileData],
@@ -268,11 +247,13 @@ router.post("/profile", (req, res) => {
             if (results.length > 0) {
               let profileData = results[0];
               delete profileData["password"];
-              res.render("profile", { profileData, error: "Incorrect Password!", });
+              res.render("profile", {
+                profileData,
+                error: "Incorrect Password!",
+              });
             }
           }
         );
-
       }
     }
   );
@@ -283,38 +264,45 @@ router.get("/wordProblem", async (req, res, next) => {
   let problemQuestions = [];
   let problemChoices = [];
 
-  await connection.query(
-    "select * from wordProblems",
-    (error, results, fields) => {
+  if (Object.keys(req.cookies).length === 0) {
+    res.redirect("/DemoWord");
+  } else if (req.cookies.profileData === undefined) {
+    res.redirect("/DemoWord");
+  } else if (!useVar[req.cookies.profileData].loggedIn) {
+    res.redirect("/DemoWord");
+  } else {
+    await connection.query(
+      "select * from wordProblems",
+      (error, results, fields) => {
+        if (error) {
+          res.redirect("error");
+        }
 
-      if(error) {
-        res.redirect("error");
+        problemsJSON = shuffle(results);
+
+        problemsJSON.forEach((e) => {
+          problemQuestions.push(e.question);
+          problemChoices.push(shuffle([e.first, e.second, e.third, e.fourth]));
+        });
+
+        useVar[req.cookies.profileData] = { problem: problemsJSON };
+        isDemo = false;
+        res.render("wordProblem", {
+          problemQuestions,
+          problemChoices,
+          isDemo,
+        });
       }
-
-      problemsJSON = shuffle(results);
-
-      problemsJSON.forEach((e) => {
-        problemQuestions.push(e.question);
-        problemChoices.push(shuffle([e.first, e.second, e.third, e.fourth]));
-      });
-
-      useVar[userID] = { problem: problemsJSON };
-      isDemo = false;
-      res.render("wordProblem", {
-        problemQuestions,
-        problemChoices,
-        isDemo,
-      });
-    }
-  );
+    );
+  }
 });
 
 router.post("/wordProblem", (req, res, next) => {
-  let wordJSON = useVar[userID]["problem"];
+  let wordJSON = useVar[req.cookies.profileData || 404]["problem"];
 
   const arr = req.body;
 
-  const {points, arrayOfAnswers} = verifyQuestion(wordJSON, arr);
+  const { points, arrayOfAnswers } = verifyQuestion(wordJSON, arr);
 
   res.send({ points, arrayOfAnswers });
 });
@@ -324,38 +312,46 @@ router.get("/flashCard", async (req, res, next) => {
   let flashChoices = [];
   let flashQuestion = [];
 
-  await connection.query(
-    "select * from flashCards",
-    (error, results, fields) => {
-      if(error) {
-        res.redirect("error");
+  if (Object.keys(req.cookies).length === 0) {
+    res.redirect("/DemoFlash");
+  } else if (req.cookies.profileData === undefined) {
+    res.redirect("/DemoFlash");
+  } else if (!useVar[req.cookies.profileData].loggedIn) {
+    res.redirect("/DemoFlash");
+  } else {
+    await connection.query(
+      "select * from flashCards",
+      (error, results, fields) => {
+        if (error) {
+          res.redirect("error");
+        }
+
+        flashJSON = shuffle(results);
+
+        flashJSON.forEach((e) => {
+          flashQuestion.push(e.question);
+          flashChoices.push(shuffle([e.first, e.second, e.third, e.fourth]));
+        });
+
+        useVar[req.cookies.profileData] = { flash: flashJSON };
+        isDemo = false;
+
+        res.render("flashCard", {
+          flashQuestion,
+          flashChoices,
+          isDemo,
+        });
       }
-
-      flashJSON = shuffle(results);
-
-      flashJSON.forEach((e) => {
-        flashQuestion.push(e.question);
-        flashChoices.push(shuffle([e.first, e.second, e.third, e.fourth]));
-      });
-
-      useVar[userID] = { flash: flashJSON };
-      isDemo = false;
-
-      res.render("flashCard", {
-        flashQuestion,
-        flashChoices,
-        isDemo,
-      });
-    }
-  );
+    );
+  }
 });
 
 router.post("/flashCard", (req, res, next) => {
-  let flashJSON = useVar[userID]["flash"];
+  let flashJSON = useVar[req.cookies.profileData || 404]["flash"];
 
   const arr = req.body;
-  
-  const {points, arrayOfAnswers} = verifyQuestion(flashJSON, arr);
+
+  const { points, arrayOfAnswers } = verifyQuestion(flashJSON, arr);
 
   res.send({ points, arrayOfAnswers });
 });
@@ -376,8 +372,7 @@ router.get("/quizquestion", (req, res, next) => {
     arrayOfChoices.push(shuffle(quiz.choices));
   });
 
-  useVar[userID] = { quiz: questionArr };
-  res.cookie("userID", userID); // options is optional
+  useVar[req.cookies.profileData] = { quiz: questionArr };
 
   res.render("question", {
     quizQuestion: arrayOfQuestions,
@@ -389,11 +384,11 @@ router.get("/quizquestion", (req, res, next) => {
 
 router.post("/quizquestion", (req, res, next) => {
   result =
-    useVar[req.cookies.userID]["quiz"][req.body.index].answer ==
+    useVar[req.cookies.profileData]["quiz"][req.body.index].answer ==
     req.body.answer;
   res.json({
     result: result,
-    answer: useVar[req.cookies.userID]["quiz"][req.body.index].answer,
+    answer: useVar[req.cookies.profileData]["quiz"][req.body.index].answer,
   });
 });
 
@@ -405,6 +400,6 @@ router.post("/clear", (req, res, next) => {
 
 router.get("/:", (req, res, next) => {
   res.render("error");
-})
+});
 
 module.exports = router;
