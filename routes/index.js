@@ -393,6 +393,7 @@ router.post("/quizquestion", (req, res, next) => {
 });
 
 router.post("/clear", (req, res, next) => {
+  useVar[req.cookies.profileData] = { loggedIn: false };
   res.clearCookie("profileData");
   res.clearCookie("userData");
   res.redirect("/");
