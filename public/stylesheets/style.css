@@ -669,10 +669,24 @@ a.login-link {
   border: 2px solid #000000db;
 }
 
+.btn-sec {
+  background-color: #7e7d7c;
+  border-radius: 20px;
+  min-width: 150px;
+  border: 2px solid #000000db;
+}
+
+.btn-sec:hover {
+  background-color: #5e5d5d;
+  transform: scale(1.1);
+  border: 2px solid #000000db;
+}
+
 .btn-btn {
   background-color: #f1d77e;
   border-radius: 20px;
   min-width: 150px;
+  color: #000000db;
   border: 2px solid #000000db;
 }
 
