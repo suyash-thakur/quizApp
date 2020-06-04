@@ -73,7 +73,10 @@ function quizUrl() {
     window.location.href = "/DemoQuiz";
   }
 }
+function profileVisit() {
+  window.location.href = "/profile";
 
+}
 function wordprobUrl() {
   if (isLoggedin == true) {
     window.location.href = "/WordStart";
