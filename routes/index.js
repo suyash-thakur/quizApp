@@ -66,6 +66,9 @@ router.use(async (req, res, next) => {
       }
     );
   }
+  else{
+    next();
+  }
 });
 
 const verifyQuestion = (questionObj, selectedAnswers) => {
@@ -113,9 +116,7 @@ router.get("/", async (req, res, next) => {
     res.render("index");
   } else if (!useVar[req.cookies.profileData].loggedIn) {
     res.render("index");
-  } else if (!useVar[req.cookies.profileData].onboarded) {
-    res.redirect("/profile");
-  } else {
+  }  else {
     res.redirect("/onboard");
   }
 });
@@ -417,7 +418,7 @@ router.post("/flashCard", async (req, res, next) => {
 
   const {optionsSelected, isDemo} = req.body;
 
-  const { points, arrayOfAnswers } = await verifyQuestion(flashJSON, arr);
+  const { points, arrayOfAnswers } = await verifyQuestion(flashJSON, optionsSelected);
 
   if(!isDemo){
     await insertData(req.cookies.profileData, "Flash Card", points);
