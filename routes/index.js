@@ -46,27 +46,27 @@ const questionsGenerate = (typeOfQuestion) => {
   return questionArr;
 };
 
-// router.use(async (req, res, next) => {
-//   if (Object.keys(req.cookies).length !== 0) {
-//     var email = req.cookies.profileData;
-//     await connection.query(
-//       "SELECT * FROM users WHERE email = ?",
-//       [email],
-//       (error, results, fields) => {
-//         if (results.length > 0) {
-//           if (useVar[email] === undefined) {
-//             useVar[email] = results[0];
-//           }
-//           useVar[email].loggedIn = true;
-//           next();
-//         } else {
-//           useVar[email].loggedIn = false;
-//           next();
-//         }
-//       }
-//     );
-//   }
-// });
+router.use(async (req, res, next) => {
+  if (Object.keys(req.cookies).length !== 0) {
+    var email = req.cookies.profileData;
+    await connection.query(
+      "SELECT * FROM users WHERE email = ?",
+      [email],
+      (error, results, fields) => {
+        if (results.length > 0) {
+          if (useVar[email] === undefined) {
+            useVar[email] = results[0];
+          }
+          useVar[email].loggedIn = true;
+          next();
+        } else {
+          useVar[email].loggedIn = false;
+          next();
+        }
+      }
+    );
+  }
+});
 
 const verifyQuestion = (questionObj, selectedAnswers) => {
   let arrayOfAnswers = [],
@@ -349,11 +349,11 @@ router.get("/wordProblem", async (req, res, next) => {
         });
 
         useVar[req.cookies.profileData] = { problem: problemsJSON };
-        isDemo = false;
+
         res.render("wordProblem", {
           problemQuestions,
           problemChoices,
-          isDemo,
+          isDemo: false,
         });
       }
     );
@@ -362,12 +362,14 @@ router.get("/wordProblem", async (req, res, next) => {
 
 router.post("/wordProblem", async (req, res, next) => {
   let wordJSON = useVar[req.cookies.profileData || 404]["problem"];
+  
+  const {optionsSelected, isDemo} = req.body;
 
-  const arr = req.body;
+  const { points, arrayOfAnswers } = await verifyQuestion(wordJSON, optionsSelected);
 
-  const { points, arrayOfAnswers } = await verifyQuestion(wordJSON, arr);
-
-  await insertData(req.cookies.profileData, "Word Problem", points);
+  if(!isDemo){
+    await insertData(req.cookies.profileData, "Word Problem", points);
+  }
 
   res.send({ points, arrayOfAnswers });
 });
@@ -399,12 +401,11 @@ router.get("/flashCard", async (req, res, next) => {
         });
 
         useVar[req.cookies.profileData] = { flash: flashJSON };
-        isDemo = false;
 
         res.render("flashCard", {
           flashQuestion,
           flashChoices,
-          isDemo,
+          isDemo: false,
         });
       }
     );
@@ -414,11 +415,13 @@ router.get("/flashCard", async (req, res, next) => {
 router.post("/flashCard", async (req, res, next) => {
   let flashJSON = useVar[req.cookies.profileData || 404]["flash"];
 
-  const arr = req.body;
+  const {optionsSelected, isDemo} = req.body;
 
   const { points, arrayOfAnswers } = await verifyQuestion(flashJSON, arr);
 
-  await insertData(req.cookies.profileData, "Flash Card", points);
+  if(!isDemo){
+    await insertData(req.cookies.profileData, "Flash Card", points);
+  }
 
   res.send({ points, arrayOfAnswers });
 });

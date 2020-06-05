@@ -58,6 +58,7 @@
 <script>
     const question = <%- JSON.stringify(flashQuestion) %>;
     const options = <%- JSON.stringify(flashChoices) %>;
+    const isDemo = <%- JSON.stringify(isDemo) %>;
     
     let currentQuestion = 0;
     let optionsSelected = [];
@@ -147,7 +148,7 @@
         headers: {
           "content-type": "application/json; charset=UTF-8",
         },
-        body: JSON.stringify(optionsSelected),
+        body: JSON.stringify({optionsSelected, "isDemo": isDemo}),
         method: "post",
       };
 

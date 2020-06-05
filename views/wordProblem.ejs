@@ -49,6 +49,7 @@
   <script>
     const question = <%- JSON.stringify(problemQuestions) %>;
     const options = <%- JSON.stringify(problemChoices) %>;
+    const isDemo = <%- JSON.stringify(isDemo) %>;
     
     let currentQuestion = 0;
     let optionsSelected = [];
@@ -63,8 +64,10 @@
                   }
                   var minutes = Math.floor(timeleft / 60);
                   var seconds = timeleft - minutes * 60;
-                  document.getElementById("minutes").innerHTML = minutes;
-                  document.getElementById("seconds").innerHTML = seconds;
+                  if(document.getElementById("minutes")){
+                    document.getElementById("minutes").innerHTML = minutes;
+                    document.getElementById("seconds").innerHTML = seconds;
+                  }
 
                   timeleft -= 1;
               }, 1000);
@@ -141,7 +144,7 @@
         headers: {
           "content-type": "application/json; charset=UTF-8",
         },
-        body: JSON.stringify(optionsSelected),
+        body: JSON.stringify({optionsSelected, "isDemo": isDemo}),
         method: "post",
       };
 
