@@ -105,8 +105,10 @@ if (x !== undefined) {
   document.getElementById("login-link").parentElement.style.display = "None";
   document.getElementById("login-button").style.display = "none";
 } else {
-  document.getElementById("login-button").style.display = "flex";
+  if(document.getElementById("login-button")){
+    document.getElementById("login-button").style.display = "flex";
   document.getElementById("name").parentElement.style.display = "None";
   document.getElementById("signout").parentElement.parentElement.style.display =
     "None";
+  }
 }

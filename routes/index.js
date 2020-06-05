@@ -10,7 +10,7 @@ const problem = fs.readFileSync(__dirname + "/wordproblem.json");
 const flash = fs.readFileSync(__dirname + "/flashCard.json");
 
 const quizFunctionCall = {
-  one: 1,
+  one: 7,
   two: 6,
   three: 5,
   onetwo: 5,
@@ -89,25 +89,30 @@ const verifyQuestion = (questionObj, selectedAnswers) => {
 };
 
 const insertData = (email, type, points) => {
-  connection.query("INSERT INTO score values (?,?,?,?)", [email, type, points, moment().format('YYYY-MM-DD HH:mm:ss')], (error, results) => {
-    if (error) {
-      console.log(error);
+  connection.query(
+    "INSERT INTO score values (?,?,?,?)",
+    [email, type, points, moment().format("YYYY-MM-DD HH:mm:ss")],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(results);
+      }
     }
-    else {
-      console.log(results);
-    }
-  });
-}
+  );
+};
 
 /* GET home page. */
 
 router.get("/", async (req, res, next) => {
   if (Object.keys(req.cookies).length === 0) {
-    res.redirect("/");
+    res.render("index");
   } else if (req.cookies.profileData === undefined) {
-    res.redirect("/");
+    res.render("index");
+  } else if (Object.keys(useVar).length === 0) {
+    res.render("index");
   } else if (!useVar[req.cookies.profileData].loggedIn) {
-    res.redirect("/");
+    res.render("index");
   } else if (!useVar[req.cookies.profileData].onboarded) {
     res.redirect("/profile");
   } else {
@@ -119,7 +124,6 @@ router.get("/onboard", async (req, res, next) => {
   if (Object.keys(req.cookies).length === 0) {
     res.redirect("/login");
   } else {
-
     let resultArr = [];
     let profileData;
 
@@ -140,14 +144,18 @@ router.get("/onboard", async (req, res, next) => {
       (error, results) => {
         if (results.length > 0) {
           results.forEach((result, index) => {
-            resultArr.push({"Score": result.points, "Type": result.questionType, "Date": moment(result.date).format("LLL")})
-            if(index >= results.length - 1){
-              res.render("onboard", { profileData, resultArr});
+            resultArr.push({
+              Score: result.points,
+              Type: result.questionType,
+              Date: moment(result.date).format("LLL"),
+            });
+            if (index >= results.length - 1) {
+              res.render("onboard", { profileData, resultArr });
             }
-          })
+          });
         }
       }
-    )
+    );
   }
 });
 
@@ -341,11 +349,11 @@ router.get("/wordProblem", async (req, res, next) => {
         });
 
         useVar[req.cookies.profileData] = { problem: problemsJSON };
-        isDemo = false;
+
         res.render("wordProblem", {
           problemQuestions,
           problemChoices,
-          isDemo,
+          isDemo: false,
         });
       }
     );
@@ -354,12 +362,14 @@ router.get("/wordProblem", async (req, res, next) => {
 
 router.post("/wordProblem", async (req, res, next) => {
   let wordJSON = useVar[req.cookies.profileData || 404]["problem"];
+  
+  const {optionsSelected, isDemo} = req.body;
 
-  const arr = req.body;
+  const { points, arrayOfAnswers } = await verifyQuestion(wordJSON, optionsSelected);
 
-  const { points, arrayOfAnswers } = await verifyQuestion(wordJSON, arr);
-
-  await insertData(req.cookies.profileData, "Word Problem", points);
+  if(!isDemo){
+    await insertData(req.cookies.profileData, "Word Problem", points);
+  }
 
   res.send({ points, arrayOfAnswers });
 });
@@ -391,12 +401,11 @@ router.get("/flashCard", async (req, res, next) => {
         });
 
         useVar[req.cookies.profileData] = { flash: flashJSON };
-        isDemo = false;
 
         res.render("flashCard", {
           flashQuestion,
           flashChoices,
-          isDemo,
+          isDemo: false,
         });
       }
     );
@@ -406,11 +415,13 @@ router.get("/flashCard", async (req, res, next) => {
 router.post("/flashCard", async (req, res, next) => {
   let flashJSON = useVar[req.cookies.profileData || 404]["flash"];
 
-  const arr = req.body;
+  const {optionsSelected, isDemo} = req.body;
 
   const { points, arrayOfAnswers } = await verifyQuestion(flashJSON, arr);
 
-  await insertData(req.cookies.profileData, "Flash Card", points);
+  if(!isDemo){
+    await insertData(req.cookies.profileData, "Flash Card", points);
+  }
 
   res.send({ points, arrayOfAnswers });
 });
@@ -453,30 +464,49 @@ router.post("/quizquestion", (req, res, next) => {
 });
 
 router.post("/finalQuiz", async (req, res, next) => {
-  let {points, type, operation, screens, time} = req.body;
-  if(operation == "subAndAdd"){
-    operation = "+"; 
-  }
-  else{
+  let { points, type, operation, screens, time } = req.body;
+  if (operation == "subAndAdd") {
+    operation = "+";
+  } else {
     operation = "*";
   }
 
-  switch(type){
+  switch (type) {
     case "one":
-      type = "1"
+      type = "1";
       break;
     case "two":
-      type = "2"
+      type = "2";
       break;
     case "three":
-      type = "3"
+      type = "3";
       break;
     case "onetwo":
-      type = "1+2"
+      type = "1+2";
       break;
   }
 
-  await insertData(req.cookies.profileData, `Quiz - (Operation: ${operation}, Digits: ${type}, Rows: ${screens}, Time: ${time})`, points);
+  await insertData(
+    req.cookies.profileData,
+    `Quiz - (Operation: ${operation}, Digits: ${type}, Rows: ${screens}, Time: ${time})`,
+    points
+  );
+});
+
+router.get("/contact", (req, res, next) => {
+  res.render("contact");
+});
+
+router.post("/contact", (req, res, next) => {
+  const {firstname, lastname, pccode, pscode, pnumber, mccode, mnumber, occupation, email} = req.body;
+  connection.query("INSERT INTO register values(?,?,?,?,?,?)", [firstname, lastname, occupation, pccode + pscode + pnumber, mccode + mnumber, email], (error, results) => {
+    if(results){
+      res.render("index", {message: "Thank you for registering with us!"})
+    }
+    else{
+      res.render("error")
+    }
+  });
 })
 
 router.post("/clear", (req, res, next) => {

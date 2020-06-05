@@ -1,0 +1,58 @@
+<%- include("./partials/header.ejs") %>
+
+<div class="profile-form-section">
+    <form action="contact" method="POST">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address*</label>
+          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" name="email" required>
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            <label for="name">First Name*</label>
+            <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name" name="firstname" required>
+        </div>
+        <div class="form-group">
+          <label for="name">Last Name*</label>
+          <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Enter name" name="lastname" required>
+        </div>
+        <div class="form-group">
+          <label for="number">Phone Number</label>
+          <div class="row">
+            <div class="col-md-3">
+              <input type="text" class="form-control" id="countrycode" aria-describedby="numberHelp" placeholder="Enter country code" name="pccode">
+            </div>
+            <div class="col-md-3">
+              <input type="text" class="form-control" id="statecode" aria-describedby="numberHelp" placeholder="Enter state code" name="pscode">
+            </div>
+            <div class="col-md-6">
+              <input type="number" class="form-control" id="pnumber" aria-describedby="numberHelp" placeholder="Enter phone number" minlength="5" maxlength="7" name="pnumber">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="number">Mobile Number*</label>
+          <div class="row">
+            <div class="col-md-3">
+              <input type="text" class="form-control" id="countrycode" aria-describedby="numberHelp" placeholder="Enter country code" name="mccode" required>
+            </div>
+            <div class="col-md-9">
+              <input type="number" class="form-control" id="mnumber" aria-describedby="numberHelp" placeholder="Enter mobile number" minlength="1"0 maxlength="1"0 title="Number should be of length 10" name="mnumber" required>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="name">Occupation*</label>
+          <input type="text" class="form-control" id="occupation" aria-describedby="occupationHelp" placeholder="Enter occupation" name="occupation" required>
+        </div>
+        <% if (locals.error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+        <div class="text-center">
+        <button type="submit" class="btn btn-warning btn-btn clickable">Submit</button>
+      </div>
+      </form>
+</div>
+      
+<%- include("./partials/footer.ejs") %></div>
