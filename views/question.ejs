@@ -90,6 +90,9 @@
         </div>
       </div>
     </div>
+    <div style="position: absolute; width: 100%; background-color: gray;  z-index: 100; opacity: 0.3; top: 0px; height: 100%;" id="load">
+    <div class="loader" style="margin: auto; top: 48%; position: absolute; left: 50%; z-index: 101; opacity: 1 !important;"></div>
+  </div>
     <!-- </div> -->
     <br />
     <%- include("./partials/footer.ejs") %>
@@ -103,6 +106,7 @@
               var downloadTimer;
               var done = false;
               var questionArray = new Array();
+              document.getElementById('load').style.display="none";
               if(operation == "subAndAdd"){
                 document.getElementById('sign').innerHTML="+";
                 document.getElementById('Instruction').innerHTML="Find the sum of the numbers displayed in the cards below."
@@ -189,6 +193,8 @@
                   index: currentquestion -1,
                   question: question[currentquestion -1 ],
                 };
+                document.getElementById('load').style.display="inline-block";
+
 
                 const url = "/quizquestion";
 
@@ -206,6 +212,8 @@
                   })
                   .then((data) => {
                       document.querySelectorAll(".choices").forEach((e,index) => {
+                        document.getElementById('load').style.display="none";
+
                           if(e.innerText == data.answer){
                             document.querySelectorAll(".choices")[index].style.color = "#82ff50";
                             done = true;
