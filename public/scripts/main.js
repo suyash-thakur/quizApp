@@ -38,11 +38,15 @@ function time(val) {
 }
 
 function onInput() {
-  this.questType = document.getElementById("questionType").value;
-  this.operation = document.getElementById("arithmetic").value;
-  this.questLength = document.getElementById("questionRows").value;
-  this.time = document.getElementById("timeField").value;
-  location.href += `question?type=${this.questType}&operation=${this.operation}&length=${this.questLength}&time=${this.time}`;
+  this.questType = document.getElementById("questionType");
+  this.operation = document.getElementById("arithmetic");
+  this.questLength = document.getElementById("questionRows");
+  this.time = document.getElementById("timeField");
+  if(this.questType != null && this.operation != null && this.questLength != null && this.time != null ) {
+    location.href += `question?type=${this.questType.value}&operation=${this.operation.value}&length=${this.questLength.value}&time=${this.time.value}`;
+  } else {
+    window.alert("Select All Field");
+  }
 }
 var isLoggedin = false;
 function getCookie(c_name) {
