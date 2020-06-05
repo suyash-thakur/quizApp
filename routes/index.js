@@ -1,9 +1,10 @@
 const express = require("express"),
   router = express.Router();
+const fs = require("fs");
+const moment = require("moment");
 const generateQuestion = require("../helper/questions");
 const randomNumber = require("../helper/randomNumber");
 const shuffle = require("../helper/arrayShuffle");
-const fs = require("fs");
 const connection = require("../connection");
 const problem = fs.readFileSync(__dirname + "/wordproblem.json");
 const flash = fs.readFileSync(__dirname + "/flashCard.json");
@@ -55,7 +56,7 @@ router.use(async (req, res, next) => {
         if (error || results === undefined) {
           res.redirect("error");
         }
-        else if(useVar[email] === undefined){
+        else if (useVar[email] === undefined) {
           useVar[email] = results[0];
           next();
         }
@@ -90,10 +91,20 @@ const verifyQuestion = (questionObj, selectedAnswers) => {
   return { points, arrayOfAnswers };
 };
 
+const insertData = (email, type, points) => {
+  connection.query("INSERT INTO score values (?,?,?,?)", [email, type, points, moment().format('YYYY-MM-DD HH:mm:ss')], (error, results) => {
+    if (error) {
+      console.log(error);
+    }
+    else {
+      console.log(results);
+    }
+  });
+}
+
 /* GET home page. */
 
 router.get("/", async (req, res, next) => {
-  console.log(useVar)
   if (Object.keys(req.cookies).length === 0) {
     res.redirect("/");
   } else if (req.cookies.profileData === undefined) {
@@ -107,23 +118,39 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/onboard", (req, res, next) => {
+router.get("/onboard", async (req, res, next) => {
   if (Object.keys(req.cookies).length === 0) {
     res.redirect("/login");
-  } else{
+  } else {
 
-  
-  connection.query(
-    "SELECT * FROM users WHERE email = ?",
-    [req.cookies.profileData],
-    (error, results) => {
-      if (results.length > 0) {
-        let profileData = results[0];
-        delete profileData["password"];
-        res.render("onboard", { profileData, error: "Incorrect Password!", });
+    let resultArr = [];
+    let profileData;
+
+    await connection.query(
+      "SELECT * FROM users WHERE email = ?",
+      [req.cookies.profileData],
+      (error, results) => {
+        if (results.length > 0) {
+          profileData = results[0];
+          delete profileData["password"];
+        }
       }
-    }
-  );
+    );
+
+    await connection.query(
+      "SELECT * FROM score WHERE email = ?",
+      [req.cookies.profileData],
+      (error, results) => {
+        if (results.length > 0) {
+          results.forEach((result, index) => {
+            resultArr.push({"Score": result.points, "Type": result.questionType, "Date": moment(result.date).format("LLL")})
+            if(index >= results.length - 1){
+              res.render("onboard", { profileData, resultArr});
+            }
+          })
+        }
+      }
+    )
   }
 });
 
@@ -328,12 +355,14 @@ router.get("/wordProblem", async (req, res, next) => {
   }
 });
 
-router.post("/wordProblem", (req, res, next) => {
+router.post("/wordProblem", async (req, res, next) => {
   let wordJSON = useVar[req.cookies.profileData || 404]["problem"];
 
   const arr = req.body;
 
-  const { points, arrayOfAnswers } = verifyQuestion(wordJSON, arr);
+  const { points, arrayOfAnswers } = await verifyQuestion(wordJSON, arr);
+
+  await insertData(req.cookies.profileData, "Word Problem", points);
 
   res.send({ points, arrayOfAnswers });
 });
@@ -377,12 +406,14 @@ router.get("/flashCard", async (req, res, next) => {
   }
 });
 
-router.post("/flashCard", (req, res, next) => {
+router.post("/flashCard", async (req, res, next) => {
   let flashJSON = useVar[req.cookies.profileData || 404]["flash"];
 
   const arr = req.body;
 
-  const { points, arrayOfAnswers } = verifyQuestion(flashJSON, arr);
+  const { points, arrayOfAnswers } = await verifyQuestion(flashJSON, arr);
+
+  await insertData(req.cookies.profileData, "Flash Card", points);
 
   res.send({ points, arrayOfAnswers });
 });

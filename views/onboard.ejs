@@ -1,42 +1,49 @@
 <%- include("./partials/header.ejs") %>
 <div class="container">
+  <div class="well well-sm">
+    <div style="display: flex; justify-content: center;">
+      <div style="padding-top: 20px;">
+        <h4>
+          <%= profileData.name %>
+        </h4>
+        <small
+          ><cite title="San Francisco, USA"
+            ><%= profileData.address %><i
+              class="glyphicon glyphicon-map-marker"
+            >
+            </i></cite
+        ></small>
+        <p>
+          <i class="glyphicon glyphicon-envelope"></i><%= profileData.email %>
+          <br />
+          <i class="glyphicon glyphicon-globe"></i
+          ><a href="http://www.jquery2dotnet.com"><%= profileData.number %></a>
+          <br />
+          <i class="glyphicon glyphicon-gift"></i>Age-: <%= profileData.age %>
+          <!-- Split button -->
+        </p>
+      </div>
 
-          <div class="well well-sm">
-              <div style="display: flex;  justify-content: center;">
-              
-                  <div style="padding-top: 20px;">
-                      <h4>
-                        <%= profileData.name %></h4>
-                      <small><cite title="San Francisco, USA"><%= profileData.address %><i class="glyphicon glyphicon-map-marker">
-                      </i></cite></small>
-                      <p>
-                          <i class="glyphicon glyphicon-envelope"></i><%= profileData.email %>
-                          <br />
-                          <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com"><%= profileData.number %></a>
-                          <br />
-                          <i class="glyphicon glyphicon-gift"></i>Age-: <%= profileData.age %>
-                      <!-- Split button -->
-                   
-                  </div>
-                  <div style="flex-grow: 2;">
-
-                  </div>
-                  <div >
-                    <div class="btn-group" style="margin-left: auto; padding-top: 20px;">
-                      <button type="button" class="btn btn-warning btn-btn" onclick="profileVisit()">
-                          Update</button>
-                     
-                  </div>
-                  </div>
-              </div>
-          </div>
-          <hr>
-
+      <div style="flex-grow: 2;"></div>
+      <div>
+        <div class="btn-group" style="margin-left: auto; padding-top: 20px;">
+          <button
+            type="button"
+            class="btn btn-warning btn-btn"
+            onclick="profileVisit()"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr />
 </div>
-<div class="onboarding" style="">
+<div class="onboarding">
   <div class="container">
     <div class="row">
-      <div class="col ">
+      <div class="col">
         <div class="card" style="width: 18rem; margin: auto !important;">
           <div class="text-center">
             <img
@@ -108,5 +115,43 @@
     </div>
   </div>
 </div>
+
+<div class="container userScore">
+  <h1>Your Score</h1>
+  <div id="quiz-scores">
+
+  </div>
+</div>
+
+<script>
+  const results = <%- JSON.stringify(resultArr) %>;
+  let tableData = "";
+
+  results.forEach((result, index) => {
+    tableData += `<tr>
+      <td class="table-value">${index + 1}</td>
+      <td class="table-value">${result.Type}</td>
+      <td class="table-value">${result.Score}</td>
+      <td class="table-value">${result.Date}</td>
+      </tr>`
+    })
+
+  document.getElementById("quiz-scores").innerHTML = 
+          `
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col table-heading">S. No.</th>
+                  <th scope="col table-heading">Quiz Type</th>
+                  <th scope="col table-heading">Points</th>
+                  <th scope="col table-heading">Date Completed</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${tableData}
+              </tbody>
+            </table>
+            `
+</script>
 
 <%- include("./partials/footer.ejs") %>
