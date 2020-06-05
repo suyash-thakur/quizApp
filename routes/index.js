@@ -46,27 +46,27 @@ const questionsGenerate = (typeOfQuestion) => {
   return questionArr;
 };
 
-router.use(async (req, res, next) => {
-  if (Object.keys(req.cookies).length !== 0) {
-    var email = req.cookies.profileData;
-    await connection.query(
-      "SELECT * FROM users WHERE email = ?",
-      [email],
-      (error, results, fields) => {
-        if (results.length > 0) {
-          if (useVar[email] === undefined) {
-            useVar[email] = results[0];
-          }
-          useVar[email].loggedIn = true;
-          next();
-        } else {
-          useVar[email].loggedIn = false;
-          next();
-        }
-      }
-    );
-  }
-});
+// router.use(async (req, res, next) => {
+//   if (Object.keys(req.cookies).length !== 0) {
+//     var email = req.cookies.profileData;
+//     await connection.query(
+//       "SELECT * FROM users WHERE email = ?",
+//       [email],
+//       (error, results, fields) => {
+//         if (results.length > 0) {
+//           if (useVar[email] === undefined) {
+//             useVar[email] = results[0];
+//           }
+//           useVar[email].loggedIn = true;
+//           next();
+//         } else {
+//           useVar[email].loggedIn = false;
+//           next();
+//         }
+//       }
+//     );
+//   }
+// });
 
 const verifyQuestion = (questionObj, selectedAnswers) => {
   let arrayOfAnswers = [],
@@ -89,25 +89,30 @@ const verifyQuestion = (questionObj, selectedAnswers) => {
 };
 
 const insertData = (email, type, points) => {
-  connection.query("INSERT INTO score values (?,?,?,?)", [email, type, points, moment().format('YYYY-MM-DD HH:mm:ss')], (error, results) => {
-    if (error) {
-      console.log(error);
+  connection.query(
+    "INSERT INTO score values (?,?,?,?)",
+    [email, type, points, moment().format("YYYY-MM-DD HH:mm:ss")],
+    (error, results) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log(results);
+      }
     }
-    else {
-      console.log(results);
-    }
-  });
-}
+  );
+};
 
 /* GET home page. */
 
 router.get("/", async (req, res, next) => {
   if (Object.keys(req.cookies).length === 0) {
-    res.redirect("/");
+    res.render("index");
   } else if (req.cookies.profileData === undefined) {
-    res.redirect("/");
+    res.render("index");
+  } else if (Object.keys(useVar).length === 0) {
+    res.render("index");
   } else if (!useVar[req.cookies.profileData].loggedIn) {
-    res.redirect("/");
+    res.render("index");
   } else if (!useVar[req.cookies.profileData].onboarded) {
     res.redirect("/profile");
   } else {
@@ -119,7 +124,6 @@ router.get("/onboard", async (req, res, next) => {
   if (Object.keys(req.cookies).length === 0) {
     res.redirect("/login");
   } else {
-
     let resultArr = [];
     let profileData;
 
@@ -140,14 +144,18 @@ router.get("/onboard", async (req, res, next) => {
       (error, results) => {
         if (results.length > 0) {
           results.forEach((result, index) => {
-            resultArr.push({"Score": result.points, "Type": result.questionType, "Date": moment(result.date).format("LLL")})
-            if(index >= results.length - 1){
-              res.render("onboard", { profileData, resultArr});
+            resultArr.push({
+              Score: result.points,
+              Type: result.questionType,
+              Date: moment(result.date).format("LLL"),
+            });
+            if (index >= results.length - 1) {
+              res.render("onboard", { profileData, resultArr });
             }
-          })
+          });
         }
       }
-    )
+    );
   }
 });
 
@@ -453,30 +461,49 @@ router.post("/quizquestion", (req, res, next) => {
 });
 
 router.post("/finalQuiz", async (req, res, next) => {
-  let {points, type, operation, screens, time} = req.body;
-  if(operation == "subAndAdd"){
-    operation = "+"; 
-  }
-  else{
+  let { points, type, operation, screens, time } = req.body;
+  if (operation == "subAndAdd") {
+    operation = "+";
+  } else {
     operation = "*";
   }
 
-  switch(type){
+  switch (type) {
     case "one":
-      type = "1"
+      type = "1";
       break;
     case "two":
-      type = "2"
+      type = "2";
       break;
     case "three":
-      type = "3"
+      type = "3";
       break;
     case "onetwo":
-      type = "1+2"
+      type = "1+2";
       break;
   }
 
-  await insertData(req.cookies.profileData, `Quiz - (Operation: ${operation}, Digits: ${type}, Rows: ${screens}, Time: ${time})`, points);
+  await insertData(
+    req.cookies.profileData,
+    `Quiz - (Operation: ${operation}, Digits: ${type}, Rows: ${screens}, Time: ${time})`,
+    points
+  );
+});
+
+router.get("/contact", (req, res, next) => {
+  res.render("contact");
+});
+
+router.post("/contact", (req, res, next) => {
+  const {firstname, lastname, pccode, pscode, pnumber, mccode, mnumber, occupation, email} = req.body;
+  connection.query("INSERT INTO register values(?,?,?,?,?,?)", [firstname, lastname, occupation, pccode + pscode + pnumber, mccode + mnumber, email], (error, results) => {
+    if(results){
+      res.render("index", {message: "Thank you for registering with us!"})
+    }
+    else{
+      res.render("error")
+    }
+  });
 })
 
 router.post("/clear", (req, res, next) => {
