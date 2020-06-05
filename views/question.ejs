@@ -25,13 +25,13 @@
                   <img src="/assets/abacus.png" class="abacus-img" />
                 </div>
                 <div class="timer-text">
-                  <b id="sign"> : + </b>
+                  <b id="sign"> + </b>
                 </div>
                 <div>
                   <img src="/assets/clock.png" class="abacus-img" />
                 </div>
                 <div class="timer-text">
-                  <b id="time"> : 60 </b>
+                  <b id="time"> 60 </b>
                 </div>
             </div>
           </div>
@@ -98,23 +98,22 @@
               var options = <%- JSON.stringify(quizChoices)   %>;
               var operation = <%- JSON.stringify(operation)   %>;
               var timeval = <%- JSON.stringify(time)   %>;
-
               var points= 0;
-              var currentquestion = 0;
+              var currentquestion = 1;
               var downloadTimer;
               var done = false;
               var questionArray = new Array();
               if(operation == "subAndAdd"){
-                document.getElementById('sign').innerHTML=": +";
+                document.getElementById('sign').innerHTML="+";
                 document.getElementById('Instruction').innerHTML="Find the sum of the numbers displayed in the cards below."
               }else {
-                document.getElementById('sign').innerHTML=": *";
+                document.getElementById('sign').innerHTML="*";
                 document.getElementById('Instruction').innerHTML="Find the product of the numbers displayed in the cards below."
-
               }
+
               document.getElementById('time').innerHTML=timeval;
 
-              document.getElementById('currentquestion').innerHTML = currentquestion + 1;
+              document.getElementById('currentquestion').innerHTML = currentquestion;
               for( var j = 0; j < question.length; j++){
                   var stringArray = new Array();
                   var string = question[j];
@@ -153,10 +152,10 @@
                       clearInterval(downloadTimer);
                       document.getElementById("question").style.display = "none";
                       document.getElementById("heading").style.opacity = 1;
-                      document.getElementById("option1").innerHTML = options[noOfQuestion - currentquestion - 1][0];
-                      document.getElementById("option2").innerHTML = options[noOfQuestion - currentquestion - 1][1];
-                      document.getElementById("option3").innerHTML = options[noOfQuestion - currentquestion - 1][2];
-                      document.getElementById("option4").innerHTML = options[noOfQuestion - currentquestion - 1][3];
+                      document.getElementById("option1").innerHTML = options[currentquestion - 1][0];
+                      document.getElementById("option2").innerHTML = options[currentquestion - 1][1];
+                      document.getElementById("option3").innerHTML = options[currentquestion - 1][2];
+                      document.getElementById("option4").innerHTML = options[currentquestion - 1][3];
                       document.getElementById("main-quiz-section").style.justifyContent = "space-evenly";
                       document.getElementById("option1").classList.add("choice-view")
                       document.getElementById("option2").classList.add("choice-view")
@@ -167,7 +166,7 @@
                   }
 
               document.getElementById("progressBar").textContent = timeleft;
-              document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion -1 ][currentDigit];
+              document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion][currentDigit];
               document.getElementById("question").opacity = 1;
               timeleft -= 1;
               }, 1000);
@@ -184,72 +183,71 @@
               }
 
               document.querySelectorAll(".choices").forEach((e) => {
-        e.addEventListener("click", () => {
-          const data = {
-            answer: e.innerText,
-            index: noOfQuestion - currentquestion -1,
-            question: question[noOfQuestion - currentquestion -1 ],
-          };
+              e.addEventListener("click", () => {
+                const data = {
+                  answer: e.innerText,
+                  index: currentquestion -1,
+                  question: question[currentquestion -1 ],
+                };
 
-          const url = "/quizquestion";
+                const url = "/quizquestion";
 
-          const param = {
-            headers: {
-              "content-type": "application/json; charset=UTF-8",
-            },
-            body: JSON.stringify(data),
-            method: "post",
-          };
-          fetch(url, param)
-            .then((response) => {
-              response = response.json();
-              return response;
-            })
-            .then((data) => {
-              if(!done){
-                if (data.result) {
-                  e.style.color = "#82ff50";
-                  document.getElementById("heading").style.color = "#82ff50";
-                  document.getElementById("heading").innerHTML = "CORRECT ANSWER";
-                  points = points + 1;
-                } else {
-                  e.style.color = "#f53d3d";
-                  document.getElementById("heading").style.color = "#f53d3d";
-                  document.getElementById("heading").innerHTML = "WRONG ANSWER";
-                }
-                document.querySelectorAll(".choices").forEach((e,index) => {
-                  if(e.innerText == data.answer){
-                    document.querySelectorAll(".choices")[index].style.color = "#82ff50";
-                    done = true;
-                  }}
-                )
-            }
-            })
-            .catch((err) => {
+                const param = {
+                  headers: {
+                    "content-type": "application/json; charset=UTF-8",
+                  },
+                  body: JSON.stringify(data),
+                  method: "post",
+                };
+                fetch(url, param)
+                  .then((response) => {
+                    response = response.json();
+                    return response;
+                  })
+                  .then((data) => {
+                      document.querySelectorAll(".choices").forEach((e,index) => {
+                          if(e.innerText == data.answer){
+                            document.querySelectorAll(".choices")[index].style.color = "#82ff50";
+                            done = true;
+                          }}
+                        )
+                      if (data.result) {
+                        e.style.color = "#82ff50";
+                        document.getElementById("heading").style.color = "#82ff50";
+                        document.getElementById("heading").innerHTML = "CORRECT ANSWER";
+                        points = points + 1;
+                      } else {
+                        e.style.color = "#f53d3d";
+                        document.getElementById("heading").style.color = "#f53d3d";
+                        document.getElementById("heading").innerHTML = "WRONG ANSWER";
+                      }
+                  })
+                  .catch((err) => {
+                  });
+              });
+
+
             });
-        });
-
-
-      });
 
       function nextQuestion() {
           timeleft = timeval;
           done = false;
+          currentquestion += 1;
           document.getElementById("heading").innerHTML = "Select The Correct Answer";
           document.getElementById("heading").style.color = "#000000db";
           document.getElementById("heading").style.opacity = 0;
 
-          if(currentquestion < noOfQuestion){
-            currentquestion = currentquestion + 1;
-            document.getElementById('currentquestion').innerHTML = currentquestion + 1;
+          if(currentquestion <= noOfQuestion){
+            document.getElementById('currentquestion').innerHTML = currentquestion;
             document.querySelectorAll(".choices").forEach((e) => {
               e.style.border.color = "#000000db";
               e.style.color = "#faef6f"
             })
             timer();
           }
-          if(currentquestion == noOfQuestion - 1) {
+          if(currentquestion > noOfQuestion) {
             clearInterval(downloadTimer);
+            document.getElementById("main-quiz-section").style.display = "None";
             document.querySelector(".quiz-number-section").innerHTML = 
             `
             <table class="table table-bordered">
@@ -265,6 +263,20 @@
               </tbody>
             </table>
             `
+
+            const finalUrl = "/finalQuiz";
+            let url = new URL(window.location.href);
+            let searchParams = new URLSearchParams(url.search);
+
+            const finalparam = {
+              headers: {
+                "content-type": "application/json; charset=UTF-8",
+              },
+              body: JSON.stringify({points, type: searchParams.get('type'), operation: searchParams.get('operation'), screens: searchParams.get('length'), time: searchParams.get('time')}),
+              method: "post",
+            };
+
+            fetch(finalUrl, finalparam)
           }
       }
       function reload() {

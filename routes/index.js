@@ -10,7 +10,7 @@ const problem = fs.readFileSync(__dirname + "/wordproblem.json");
 const flash = fs.readFileSync(__dirname + "/flashCard.json");
 
 const quizFunctionCall = {
-  one: 7,
+  one: 1,
   two: 6,
   three: 5,
   onetwo: 5,
@@ -53,19 +53,16 @@ router.use(async (req, res, next) => {
       "SELECT * FROM users WHERE email = ?",
       [email],
       (error, results, fields) => {
-        if (error || results === undefined) {
-          res.redirect("error");
-        }
-        else if (useVar[email] === undefined) {
-          useVar[email] = results[0];
-          next();
-        }
         if (results.length > 0) {
+          if (useVar[email] === undefined) {
+            useVar[email] = results[0];
+          }
           useVar[email].loggedIn = true;
+          next();
         } else {
           useVar[email].loggedIn = false;
+          next();
         }
-        next();
       }
     );
   }
@@ -448,11 +445,39 @@ router.post("/quizquestion", (req, res, next) => {
   result =
     useVar[req.cookies.profileData]["quiz"][req.body.index].answer ==
     req.body.answer;
+
   res.json({
     result: result,
     answer: useVar[req.cookies.profileData]["quiz"][req.body.index].answer,
   });
 });
+
+router.post("/finalQuiz", async (req, res, next) => {
+  let {points, type, operation, screens, time} = req.body;
+  if(operation == "subAndAdd"){
+    operation = "+"; 
+  }
+  else{
+    operation = "*";
+  }
+
+  switch(type){
+    case "one":
+      type = "1"
+      break;
+    case "two":
+      type = "2"
+      break;
+    case "three":
+      type = "3"
+      break;
+    case "onetwo":
+      type = "1+2"
+      break;
+  }
+
+  await insertData(req.cookies.profileData, `Quiz - (Operation: ${operation}, Digits: ${type}, Rows: ${screens}, Time: ${time})`, points);
+})
 
 router.post("/clear", (req, res, next) => {
   useVar[req.cookies.profileData] = { loggedIn: false };
