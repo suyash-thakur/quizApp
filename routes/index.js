@@ -10,7 +10,7 @@ const problem = fs.readFileSync(__dirname + "/wordproblem.json");
 const flash = fs.readFileSync(__dirname + "/flashCard.json");
 
 const quizFunctionCall = {
-  one: 1,
+  one: 7,
   two: 6,
   three: 5,
   onetwo: 5,
