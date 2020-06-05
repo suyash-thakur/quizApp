@@ -45,25 +45,29 @@ const questionsGenerate = (typeOfQuestion) => {
   return questionArr;
 };
 
-router.use((req, res, next) => {
+router.use(async (req, res, next) => {
   if (Object.keys(req.cookies).length !== 0) {
     var email = req.cookies.profileData;
-    connection.query(
+    await connection.query(
       "SELECT * FROM users WHERE email = ?",
       [email],
       (error, results, fields) => {
-        if (error) {
+        if (error || results === undefined) {
           res.redirect("error");
         }
-        if (results.length > 0) {
-          useVar[email] = { loggedIn: true };
-        } else {
-          useVar[email] = { loggedIn: false };
+        else if(useVar[email] === undefined){
+          useVar[email] = results[0];
+          next();
         }
+        if (results.length > 0) {
+          useVar[email].loggedIn = true;
+        } else {
+          useVar[email].loggedIn = false;
+        }
+        next();
       }
     );
   }
-  next();
 });
 
 const verifyQuestion = (questionObj, selectedAnswers) => {
@@ -89,7 +93,18 @@ const verifyQuestion = (questionObj, selectedAnswers) => {
 /* GET home page. */
 
 router.get("/", async (req, res, next) => {
-  res.render("index");
+  console.log(useVar)
+  if (Object.keys(req.cookies).length === 0) {
+    res.redirect("/");
+  } else if (req.cookies.profileData === undefined) {
+    res.redirect("/");
+  } else if (!useVar[req.cookies.profileData].loggedIn) {
+    res.redirect("/");
+  } else if (!useVar[req.cookies.profileData].onboarded) {
+    res.redirect("/profile");
+  } else {
+    res.redirect("/onboard");
+  }
 });
 
 router.get("/onboard", (req, res, next) => {
@@ -123,6 +138,7 @@ router.post("/login", (req, res) => {
           const userObj = results[0];
           res.cookie("userData", userObj.name);
           res.cookie("profileData", userObj.email);
+          useVar[userObj.email] = userObj;
 
           if (userObj.onboarded) {
             res.redirect("/");
@@ -204,7 +220,6 @@ router.get("/profile", (req, res, next) => {
         if (error) {
           res.redirect("error");
         }
-
         if (results.length > 0) {
           let profileData = results[0];
           delete profileData["password"];
