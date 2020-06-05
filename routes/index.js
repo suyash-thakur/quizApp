@@ -108,7 +108,23 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/onboard", (req, res, next) => {
-  res.render("onboard");
+  if (Object.keys(req.cookies).length === 0) {
+    res.redirect("/login");
+  } else{
+
+  
+  connection.query(
+    "SELECT * FROM users WHERE email = ?",
+    [req.cookies.profileData],
+    (error, results) => {
+      if (results.length > 0) {
+        let profileData = results[0];
+        delete profileData["password"];
+        res.render("onboard", { profileData, error: "Incorrect Password!", });
+      }
+    }
+  );
+  }
 });
 
 router.get("/quiz", (req, res, next) => {

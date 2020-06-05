@@ -1,10 +1,43 @@
 <%- include("./partials/header.ejs") %>
+<div class="container">
 
-<div class="onboarding">
+          <div class="well well-sm">
+              <div style="display: flex;  justify-content: center;">
+              
+                  <div style="padding-top: 20px;">
+                      <h4>
+                        <%= profileData.name %></h4>
+                      <small><cite title="San Francisco, USA"><%= profileData.address %><i class="glyphicon glyphicon-map-marker">
+                      </i></cite></small>
+                      <p>
+                          <i class="glyphicon glyphicon-envelope"></i><%= profileData.email %>
+                          <br />
+                          <i class="glyphicon glyphicon-globe"></i><a href="http://www.jquery2dotnet.com"><%= profileData.number %></a>
+                          <br />
+                          <i class="glyphicon glyphicon-gift"></i>Age-: <%= profileData.age %>
+                      <!-- Split button -->
+                   
+                  </div>
+                  <div style="flex-grow: 2;">
+
+                  </div>
+                  <div >
+                    <div class="btn-group" style="margin-left: auto; padding-top: 20px;">
+                      <button type="button" class="btn btn-warning btn-btn" onclick="profileVisit()">
+                          Update</button>
+                     
+                  </div>
+                  </div>
+              </div>
+          </div>
+          <hr>
+
+</div>
+<div class="onboarding" style="">
   <div class="container">
     <div class="row">
-      <div class="col">
-        <div class="card" style="width: 18rem;">
+      <div class="col ">
+        <div class="card" style="width: 18rem; margin: auto !important;">
           <div class="text-center">
             <img
               class="card-img-top image"
@@ -27,7 +60,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; margin: auto !important;">
           <div class="text-center">
             <img
               class="card-img-top image"
@@ -50,7 +83,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="card" style="width: 18rem;">
+        <div class="card" style="width: 18rem; margin: auto !important;">
           <div class="text-center">
             <img
               class="card-img-top image"
