@@ -123,35 +123,42 @@
   </div>
 </div>
 
+<% if (locals.resultArr) { %>
 <script>
-  const results = <%- JSON.stringify(resultArr) %>;
-  let tableData = "";
+    const results = <%- JSON.stringify(resultArr) %>;
+    let tableData = "";
 
-  results.forEach((result, index) => {
-    tableData += `<tr>
-      <td class="table-value">${index + 1}</td>
-      <td class="table-value">${result.Type}</td>
-      <td class="table-value">${result.Score}</td>
-      <td class="table-value">${result.Date}</td>
-      </tr>`
-    })
+    results.forEach((result, index) => {
+      tableData += `<tr>
+        <td class="table-value">${index + 1}</td>
+        <td class="table-value">${result.Type}</td>
+        <td class="table-value">${result.Score}</td>
+        <td class="table-value">${result.Date}</td>
+        </tr>`
+      })
 
-  document.getElementById("quiz-scores").innerHTML = 
-          `
-            <table class="table table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col table-heading">S. No.</th>
-                  <th scope="col table-heading">Quiz Type</th>
-                  <th scope="col table-heading">Points</th>
-                  <th scope="col table-heading">Date Completed</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${tableData}
-              </tbody>
-            </table>
+    document.getElementById("quiz-scores").innerHTML = 
             `
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col table-heading">S. No.</th>
+                    <th scope="col table-heading">Quiz Type</th>
+                    <th scope="col table-heading">Points</th>
+                    <th scope="col table-heading">Date Completed</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${tableData}
+                </tbody>
+              </table>
+              `
 </script>
+<% } else {%>
+<script>
+  document.getElementById("quiz-scores").innerHTML = "<h5>You haven't given any tests yet!</h5>"
+</script>
+
+<% } %>
 
 <%- include("./partials/footer.ejs") %>
