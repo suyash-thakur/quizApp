@@ -155,6 +155,10 @@ router.get("/onboard", async (req, res, next) => {
             }
           });
         }
+
+        else{
+          res.render("onboard", { profileData });
+        }
       }
     );
   }
