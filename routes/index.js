@@ -207,7 +207,9 @@ router.post("/login", (req, res) => {
 router.get("/DemoQuiz", (req, res, next) => {
   res.render("DemoQuiz");
 });
-
+router.get("/abacus", (req, res, next) => {
+  res.render("abacus");
+});
 router.get("/WordStart", (req, res, next) => {
   res.render("WordStart");
 });
