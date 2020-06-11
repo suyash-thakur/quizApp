@@ -1,13 +1,39 @@
 <%- include("./partials/header.ejs") %>
-<body onload="run();">
-       <div id="myAbacus" style="display: flex; align-items: center; justify-content: center;"> </div> 
-</body>
-<%- include("./partials/footer.ejs") %>
+
+<div
+  id="myAbacus"
+  style="display: flex; align-items: center; justify-content: center; flex-direction: column;"
+>
+  <h2>Please rotate your device</h2>
+  <br /><img src="assets/rotate.webp" />
+</div>
+
 <script src="scripts/abacus.js"></script>
 
 <script>
- function run() {
-        var abacus = new Abacus("myAbacus", 0);
+  const previousOrientation = window.orientation;
+  const abacus = new Abacus("myAbacus", 0);
+  let created = false;
+
+  function checkOrientation() {
+    if (window.innerHeight <= window.innerWidth) {
+      if (!created) {
+        document.getElementById("myAbacus").innerHTML = "";
         abacus.init();
+        created = true;
       }
+    } else {
+      if (created) {
+        document.getElementById("myAbacus").innerHTML =
+          "<h2>Please rotate your device</h2><br><img src='assets/rotate.webp'>";
+        created = false;
+      }
+    }
+  }
+
+  window.addEventListener("resize", checkOrientation);
+  window.addEventListener("orientationchange", checkOrientation);
+
+  setTimeout(checkOrientation, 500);
 </script>
+<%- include("./partials/footer.ejs") %>
