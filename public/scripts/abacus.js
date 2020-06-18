@@ -17,7 +17,7 @@ function Bead() {
 function AbacusCtrl(type) {
   this.type = type;
 
-  this.beadLines = 8;
+  this.beadLines = 13;
   this.beadPerLine = this.type == 0 ? 5 : 7;
   this.beadSep = this.type == 0 ? 3 : 4;
   this.beadHeight = 40;
@@ -31,16 +31,13 @@ function AbacusCtrl(type) {
     for (var i = 0; i < this.beadLines; i++) {
       for (var j = 0; j < this.beadPerLine; j++) {
         var bead = new Bead();
-        bead.position[0] = 580 - i * this.beadSpacing;
-        bead.position[1] =
-          60 + this.beadPerLine * this.beadHeight - j * this.beadHeight;
+        bead.position[0] = 980 - i * this.beadSpacing;
+        bead.position[1] = 60 + this.beadPerLine * this.beadHeight - j * this.beadHeight;
         bead.value = 1;
         if (j > this.beadSep) {
           bead.position[1] =
-            60 +
-            this.beadPerLine * this.beadHeight -
-            (j * this.beadHeight + 2 * this.beadHeight);
-          bead.value = 5;
+            60 + this.beadPerLine * this.beadHeight - (j * this.beadHeight + 2 * this.beadHeight);
+            bead.value = 5;
         }
         bead.uniqueID = id;
         this.nodes.push(bead);
@@ -179,13 +176,6 @@ function Abacus(parentDivId, type) {
     ctx.fillStyle = "rgba(255, 255, 255, 1.0)";
 
     uiElements.push(dn);
-    if (false) {
-      ctx.fillStyle = "rgba(0, 0, 0, 1.0)";
-      ctx.textAlign = "left";
-      ctx.font = "10pt sans-serif";
-      ctx.fillText("ID: " + nodeId, dn.x + 4, dn.y2 - 13);
-      ctx.lineWidth = 1;
-    }
   }
 
   function drawBeads(ctx) {
@@ -200,49 +190,6 @@ function Abacus(parentDivId, type) {
 
     uiElements.length = 0;
     var ctx = canvas.getContext("2d");
-    ctx.strokeStyle = "#000000";
-
-    if (false) {
-      ctx.strokeStyle = "#808080";
-      var stepsX = 20.0 - 0.0;
-      var stepsY = 20.0 - 0.0;
-
-      var lx = 0 % stepsX;
-      var ly = 0 % stepsY;
-      var Lx = 0 % (stepsX * 5.0);
-      if (Lx < 0.0) Lx += stepsX * 5.0;
-      var Ly = 0 % (stepsY * 5.0);
-      if (Ly < 0.0) Ly += stepsY * 5.0;
-
-      while (lx < canvas.width) {
-        if (Math.abs(Lx - lx) < 0.001) {
-          ctx.strokeStyle = "#404040";
-          Lx += stepsX * 5.0;
-        } else {
-          ctx.strokeStyle = "#808080";
-        }
-        ctx.beginPath();
-        ctx.moveTo(lx, 0);
-        ctx.lineTo(lx, canvas.height);
-        ctx.stroke();
-        lx += stepsX;
-      }
-
-      while (ly < canvas.height) {
-        if (Math.abs(Ly - ly) < 0.001) {
-          ctx.strokeStyle = "#404040";
-          Ly += stepsY * 5.0;
-        } else {
-          ctx.strokeStyle = "#808080";
-        }
-        ctx.beginPath();
-        ctx.moveTo(0, ly);
-        ctx.lineTo(canvas.width, ly);
-        ctx.stroke();
-        ly += stepsY;
-      }
-    }
-
     ctx.strokeStyle = "#000000";
     ctx.lineWidth = 5;
     for (var i = 0; i < abacusCtrl.beadLines; i++) {
@@ -266,7 +213,7 @@ function Abacus(parentDivId, type) {
         y = 20 + (abacusCtrl.beadPerLine + 2) * abacusCtrl.beadHeight;
       ctx.beginPath();
       ctx.moveTo(20, y);
-      ctx.lineTo(640, y);
+      ctx.lineTo(1040, y);
       ctx.stroke();
     }
     ctx.lineWidth = 1;
@@ -333,8 +280,6 @@ function Abacus(parentDivId, type) {
     }
     event.preventDefault();
   }
-
-  function canvasMouseUp(event) {}
 
   function canvasMouseMove(event) {
     var pos = getMouse(event);
