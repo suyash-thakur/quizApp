@@ -305,6 +305,9 @@ html {
     padding-right: 15px;
     padding-left: 15px;
   }
+  .rev {
+    flex-direction: row-reverse !important;
+  }
 }
 #team {
   background: #eee !important;

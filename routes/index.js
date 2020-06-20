@@ -214,6 +214,9 @@ router.get("/DemoQuiz", (req, res, next) => {
 router.get("/abacus", (req, res, next) => {
   res.render("abacus");
 });
+router.get("/abacusHome", (req, res, next) => {
+  res.render("abacusHome");
+});
 router.get("/WordStart", (req, res, next) => {
   res.render("WordStart");
 });
