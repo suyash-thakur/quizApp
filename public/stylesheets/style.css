@@ -797,3 +797,38 @@ a.login-link {
     font-size: 16px;
   }
 }
+
+.yellow-square {
+  width: 135px;
+  height: 172px;
+  background-color: #F2D984;
+}
+
+.blue-square {
+  width: 175px;
+  height: 150px;
+  background-color: #5DC5FD;
+}
+
+.about-us-heading {
+  font-size: 64px;
+}
+
+.height-64 {
+  height: 64px;
+}
+
+.learn-online {
+  height: 320px;
+}
+
+.flags {
+  max-width: 175px;
+  margin: 30px 20px 10px 20px;
+}
+
+@media only screen and (max-width: 480px) {
+  .hidden-on-mobile {
+    display: none;
+  }
+}
