@@ -950,7 +950,7 @@ a.login-link {
     height: 100%;
     width: 100%;
     margin: auto;
-    border-radius:0;
+    border-radius: 0;
   }
 }
 
@@ -960,4 +960,114 @@ a.login-link {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+
+.join-us-section {
+  margin-top: 40px;
+}
+
+.join-us-img {
+  width: 100%;
+  position: relative;
+  z-index: -2;
+  margin: -35px 2px;
+}
+
+.join-us-overflow {
+  background-color: rgba(242, 217, 132, 0.6);
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.center-img-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 64px;
+}
+
+.join-us-form-section {
+  margin-top: 20px;
+}
+
+.join-us-form-text {
+  width: 75%;
+  border-bottom: 3px solid #5DC5FD;
+  margin-bottom: 20px;
+}
+
+.join-us-form-text input {
+  border: none;
+  width: 100%;
+}
+
+.get-in-touch-img {
+  width: 50%;
+}
+
+.get-in-touch-section .col-lg-6{
+  margin-top: 75px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.get-in-touch-section .col-lg-6 h1{
+  font-size: 54px;
+}
+
+.get-in-touch-section .col-lg-6 h2{
+  font-size: 44px;
+}
+
+.get-in-touch-section + .row{
+  margin-top: 30px;
+}
+
+.contact-us {
+  color: #5DC5FD;
+  font-size: 58px;
+  text-align: center;
+}
+
+@media screen and (max-width: 512px){
+  .join-us-form-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .join-us-form-text {
+    width: 90%;
+  }
+
+  .join-us-section .col-lg-6:nth-child(2){
+    margin-top: 20px;
+  }
+
+  .get-in-touch-section .col-lg-6 > h1{
+    font-size: 36px;
+  }
+
+  .get-in-touch-section .col-lg-6 > h2 {
+    font-size: 32px;
+  }
+
+  .get-in-touch-section + .row > .col-lg-6:nth-child(2){
+    order: 1;
+  }
+
+  .get-in-touch-section + .row > .col-lg-6:nth-child(1){
+    order: 2;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-items: center;
+  }
 }
