@@ -508,8 +508,8 @@ router.get("/contact", (req, res, next) => {
 });
 
 router.post("/contact", (req, res, next) => {
-  const {firstname, lastname, pccode, pscode, pnumber, mccode, mnumber, occupation, email} = req.body;
-  connection.query("INSERT INTO register values(?,?,?,?,?,?)", [firstname, lastname, occupation, pccode + pscode + pnumber, mccode + mnumber, email], (error, results) => {
+  const {name,email, number, subject, curriculum} = req.body;
+  connection.query("INSERT INTO register values(?,?,?,?,?)", [name, email, number, subject, curriculum], (error, results) => {
     if(results){
       res.render("index", {message: "Thank you for registering with us!"})
     }

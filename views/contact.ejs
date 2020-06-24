@@ -15,7 +15,14 @@
               <div class="join-us-form-text"><input type="email" placeholder="Email" name="email"></div>
               <div class="join-us-form-text"><input type="number" placeholder="Phone" name="number"></div>
               <div class="join-us-form-text"><input type="text" placeholder="Subject" name="subject"></div>
-              <div class="join-us-form-text"><input type="text" placeholder="Curriculum" name="curriculum"></div>
+              <div class="join-us-form-text">
+                <select name="curriculum">
+                  <option value="Curriculum" disabled selected>Curriculum</option>
+                  <option value="Elementary School">Elementary School</option>
+                  <option value="Middle School">Middle School</option>
+                  <option value="High School">High School</option>
+                </select>
+              </div>
               <% if (locals.error) { %>
                 <div class="alert alert-danger" role="alert">
                     <%= error %>
