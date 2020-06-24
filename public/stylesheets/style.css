@@ -679,7 +679,7 @@ a.login-link {
 
 .card {
   padding: 10px 0 0 0;
-  border: 2px solid #000000db;
+  border: none !important;
 }
 
 .btn-sec {

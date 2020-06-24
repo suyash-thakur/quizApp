@@ -1,0 +1,109 @@
+<%- include("./partials/header.ejs") %>
+
+<div class="onboarding">
+  <div class="container">
+    <div class="row">
+    <div class="col-md-4">
+        <div style="display: flex; width: 100%; flex-direction: column; justify-content: center; align-items: center;" >
+            <div><h1 style="text-align: center;">Quiz</h1></div>
+            <div>
+            <img src="/assets/panel1.png" style="width: 300px;">
+        </div>
+        <div style="text-align: center;">
+            <p>
+                You will be provided various problems and you have to select the answer which you get by solving the problem.
+            </p>
+        </div>
+        <div class="text-center">
+            <a href="/quiz" class="btn btn-warning btn-btn">Start</a>
+          </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div style="display: flex; width: 100%; flex-direction: column; justify-content: center; align-items: center;" >
+            <div><h1 style="text-align: center;">Flashcard</h1></div>
+
+            <div>
+            <img src="/assets/panel2.png" style="width: 300px;">
+        </div>
+        <div style="text-align: center;">
+            <p>
+                The best way to quickly do simple to complex mathematical calculations with speed and accuracy.
+            </p>
+        </div>
+        <div class="text-center">
+            <a href="/flashCard" class="btn btn-warning btn-btn">Start</a>
+
+          </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div><h1 style="text-align: center;">Word Problems</h1></div>
+
+        <div style="display: flex; width: 100%; flex-direction: column; justify-content: center; align-items: center;" >
+            <div>
+            <img src="/assets/panel3.png" style="width: 300px;">
+        </div>
+        <div style="text-align: center;">
+            <p>
+                A fun filled, fastest finger play so children learn it without efforts. I It helps in developing child’s memory
+                concentration and analytic skills.
+            </p>
+        </div>
+        <div class="text-center">
+            <a href="/wordProblem" class="btn btn-warning btn-btn">Start</a>
+
+          </div>
+        </div>
+    </div>
+ 
+    </div>
+  </div>
+</div>
+
+<div class="container userScore">
+  <h1>Your Score</h1>
+  <div id="quiz-scores">
+
+  </div>
+</div>
+
+<% if (locals.resultArr) { %>
+<script>
+    const results = <%- JSON.stringify(resultArr) %>;
+    let tableData = "";
+
+    results.forEach((result, index) => {
+      tableData += `<tr>
+        <td class="table-value">${index + 1}</td>
+        <td class="table-value">${result.Type}</td>
+        <td class="table-value">${result.Score}</td>
+        <td class="table-value">${result.Date}</td>
+        </tr>`
+      })
+
+    document.getElementById("quiz-scores").innerHTML = 
+            `
+              <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col table-heading">S. No.</th>
+                    <th scope="col table-heading">Quiz Type</th>
+                    <th scope="col table-heading">Points</th>
+                    <th scope="col table-heading">Date Completed</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${tableData}
+                </tbody>
+              </table>
+              `
+</script>
+<% } else {%>
+<script>
+  document.getElementById("quiz-scores").innerHTML = "<h5>You haven't given any tests yet!</h5>"
+</script>
+
+<% } %>
+
+<%- include("./partials/footer.ejs") %>

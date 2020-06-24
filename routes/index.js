@@ -167,7 +167,9 @@ router.get("/onboard", async (req, res, next) => {
 router.get("/quiz", (req, res, next) => {
   res.render("quiz");
 });
-
+router.get("/practice", (req, res, next) => {
+  res.render("practice");
+});
 router.get("/teacher", (req, res, next) => {
   res.render("teacher");
 });
