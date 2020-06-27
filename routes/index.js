@@ -170,6 +170,9 @@ router.get("/quiz", (req, res, next) => {
 router.get("/practice", (req, res, next) => {
   res.render("practice");
 });
+router.get("/schoolProgram", (req, res, next) => {
+  res.render("schoolProgram");
+});
 router.get("/teacher", (req, res, next) => {
   res.render("teacher");
 });
