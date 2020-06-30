@@ -176,8 +176,8 @@ router.get("/home", (req, res, next) => {
 router.get("/schoolProgram", (req, res, next) => {
   res.render("schoolProgram");
 });
-router.get("/teacher", (req, res, next) => {
-  res.render("teacher");
+router.get("/about", (req, res, next) => {
+  res.render("about");
 });
 
 router.get("/login", (req, res, next) => {
