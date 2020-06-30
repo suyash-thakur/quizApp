@@ -1,0 +1,187 @@
+<%- include("./partials/header.ejs") %>
+<div class="container">
+    <div class="row">
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                  <div style="background-image: url('/assets/background.png');" class="imageItem">
+                    <div style="padding-left: 10%; padding-right: 10%; text-align: center;">
+                        <h1 style="text-align: center;">Give your child (5-15 years) an edge,
+                            when it matters most...
+                            </h1>
+                            <br>
+                            <a href="/login" class="login-link">
+                                <h4 style="color: white; text-align: center;">Register for a live Demo to see how it will benefit your child-></h4>
+                                <br>
+                            <div class="button-login" id="login-button">
+                                <div class="text-login">
+                                     Register
+                                </div>
+                                <div class="right-arrow">
+                                    <img src="/assets/Path 17.svg">
+                                </div>
+                            </div>
+                            </a>
+                    </div>
+              
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div style="background-image: url('/assets/caros.png');" class="imageItem">
+                    <div style="padding-left: 10%; padding-right: 10%; text-align: center;">
+                        <h4 style="text-align: center;">Be it Personalized, One-on-One Instructor for your ward, or
+                            Group online tutoring for collective learning, 
+                            
+                            </h4>
+                            <br>
+                            <h4 style="text-align: center;">We have it all – from Grade-1 to Grade-12 
+                                Guaranteed Performance, Outcome Driven</h4>
+                            <br>
+                            
+                    </div>
+              
+                </div>
+              </div>
+              <div class="carousel-item" >
+                <div style="background-image: url('/assets/caros2.png');" class="imageItem">
+                    <div style="padding-left: 10%; padding-right: 10%; text-align: center; width: 100%;">
+                        <h1 style="text-align: center;  width: 100%;">We help child; succeed in school,Instant Online Tutoring – All subjects: Anytime @ your convenience.. <br>
+                            </h1>
+                            <br>
+                            <h4 style="text-align: center;"></h4>
+                            <br>
+                            
+                    </div>
+              
+                </div>
+              </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+    </div>
+    <div class="row" style="padding: 0px !important;">
+      <div class="col-md-8 col-xs-12" style="padding: 0px !important;">
+        <div style="width: 100%;">
+          <img src="/assets/logo.png" style="width: 100px;">
+          <h1 style="color: #B4B4B4;">Learn With Us</h1>
+          <h1>Enabling Smarter Generation </h1>
+        </div>
+        <img src="/assets/studygirl.png" class="imgSignup">
+      </div>
+      <div class="col-md-4 col-xs-12" style="padding: 0px !important; ">
+        <br>
+        <br>
+      <div style="display: flex;">
+        <div style="flex-grow: 1; text-align: left; padding-right: 30px; padding-left: 30px; background-color: #FAFAFA; height: 555px;">
+          <div style="margin-left: auto;">
+            <h1>Signup Now</h1>
+        <form action="contact" method="POST">
+          <div class="join-us-form-section">
+          <div class="join-us-form-text" style="width: 100% !important;"><input type="text" placeholder="Name" name="name" ></div>
+          <div class="join-us-form-text" style="width: 100% !important;"><input type="email" placeholder="Email" name="email" style="width: 100% !important;"></div>
+          <div class="join-us-form-text" style="width: 100% !important;"><input type="number" placeholder="Phone" name="number"></div>
+          <div class="join-us-form-text" style="width: 100% !important;"><input type="text" placeholder="Subject" name="subject"></div>
+          <div class="join-us-form-text" style="width: 100% !important;">
+            <select name="curriculum">
+              <option value="Curriculum" disabled selected>Curriculum</option>
+              <option value="Elementary School">Elementary School</option>
+              <option value="Middle School">Middle School</option>
+              <option value="High School">High School</option>
+            </select>
+          </div>
+          <% if (locals.error) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+      </div>
+      <p>Terms & Condition</p>
+      <p style="font-size: 10px;">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+      </p>
+        <div class="text-center">
+          <button type="submit" class="btn btn-warning btn-btn clickable">Submit</button>
+        </div>
+        <br>
+        <p>Already have an account?<span> <a>Log In</a></span></p>
+      </form>
+      <br>
+    </div>
+    </div>
+    <div class="d-none d-sm-block">
+      <img src="/assets/border.png" style="width: 50px; height: 555px;" >
+    </div>
+      </div>
+      </div>
+    </div>
+</div>
+<br>
+<div style="width: 100%; background-color: #F8F8F8;"> 
+  <div class="container">
+<div class="row">
+  <div class="col-md-4 col-xs-12">
+    <div style="display: flex; justify-content: flex-start; align-items: center; flex-direction: column;">
+      <div>
+        <br>
+        <img src="/assets/pencil.png" style="height: 150px;">
+
+      </div>
+      <div style="text-align: center;">
+        <h3>Wide Range of Subjects</h3>
+        <p>
+          Lorem ipsum dolor sit amet, 
+consectetur adipiscing elit,
+sed do eiusmod tempor 
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-xs-12">
+    <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+      <div>
+        <br>
+        <img src="/assets/search.png" style="height: 150px;">
+   
+      </div>
+      <div style="text-align: center;">
+        <h3>Study in Online Mode</h3>
+        <p>
+          Lorem ipsum dolor sit amet, 
+consectetur adipiscing elit,
+sed do eiusmod tempor 
+        </p>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-4 col-xs-12">
+    <div style="display: flex; justify-content: flex-end; align-items: center; flex-direction: column;">
+      <div>
+        <br>
+        <img src="/assets/problem.png" style="height: 150px;">
+
+      </div>
+      <div style="text-align: center;">
+        <h3>Tests and Assignments</h3>
+        <p>
+          Lorem ipsum dolor sit amet, 
+consectetur adipiscing elit,
+sed do eiusmod tempor 
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="container">
+  
+</div>
+<%- include("./partials/footer.ejs") %>
