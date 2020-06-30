@@ -1,75 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="\stylesheets\header.css"  type="text/css">
-    <link rel="stylesheet" href="\stylesheets\footer.css"  type="text/css">
-    <link rel="stylesheet" href="\stylesheets\style.css"  type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Cabin:400,700" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:900" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="\stylesheets\header.css" type="text/css" />
+    <link rel="stylesheet" href="\stylesheets\footer.css" type="text/css" />
+    <link rel="stylesheet" href="\stylesheets\style.css" type="text/css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Cabin:400,700"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:900"
+      rel="stylesheet"
+    />
     <title>Quiz Website</title>
-</head>
-<body>
+  </head>
+  <body>
     <div>
       <% if (locals.message) { %>
-        <div class="alert alert-success" role="alert" style="margin-bottom: 0; ">
-            <%= message %>
-        </div>
+      <div class="alert alert-success" role="alert" style="margin-bottom: 0;">
+        <%= message %>
+      </div>
       <% } %>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top" >
-            <a class="navbar-brand" href="/">SharpMind Labs</a>
-            <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ml-auto">
-                <li class="nav-item navItem">
-                  <a class="nav-link" href="/teacher">Teachers</a>
+      <nav
+        class="navbar navbar-expand-lg navbar-light bg-light navbar-fixed-top"
+      >
+        <a class="navbar-brand" href="/">SharpMind Labs</a>
+        <button
+          class="navbar-toggler ml-auto"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item navItem">
+              <a class="nav-link" href="/about">About Us</a>
+            </li>
+            <li class="nav-item dropdown navItem">
+              <a
+                class="nav-link dropdown-toggle"
+                id="dropdown1"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                >School Programs</a
+              >
+              <ul class="dropdown-menu" aria-labelledby="dropdown1">
+                <li class="dropdown-item dropdown">
+                  <a
+                    class="dropdown-toggle"
+                    id="dropdown1-1"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    >Elementary School</a
+                  >
+                  <ul class="dropdown-menu" aria-labelledby="dropdown1-1">
+                    <li class="dropdown-item">
+                      <a class="dropdown-link" href="/schoolProgram">English</a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a class="dropdown-link" href="/schoolProgram">Maths</a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a class="dropdown-link" href="/schoolProgram">Science</a>
+                    </li>
+                  </ul>
                 </li>
-                <li class="nav-item navItem">
-                  <a class="nav-link" href="/flashStart" style="cursor: pointer;">Flash Cards</a>
+                <li class="dropdown-item dropdown">
+                  <a
+                    class="dropdown-toggle"
+                    id="dropdown1-2"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    >Middle School</a
+                  >
+                  <ul class="dropdown-menu" aria-labelledby="dropdown1-2">
+                    <li class="dropdown-item">
+                      <a class="dropdown-link" href="/schoolProgram">English</a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a class="dropdown-link" href="/schoolProgram">Maths</a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a class="dropdown-link" href="/schoolProgram">Science</a>
+                    </li>
+                  </ul>
                 </li>
-                <li class="nav-item navItem">
-                  <a class="nav-link" onclick="quizUrl()" style="cursor: pointer;">Quiz</a>
-                </li>
-                <li class="nav-item navItem">
-                  <a class="nav-link" href="/WordStart" style="cursor: pointer;">Word Problem</a>
-                </li>
-                <li class="nav-item navItem">
-                  <a class="nav-link" href="/abacus" style="cursor: pointer;">Abacus</a>
-                </li>
-                <li class="nav-item navItem">
-                  <a class="nav-link" id="login-link" href="/login">Log In</a>
-                </li>
-                <li class="nav-item navItem">
-                  <a class="nav-link" href="/contact">Contact</a>
-                </li>
-                <li class="nav-item navItem">
-                  <a class="navbar-brand" href="/profile">
-                    <div class="UserName" id="name">
-                    Name
-                    </div>
-                  </a>
-                </li>
-                <li class="nav-item navItem">
-                  <form action="clear" method="POST">
-                    <div class="SignOut" id="signout">
-                      <button type="submit" class="nav-link">Sign Out</button>
-                    </div>
-                  </form>
+                <li class="dropdown-item dropdown">
+                  <a
+                    class="dropdown-toggle"
+                    id="dropdown1-3"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    >High School</a
+                  >
+                  <ul class="dropdown-menu" aria-labelledby="dropdown1-3">
+                    <li class="dropdown-item">
+                      <a class="dropdown-link" href="/schoolProgram">English</a>
+                    </li>
+                    <li class="dropdown-item">
+                      <a class="dropdown-link" href="/schoolProgram">Maths</a>
+                    </li>
+                    <li class="dropdown-item dropdown">
+                      <a
+                        class="dropdown-toggle"
+                        id="dropdown1-3-1"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        >Science</a
+                      >
+                      <ul class="dropdown-menu" aria-labelledby="dropdown1-3-1">
+                        <li class="dropdown-item" href="#">
+                          <a class="dropdown-link" href="/schoolProgram">Physics</a>
+                        </li>
+                        <li class="dropdown-item" href="#">
+                          <a class="dropdown-link" href="/schoolProgram">Chemistry</a>
+                        </li>
+                        <li class="dropdown-item" href="#">
+                          <a class="dropdown-link" href="/schoolProgram">Biology</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class="dropdown-item dropdown">
+                      <a
+                        class="dropdown-toggle"
+                        id="dropdown1-3-2"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        >Business</a
+                      >
+                      <ul class="dropdown-menu" aria-labelledby="dropdown1-3-2">
+                        <li class="dropdown-item">
+                          <a class="dropdown-link" href="/schoolProgram">Economics</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a class="dropdown-link" href="/schoolProgram">Accounting</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a class="dropdown-link" href="/schoolProgram">Marketing</a>
+                        </li>
+                        <li class="dropdown-item">
+                          <a class="dropdown-link" href="/schoolProgram">Finance</a>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
                 </li>
               </ul>
-            </div>
-            <div>
-            </div>
-          </nav>
-    </div>     
-  <script>
-   
-
-     
-  </script>
-</body>
+            </li>
+            <li class="nav-item navItem">
+              <div class="dropdown">
+                <button
+                  class="nav-link dropdown-toggle dropdown-btn-nav bg-light"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Practice Sessions
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="/quiz">Quiz</a>
+                  <a class="dropdown-item" href="/WordStart">Word Problem</a>
+                  <a class="dropdown-item" href="/flashStart">Flash Cards</a>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item navItem">
+              <a class="nav-link" id="login-link" href="/abacusHome">Abacus</a>
+            </li>
+            <li class="nav-item navItem">
+              <a class="nav-link" id="login-link" href="/abacus"
+                >Virtual Abacus</a
+              >
+            </li>
+            <li class="nav-item navItem">
+              <a class="nav-link" id="login-link" href="/login">Log In</a>
+            </li>
+            <li class="nav-item navItem">
+              <a class="nav-link" href="/contact">Join Us</a>
+            </li>
+            <li class="nav-item navItem">
+              <a class="navbar-brand" href="/profile">
+                <div class="UserName" id="name">
+                  Name
+                </div>
+              </a>
+            </li>
+            <li class="nav-item navItem">
+              <form action="clear" method="POST">
+                <div class="SignOut" id="signout">
+                  <button type="submit" class="nav-link">Sign Out</button>
+                </div>
+              </form>
+            </li>
+          </ul>
+        </div>
+        <div></div>
+      </nav>
+    </div>
+    <script></script>
+  </body>
 </html>
