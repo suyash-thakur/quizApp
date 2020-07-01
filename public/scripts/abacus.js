@@ -192,6 +192,8 @@ function Abacus(parentDivId, type) {
     var ctx = canvas.getContext("2d");
     ctx.strokeStyle = "#000000";
     ctx.lineWidth = 5;
+    ctx.strokeRect(10, 20, 1040, 280);
+
     for (var i = 0; i < abacusCtrl.beadLines; i++) {
       var x =
         -30 +
@@ -337,4 +339,5 @@ function Abacus(parentDivId, type) {
     ctx.lineWidth = lineWidthBackup;
     ctx.strokeStyle = strokeStyleBackup;
   }
+  
 }

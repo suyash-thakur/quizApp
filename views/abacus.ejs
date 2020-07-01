@@ -2,7 +2,7 @@
 
 <div
   id="myAbacus"
-  style="display: flex; align-items: center; justify-content: center; flex-direction: column;"
+  style="display: flex; align-items: center; justify-content: center; flex-direction: column; margin-top: 10%;"
 >
   <h2>Please rotate your device</h2>
   <br /><img src="assets/rotate.webp" />
@@ -21,6 +21,7 @@
         document.getElementById("myAbacus").innerHTML = "";
         abacus.init();
         created = true;
+      
       }
     } else {
       if (created) {
