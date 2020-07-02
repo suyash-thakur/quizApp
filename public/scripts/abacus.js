@@ -204,6 +204,7 @@ function Abacus(parentDivId, type) {
       ctx.moveTo(x, 20);
       ctx.lineTo(x, y);
       ctx.stroke();
+     
     }
     for (var j = 0; j < 3; j++) {
       var y = 20;
@@ -217,6 +218,13 @@ function Abacus(parentDivId, type) {
       ctx.moveTo(20, y);
       ctx.lineTo(1040, y);
       ctx.stroke();
+      ctx.beginPath();
+      // ctx.moveTo(20, y);
+
+      // ctx.stroke();
+
+
+
     }
     ctx.lineWidth = 1;
 
@@ -248,6 +256,20 @@ function Abacus(parentDivId, type) {
 
       ctx.fillText(valueSting, textX, textY);
     }
+    var count = 0
+    while( count < 5) {
+      ctx.fillStyle = "#ff0000";
+
+      ctx.beginPath();
+      var dotx = 50 + (240 * count)
+      var doty = 100
+  ctx.moveTo(dotx,doty);
+  ctx.arc(dotx, doty, 5, 0, 2 * Math.PI, true);
+  ctx.fill();
+  ctx.fillStyle = "#000000";
+  count++
+    }
+ 
   };
 
   function mouseOverElement(pos) {
