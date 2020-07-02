@@ -100,8 +100,6 @@ const insertData = (email, type, points) => {
     (error, results) => {
       if (error) {
         console.log(error);
-      } else {
-        console.log(results);
       }
     }
   );

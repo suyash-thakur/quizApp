@@ -99,9 +99,10 @@
         </div>
       </div>
     </div>
-    <div style="position: absolute; width: 100%; background-color: gray;  z-index: 100; opacity: 0.3; top: 0px; height: 100%;" id="load">
-    <div class="loader" style="margin: auto; top: 48%; position: absolute; left: 50%; z-index: 101; opacity: 1 !important;"></div>
-  </div>
+    <div style="position: fixed; width: 100%; background-color: gray;  z-index: 100; opacity: 0.3; top: 0px; height: 100%;" id="load">
+      <div class="loader" style="margin: auto; top: 48%; position: absolute; left: 50%; z-index: 101; opacity: 1 !important;">
+      </div>
+    </div>
     <!-- </div> -->
     <br />
     <%- include("./partials/footer.ejs") %>
@@ -194,7 +195,7 @@
               }, eachtime*1000);
 
               }
-
+              
               document.querySelectorAll(".choices").forEach((e) => {
               e.addEventListener("click", () => {
                 const data = {
@@ -202,8 +203,14 @@
                   index: currentquestion -1,
                   question: question[currentquestion -1 ],
                 };
-                document.getElementById('load').style.display="inline-block";
 
+                let loaderOfAnswer;
+
+                if(!done){
+                  loaderOfAnswer = setTimeout(() => {
+                    document.getElementById('load').style.display="inline-block";
+                  }, 1000)
+                }
 
                 const url = "/quizquestion";
 
@@ -214,6 +221,7 @@
                   body: JSON.stringify(data),
                   method: "post",
                 };
+
                 fetch(url, param)
                   .then((response) => {
                     response = response.json();
@@ -222,21 +230,24 @@
                   .then((data) => {
                       document.querySelectorAll(".choices").forEach((e,index) => {
                         document.getElementById('load').style.display="none";
+                        if(e.innerText == data.answer){
+                          document.querySelectorAll(".choices")[index].style.color = "#82ff50";
+                        }}
+                      )
 
-                          if(e.innerText == data.answer){
-                            document.querySelectorAll(".choices")[index].style.color = "#82ff50";
-                            done = true;
-                          }}
-                        )
-                      if (data.result) {
-                        e.style.color = "#82ff50";
-                        document.getElementById("heading").style.color = "#82ff50";
-                        document.getElementById("heading").innerHTML = "CORRECT ANSWER";
-                        points = points + 1;
-                      } else {
-                        e.style.color = "#f53d3d";
-                        document.getElementById("heading").style.color = "#f53d3d";
-                        document.getElementById("heading").innerHTML = "WRONG ANSWER";
+                      if(!done){
+                        if (data.result) {
+                          e.style.color = "#82ff50";
+                          document.getElementById("heading").style.color = "#82ff50";
+                          document.getElementById("heading").innerHTML = "CORRECT ANSWER";
+                          points = points + 1;
+                        } else {
+                          e.style.color = "#f53d3d";
+                          document.getElementById("heading").style.color = "#f53d3d";
+                          document.getElementById("heading").innerHTML = "WRONG ANSWER";
+                        }
+                        clearTimeout(loaderOfAnswer);
+                        done = true;
                       }
                   })
                   .catch((err) => {
