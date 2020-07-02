@@ -239,7 +239,15 @@ router.get("/DemoQuiz", (req, res, next) => {
   res.render("DemoQuiz");
 });
 router.get("/abacus", (req, res, next) => {
+  if (Object.keys(req.cookies).length === 0) {
+    res.redirect("/login");
+  } else if (req.cookies.profileData === undefined) {
+    res.redirect("/login");
+  } else if (!useVar[req.cookies.profileData].loggedIn) {
+    res.redirect("/login");
+  } else {
   res.render("abacus");
+  }
 });
 router.get("/abacusHome", (req, res, next) => {
   res.render("abacusHome");
