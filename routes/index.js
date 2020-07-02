@@ -27,7 +27,7 @@ const questionsGenerate = (typeOfQuestion) => {
     let question = generateQuestion(typeOfQuestion, operation, lengthNum);
 
     let answer = eval(question);
-    let choices = [answer];
+    let choices = [Math.round(answer)];
     let i = 0;
 
     while (i < 3) {
