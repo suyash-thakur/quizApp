@@ -1144,3 +1144,8 @@ a.login-link {
 #dropdown1:focus, #dropdown1:focus-within {
   background-color: #dae0e5;
 }
+@media (max-width:540px) and (min-width:392px) {
+  .back {
+    width: 375px; margin: auto;
+  }
+}
