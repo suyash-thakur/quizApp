@@ -47,8 +47,11 @@ const questionsGenerate = (typeOfQuestion) => {
 };
 
 router.use(async (req, res, next) => {
-  if (Object.keys(req.cookies).length !== 0) {
-    var email = req.cookies.profileData;
+  if (
+    Object.keys(req.cookies).length !== 0 &&
+    req.cookies.profileData != undefined
+  ) {
+    const email = req.cookies.profileData;
     await connection.query(
       "SELECT * FROM users WHERE email = ?",
       [email],
@@ -65,8 +68,7 @@ router.use(async (req, res, next) => {
         }
       }
     );
-  }
-  else{
+  } else {
     next();
   }
 });
@@ -116,13 +118,17 @@ router.get("/", async (req, res, next) => {
     res.render("index");
   } else if (!useVar[req.cookies.profileData].loggedIn) {
     res.render("index");
-  }  else {
+  } else {
     res.redirect("/onboard");
   }
 });
 
 router.get("/onboard", async (req, res, next) => {
   if (Object.keys(req.cookies).length === 0) {
+    res.redirect("/login");
+  } else if (req.cookies.profileData === undefined) {
+    res.redirect("/login");
+  } else if (!useVar[req.cookies.profileData].loggedIn) {
     res.redirect("/login");
   } else {
     let resultArr = [];
@@ -143,6 +149,10 @@ router.get("/onboard", async (req, res, next) => {
       "SELECT * FROM score WHERE email = ?",
       [req.cookies.profileData],
       (error, results) => {
+        if (error) {
+          res.redirect("/error");
+        }
+
         if (results.length > 0) {
           results.forEach((result, index) => {
             resultArr.push({
@@ -154,9 +164,7 @@ router.get("/onboard", async (req, res, next) => {
               res.render("onboard", { profileData, resultArr });
             }
           });
-        }
-
-        else{
+        } else {
           res.render("onboard", { profileData });
         }
       }
@@ -165,17 +173,29 @@ router.get("/onboard", async (req, res, next) => {
 });
 
 router.get("/quiz", (req, res, next) => {
-  res.render("quiz");
+  if (Object.keys(req.cookies).length === 0) {
+    res.redirect("/demoQuiz");
+  } else if (req.cookies.profileData === undefined) {
+    res.redirect("/demoQuiz");
+  } else if (!useVar[req.cookies.profileData].loggedIn) {
+    res.redirect("/demoQuiz");
+  } else {
+    res.render("quiz");
+  }
 });
+
 router.get("/practice", (req, res, next) => {
   res.render("practice");
 });
+
 router.get("/home", (req, res, next) => {
   res.render("homepage");
 });
+
 router.get("/schoolProgram", (req, res, next) => {
   res.render("schoolProgram");
 });
+
 router.get("/about", (req, res, next) => {
   res.render("about");
 });
@@ -186,14 +206,13 @@ router.get("/login", (req, res, next) => {
 
 router.post("/login", (req, res) => {
   const { email, password } = req.body;
-
   if (email && password) {
     connection.query(
       "SELECT * FROM users WHERE email = ? AND password = ?",
       [email, password],
       (error, results, fields) => {
         if (error) {
-          res.redirect("error");
+          res.render("error");
         }
         if (results.length > 0) {
           const userObj = results[0];
@@ -233,7 +252,7 @@ router.get("/flashStart", (req, res, next) => {
   res.render("flashStart");
 });
 
-router.get("/DemoWord", (req, res, next) => {
+router.get("/demoWord", (req, res, next) => {
   let problemsJSON;
   let problemQuestions = [];
   let problemChoices = [];
@@ -254,7 +273,7 @@ router.get("/DemoWord", (req, res, next) => {
   });
 });
 
-router.get("/DemoFlash", async (req, res, next) => {
+router.get("/demoFlash", async (req, res, next) => {
   let flashJSON;
   let flashChoices = [];
   let flashQuestion = [];
@@ -277,14 +296,18 @@ router.get("/DemoFlash", async (req, res, next) => {
 
 router.get("/profile", (req, res, next) => {
   if (Object.keys(req.cookies).length === 0) {
-    res.redirect("/");
+    res.redirect("/login");
+  } else if (req.cookies.profileData === undefined) {
+    res.redirect("/login");
+  } else if (!useVar[req.cookies.profileData].loggedIn) {
+    res.redirect("/login");
   } else {
     connection.query(
       "SELECT * FROM users WHERE email = ?",
       [req.cookies.profileData],
       (error, results) => {
         if (error) {
-          res.redirect("error");
+          res.redirect("/error");
         }
         if (results.length > 0) {
           let profileData = results[0];
@@ -304,7 +327,7 @@ router.post("/profile", (req, res) => {
     [email, password],
     (error, results) => {
       if (error) {
-        res.redirect("error");
+        res.redirect("/error");
       }
 
       if (results.length > 0) {
@@ -315,7 +338,7 @@ router.post("/profile", (req, res) => {
           [username, number, address, age, email, password],
           (error, results) => {
             if (error) {
-              res.redirect("error");
+              res.redirect("/error");
             }
             res.status(200).redirect("/");
           }
@@ -323,7 +346,7 @@ router.post("/profile", (req, res) => {
       } else {
         connection.query(
           "SELECT * FROM users WHERE email = ?",
-          [req.cookies.profileData],
+          [email],
           (error, results) => {
             if (results.length > 0) {
               let profileData = results[0];
@@ -346,11 +369,11 @@ router.get("/wordProblem", async (req, res, next) => {
   let problemChoices = [];
 
   if (Object.keys(req.cookies).length === 0) {
-    res.redirect("/DemoWord");
+    res.redirect("/demoWord");
   } else if (req.cookies.profileData === undefined) {
-    res.redirect("/DemoWord");
+    res.redirect("/demoWord");
   } else if (!useVar[req.cookies.profileData].loggedIn) {
-    res.redirect("/DemoWord");
+    res.redirect("/demoWord");
   } else {
     await connection.query(
       "select * from wordProblems",
@@ -380,12 +403,15 @@ router.get("/wordProblem", async (req, res, next) => {
 
 router.post("/wordProblem", async (req, res, next) => {
   let wordJSON = useVar[req.cookies.profileData || 404]["problem"];
-  
-  const {optionsSelected, isDemo} = req.body;
 
-  const { points, arrayOfAnswers } = await verifyQuestion(wordJSON, optionsSelected);
+  const { optionsSelected, isDemo } = req.body;
 
-  if(!isDemo){
+  const { points, arrayOfAnswers } = await verifyQuestion(
+    wordJSON,
+    optionsSelected
+  );
+
+  if (!isDemo) {
     await insertData(req.cookies.profileData, "Word Problem", points);
   }
 
@@ -398,11 +424,11 @@ router.get("/flashCard", async (req, res, next) => {
   let flashQuestion = [];
 
   if (Object.keys(req.cookies).length === 0) {
-    res.redirect("/DemoFlash");
+    res.redirect("/demoFlash");
   } else if (req.cookies.profileData === undefined) {
-    res.redirect("/DemoFlash");
+    res.redirect("/demoFlash");
   } else if (!useVar[req.cookies.profileData].loggedIn) {
-    res.redirect("/DemoFlash");
+    res.redirect("/demoFlash");
   } else {
     await connection.query(
       "select * from flashCards",
@@ -433,11 +459,14 @@ router.get("/flashCard", async (req, res, next) => {
 router.post("/flashCard", async (req, res, next) => {
   let flashJSON = useVar[req.cookies.profileData || 404]["flash"];
 
-  const {optionsSelected, isDemo} = req.body;
+  const { optionsSelected, isDemo } = req.body;
 
-  const { points, arrayOfAnswers } = await verifyQuestion(flashJSON, optionsSelected);
+  const { points, arrayOfAnswers } = await verifyQuestion(
+    flashJSON,
+    optionsSelected
+  );
 
-  if(!isDemo){
+  if (!isDemo) {
     await insertData(req.cookies.profileData, "Flash Card", points);
   }
 
@@ -516,16 +545,19 @@ router.get("/contact", (req, res, next) => {
 });
 
 router.post("/contact", (req, res, next) => {
-  const {name,email, number, subject, curriculum} = req.body;
-  connection.query("INSERT INTO register values(?,?,?,?,?)", [name, email, number, subject, curriculum], (error, results) => {
-    if(results){
-      res.render("index", {message: "Thank you for registering with us!"})
+  const { name, email, number, subject, curriculum } = req.body;
+  connection.query(
+    "INSERT INTO register values(?,?,?,?,?)",
+    [name, email, number, subject, curriculum],
+    (error, results) => {
+      if (results) {
+        res.render("index", { message: "Thank you for registering with us!" });
+      } else {
+        res.render("error");
+      }
     }
-    else{
-      res.render("error")
-    }
-  });
-})
+  );
+});
 
 router.post("/clear", (req, res, next) => {
   useVar[req.cookies.profileData] = { loggedIn: false };

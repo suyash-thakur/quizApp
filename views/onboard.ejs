@@ -7,7 +7,7 @@
           <%= profileData.name %>
         </h4>
         <small
-          ><cite title="San Francisco, USA"
+          ><cite
             ><%= profileData.address %><i
               class="glyphicon glyphicon-map-marker"
             >
@@ -17,7 +17,7 @@
           <i class="glyphicon glyphicon-envelope"></i><%= profileData.email %>
           <br />
           <i class="glyphicon glyphicon-globe"></i
-          ><a href="http://www.jquery2dotnet.com"><%= profileData.number %></a>
+          ><a><%= profileData.number %></a>
           <br />
           <i class="glyphicon glyphicon-gift"></i>Age-: <%= profileData.age %>
           <!-- Split button -->
@@ -27,13 +27,11 @@
       <div style="flex-grow: 2;"></div>
       <div>
         <div class="btn-group" style="margin-left: auto; padding-top: 20px;">
-          <button
-            type="button"
-            class="btn btn-warning btn-btn"
-            onclick="profileVisit()"
-          >
-            Update
-          </button>
+          <a href="/profile">
+            <button type="button" class="btn btn-warning btn-btn">
+              Update
+            </button>
+          </a>
         </div>
       </div>
     </div>
@@ -118,47 +116,44 @@
 
 <div class="container userScore">
   <h1>Your Score</h1>
-  <div id="quiz-scores">
-
-  </div>
+  <div id="quiz-scores"></div>
 </div>
 
 <% if (locals.resultArr) { %>
 <script>
-    const results = <%- JSON.stringify(resultArr) %>;
-    let tableData = "";
+  const results = <%- JSON.stringify(resultArr) %>;
+  let tableData = "";
 
-    results.forEach((result, index) => {
-      tableData += `<tr>
-        <td class="table-value">${index + 1}</td>
-        <td class="table-value">${result.Type}</td>
-        <td class="table-value">${result.Score}</td>
-        <td class="table-value">${result.Date}</td>
-        </tr>`
-      })
+  results.forEach((result, index) => {
+    tableData += `<tr>
+      <td class="table-value">${index + 1}</td>
+      <td class="table-value">${result.Type}</td>
+      <td class="table-value">${result.Score}</td>
+      <td class="table-value">${result.Date}</td>
+      </tr>`
+    })
 
-    document.getElementById("quiz-scores").innerHTML = 
+  document.getElementById("quiz-scores").innerHTML =
+          `
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col table-heading">S. No.</th>
+                  <th scope="col table-heading">Quiz Type</th>
+                  <th scope="col table-heading">Points</th>
+                  <th scope="col table-heading">Date Completed</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${tableData}
+              </tbody>
+            </table>
             `
-              <table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col table-heading">S. No.</th>
-                    <th scope="col table-heading">Quiz Type</th>
-                    <th scope="col table-heading">Points</th>
-                    <th scope="col table-heading">Date Completed</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${tableData}
-                </tbody>
-              </table>
-              `
 </script>
 <% } else {%>
 <script>
-  document.getElementById("quiz-scores").innerHTML = "<h5>You haven't given any tests yet!</h5>"
+  document.getElementById("quiz-scores").innerHTML =
+    "<h5>You haven't given any tests yet!</h5>";
 </script>
 
-<% } %>
-
-<%- include("./partials/footer.ejs") %>
+<% } %> <%- include("./partials/footer.ejs") %>

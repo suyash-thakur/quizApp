@@ -99,19 +99,6 @@ html {
 }
 
 @media (min-width: 768px) {
-  .UserName {
-    border-left: 1px solid #000000db;
-    padding-left: 10px;
-  }
-}
-
-.UserName {
-  display: none;
-  font-size: 18px;
-  margin-top: 3px;
-}
-
-@media (min-width: 768px) {
   .SignOut {
     margin-left: -30px;
   }

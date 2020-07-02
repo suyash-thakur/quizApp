@@ -3,7 +3,10 @@ $(document).ready(function () {
     var $el = $(this).children(".dropdown-toggle");
     var $parent = $el.offsetParent(".dropdown-menu");
     $(this).parent("li").toggleClass("open");
-    if (!$parent.parent().hasClass("navbar-nav") && !e.target.classList.contains("dropdown-link")) {
+    if (
+      !$parent.parent().hasClass("navbar-nav") &&
+      !e.target.classList.contains("dropdown-link")
+    ) {
       if ($parent.hasClass("show")) {
         $parent.removeClass("show");
         $el.next().removeClass("show");
@@ -16,7 +19,6 @@ $(document).ready(function () {
           .next()
           .css({ top: $el[0].offsetTop, left: $parent.outerWidth() - 4 });
       }
-      console.log("here");
       e.preventDefault();
       e.stopPropagation();
     }
@@ -84,10 +86,8 @@ $(document).ready(function () {
   }
 
   function getCookie(c_name) {
-    var i,
-      x,
-      y,
-      ARRcookies = document.cookie.split(";");
+    var i,x,y,ARRcookies = document.cookie.split(";");
+    
     for (i = 0; i < ARRcookies.length; i++) {
       x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
       y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
@@ -100,19 +100,13 @@ $(document).ready(function () {
 
   var x = getCookie("userData");
   if (x !== undefined) {
-    isLoggedin = true;
-    document.getElementById("name").style.display = "block";
-    document.getElementById("name").innerHTML = `Hello, ${x}`;
+    document.querySelector(".userName").style.display = "block";
     document.getElementById("signout").style.display = "block";
-    document.getElementById("login-link").parentElement.style.display = "None";
+    document.getElementById("login-link").parentElement.style.display = "none";
     document.getElementById("login-button").style.display = "none";
   } else {
-    if (document.getElementById("login-button")) {
+      document.querySelector(".userName").style.display = "none";
       document.getElementById("login-button").style.display = "flex";
-      document.getElementById("name").parentElement.style.display = "None";
-      document.getElementById(
-        "signout"
-      ).parentElement.parentElement.style.display = "None";
-    }
+      document.getElementById("signout").parentElement.parentElement.style.display = "none";
   }
 });

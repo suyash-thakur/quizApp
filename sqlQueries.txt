@@ -1,0 +1,7 @@
+"create table users (email varchar(150), password varchar(150),name varchar(150), number integer(15), address varchar(150), age integer(3), onboarded boolean)"
+"insert into users (email, password) values('test@gmail.com', 'password')"
+"create table score (email varchar(150), questionType varchar(150), points integer(100), date DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP)"
+"create table register(name varchar(150), email varchar(150), number integer(150), subject varchar(150), curriculum varchar(150))"
+"create table wordProblems (question varchar(1024), answer varchar(150), first varchar(150), second varchar(150), third varchar(150), fourth varchar(150))"
+"insert into wordProblems values ('Mike had 180 blue and red pencils. He had 45 blue pencils. What percentage of his pencils was red?', '75%', '25%', '15%', '75%', '10%')"
+"create table flashCards (question varchar(1024), answer varchar(150), first varchar(150), second varchar(150), third varchar(150), fourth varchar(150))"
