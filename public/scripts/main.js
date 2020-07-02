@@ -48,42 +48,10 @@ $(document).ready(function () {
     return selectHTML;
   }
 
-  function time(val) {
-    var elementExists = document.getElementById("timeField");
-    if (elementExists != null) {
-      elementExists.remove();
-    }
 
-    let select;
+  
+  
 
-    const timeObj = {
-      5: [90, 60, 45, 30, 15, 10, 5],
-      10: [90, 60, 45, 30, 15, 10],
-      15: [90, 60, 45, 30, 15],
-      20: [90, 60, 45, 30, 20],
-    };
-
-    select = generateTime(timeObj[val]);
-
-    document.getElementById("container").innerHTML = select;
-  }
-
-  function onInput() {
-    this.questType = document.getElementById("questionType");
-    this.operation = document.getElementById("arithmetic");
-    this.questLength = document.getElementById("questionRows");
-    this.time = document.getElementById("timeField");
-    if (
-      this.questType != null &&
-      this.operation != null &&
-      this.questLength != null &&
-      this.time != null
-    ) {
-      location.href += `question?type=${this.questType.value}&operation=${this.operation.value}&length=${this.questLength.value}&time=${this.time.value}`;
-    } else {
-      window.alert("Select All Field");
-    }
-  }
 
   function getCookie(c_name) {
     var i,x,y,ARRcookies = document.cookie.split(";");
@@ -110,3 +78,81 @@ $(document).ready(function () {
       document.getElementById("signout").parentElement.parentElement.style.display = "none";
   }
 });
+function time(val) {
+  var elementExists = document.getElementById("timeField");
+  if( elementExists != null) {
+    elementExists.remove();
+  }
+  console.log(val);
+  if(val == 10) {
+    console.log('10');
+  }
+  var select = document.createElement("select");
+  select.id = 'timeField';
+  select.classList.add("quiz-input");
+
+var timeTen = [90, 60, 45, 30, 15, 10];
+var timeFive = [90, 60, 45, 30, 15, 10, 5];
+var timeFifteen = [90, 60, 45, 30, 15];
+var timeTwenty = [90, 60, 45, 30, 20];
+
+
+
+switch(val) {
+  case '5':
+    for (const val of timeFive) {
+      var option = document.createElement("option");
+      option.value = val;
+      option.text = val;
+      select.appendChild(option);
+    }
+    break;
+    case '10':
+      for (const val of timeTen) {
+        var option = document.createElement("option");
+        option.value = val;
+        option.text = val;
+        select.appendChild(option);
+      }
+      console.log('yes');
+
+      break;
+      case '15':
+        for (const val of timeFifteen) {
+          var option = document.createElement("option");
+          option.value = val;
+          option.text = val;
+          select.appendChild(option);
+        }
+        console.log('yes');
+
+        break;
+        case '20':
+          for (const val of timeTwenty) {
+            var option = document.createElement("option");
+            option.value = val;
+            option.text = val;
+            select.appendChild(option);
+          }
+          console.log('yes');
+          break;
+
+}
+document.getElementById("container").appendChild(select);
+ }
+ function onInput() {
+  this.questType = document.getElementById("questionType");
+  this.operation = document.getElementById("arithmetic");
+  this.questLength = document.getElementById("questionRows");
+  this.time = document.getElementById("timeField");
+  if (
+    this.questType != null &&
+    this.operation != null &&
+    this.questLength != null &&
+    this.time != null
+  ) {
+    location.href += `question?type=${this.questType.value}&operation=${this.operation.value}&length=${this.questLength.value}&time=${this.time.value}`;
+  } else {
+    window.alert("Select All Field");
+  }
+}
