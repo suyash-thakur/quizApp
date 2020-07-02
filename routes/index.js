@@ -255,11 +255,27 @@ router.get("/abacusHome", (req, res, next) => {
 router.get("/WordStart", (req, res, next) => {
   res.render("WordStart");
 });
-
+router.get("/math", (req, res, next) => {
+  res.render("math");
+});
+router.get("/chemistry", (req, res, next) => {
+  res.render("chemistry");
+});
+router.get("/physics", (req, res, next) => {
+  res.render("physics");
+});
 router.get("/flashStart", (req, res, next) => {
   res.render("flashStart");
 });
-
+router.get("/biology", (req, res, next) => {
+  res.render("biology");
+});
+router.get("/english", (req, res, next) => {
+  res.render("english");
+});
+router.get("/science", (req, res, next) => {
+  res.render("science");
+});
 router.get("/demoWord", (req, res, next) => {
   let problemsJSON;
   let problemQuestions = [];
