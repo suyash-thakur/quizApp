@@ -274,6 +274,18 @@ router.get("/english", (req, res, next) => {
 router.get("/science", (req, res, next) => {
   res.render("science");
 });
+router.get("/economics", (req, res, next) => {
+  res.render("economic");
+});
+router.get("/accounting", (req, res, next) => {
+  res.render("accounting");
+});
+router.get("/marketing", (req, res, next) => {
+  res.render("marketing");
+});
+router.get("/finance", (req, res, next) => {
+  res.render("finance");
+});
 router.get("/demoWord", (req, res, next) => {
   let problemsJSON;
   let problemQuestions = [];
