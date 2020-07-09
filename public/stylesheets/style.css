@@ -845,7 +845,7 @@ a.login-link {
 }
 
 .learn-online {
-  height: 320px;
+  height: 300px;
 }
 
 .flags {
@@ -856,6 +856,10 @@ a.login-link {
 @media only screen and (max-width: 480px) {
   .hidden-on-mobile {
     display: none;
+  }
+  .learn-online {
+    height: 200px;
+    margin: auto;
   }
 }
 
@@ -1000,7 +1004,12 @@ a.login-link {
   z-index: 2;
   overflow: hidden;
 }
-
+.image-res {
+  padding-top: 0px !important; height: 500px;
+}
+.mainImg {
+  width: 400px; margin-top: auto;
+}
 .center-img-text {
   position: absolute;
   top: 50%;
@@ -1076,7 +1085,12 @@ a.login-link {
     justify-content: center;
     align-items: center;
   }
-
+  .mainImg {
+    width: 200px; margin-top: auto;
+  }
+  .image-res {
+    padding-top: 0px !important; height: 200px;
+  }
   .join-us-form-text {
     width: 90%;
   }

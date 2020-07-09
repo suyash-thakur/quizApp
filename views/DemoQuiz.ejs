@@ -30,7 +30,7 @@
                 "
               >
                 <div class="timer-text" style="color: black;" id="progressBar">
-                  60
+                  10
                 </div>
               </div>
             </div>
@@ -171,8 +171,8 @@
               document.getElementById('totalquestion').innerHTML = noOfQuestion;
 
               var noOfDigits = questionArray[0].length;
-              var timeleft = 60;
-              var eachtime = 60/(noOfQuestion - 1);
+              var timeleft = 10;
+              var eachtime = 10/(noOfQuestion - 1);
               timer();
 
               function timer(){
@@ -262,7 +262,7 @@
                     done = true;
                   }})})});
       function nextQuestion() {
-          timeleft = 60;
+          timeleft = 10;
           done = false;
           document.getElementById("option1").classList.add("choices");
           document.getElementById("option2").classList.add("choices");

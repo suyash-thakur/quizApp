@@ -109,13 +109,13 @@ const insertData = (email, type, points) => {
 
 router.get("/", async (req, res, next) => {
   if (Object.keys(req.cookies).length === 0) {
-    res.render("index");
+    res.render("homepage");
   } else if (req.cookies.profileData === undefined) {
-    res.render("index");
+    res.render("homepage");
   } else if (Object.keys(useVar).length === 0) {
-    res.render("index");
+    res.render("homepage");
   } else if (!useVar[req.cookies.profileData].loggedIn) {
-    res.render("index");
+    res.render("homepage");
   } else {
     res.redirect("/onboard");
   }
@@ -229,7 +229,7 @@ router.post("/login", (req, res) => {
       }
     );
   } else {
-    res.render("index", { error: "Please enter email and Password!" });
+    res.render("homepage", { error: "Please enter email and Password!" });
   }
 });
 
@@ -573,7 +573,7 @@ router.post("/contact", (req, res, next) => {
     [name, email, number, subject, curriculum],
     (error, results) => {
       if (results) {
-        res.render("index", { message: "Thank you for registering with us!" });
+        res.render("homepage", { message: "Thank you for registering with us!" });
       } else {
         res.render("error");
       }
