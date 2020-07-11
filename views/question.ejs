@@ -128,14 +128,13 @@
               document.getElementById('time').innerHTML=timeval;
 
               document.getElementById('currentquestion').innerHTML = currentquestion;
-              for( var j = 0; j < question.length; j++){
-                  var stringArray = new Array();
-                  var string = question[j];
+              for( let j = 0; j < question.length; j++){
+                  let stringArray = new Array();
+                  let string = question[j];
                   string = string.split(" ");
-                      for(var i =0; i < string.length; i++){
-                          stringArray.push(string[i]);
-
-                      }
+                  for(let i =0; i < string.length; i++){
+                      stringArray.push(string[i]);
+                  }
                   questionArray.push(stringArray);
 
               }
@@ -150,7 +149,6 @@
               function timer(){
                   var currentDigit = 0;
 
-                    // document.querySelectorAll(".choices")
                       document.getElementById("option1").classList.remove("choice-view")
                       document.getElementById("option2").classList.remove("choice-view")
                       document.getElementById("option3").classList.remove("choice-view")
@@ -180,7 +178,7 @@
                   }
 
               document.getElementById("progressBar").textContent = timeleft;
-              document.getElementById("question").innerHTML = questionArray[noOfQuestion - currentquestion][currentDigit];
+              document.getElementById("question").innerHTML = questionArray[currentquestion - 1][currentDigit];
               document.getElementById("question").opacity = 1;
               timeleft -= 1;
               }, 1000);
