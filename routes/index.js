@@ -109,13 +109,13 @@ const insertData = (email, type, points) => {
 
 router.get("/", async (req, res, next) => {
   if (Object.keys(req.cookies).length === 0) {
-    res.render("index");
+    res.render("homepage");
   } else if (req.cookies.profileData === undefined) {
-    res.render("index");
+    res.render("homepage");
   } else if (Object.keys(useVar).length === 0) {
-    res.render("index");
+    res.render("homepage");
   } else if (!useVar[req.cookies.profileData].loggedIn) {
-    res.render("index");
+    res.render("homepage");
   } else {
     res.redirect("/onboard");
   }
@@ -229,7 +229,7 @@ router.post("/login", (req, res) => {
       }
     );
   } else {
-    res.render("index", { error: "Please enter email and Password!" });
+    res.render("homepage", { error: "Please enter email and Password!" });
   }
 });
 
@@ -253,11 +253,39 @@ router.get("/abacusHome", (req, res, next) => {
 router.get("/WordStart", (req, res, next) => {
   res.render("WordStart");
 });
-
+router.get("/math", (req, res, next) => {
+  res.render("math");
+});
+router.get("/chemistry", (req, res, next) => {
+  res.render("chemistry");
+});
+router.get("/physics", (req, res, next) => {
+  res.render("physics");
+});
 router.get("/flashStart", (req, res, next) => {
   res.render("flashStart");
 });
-
+router.get("/biology", (req, res, next) => {
+  res.render("biology");
+});
+router.get("/english", (req, res, next) => {
+  res.render("english");
+});
+router.get("/science", (req, res, next) => {
+  res.render("science");
+});
+router.get("/economics", (req, res, next) => {
+  res.render("economic");
+});
+router.get("/accounting", (req, res, next) => {
+  res.render("accounting");
+});
+router.get("/marketing", (req, res, next) => {
+  res.render("marketing");
+});
+router.get("/finance", (req, res, next) => {
+  res.render("finance");
+});
 router.get("/demoWord", (req, res, next) => {
   let problemsJSON;
   let problemQuestions = [];
@@ -557,7 +585,7 @@ router.post("/contact", (req, res, next) => {
     [name, email, number, subject, curriculum],
     (error, results) => {
       if (results) {
-        res.render("index", { message: "Thank you for registering with us!" });
+        res.render("homepage", { message: "Thank you for registering with us!" });
       } else {
         res.render("error");
       }
