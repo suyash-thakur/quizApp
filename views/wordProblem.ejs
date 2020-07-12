@@ -157,12 +157,22 @@
           let tableData = "";
           
           data.arrayOfAnswers.forEach((answer, index) => {
+            var color;
+          if(answer.selected == answer.answer) {
+            color = 'green';
+            console.log(color);
+          } else {
+           color = 'red';
+           console.log(color);
+
+          }
             tableData += `<tr>
-              <td class="table-value">${index + 1}</td>
+              <td class="table-value" >${index + 1}</td>
               <td class="table-value">${answer.question}</td>
-              <td class="table-value">${answer.selected}</td>
+              <td class="table-value" style="color:${color}">${answer.selected}</td>
               <td class="table-value">${answer.answer}</td>
               </tr>`
+              
             })
 
           document.querySelector(".word-quiz").innerHTML = 
@@ -199,7 +209,15 @@
     }
 
     main();
+    function addStyle() {
+  if (answer.selected == answer.answer) {
+              document.getElementById("answerDis").style.color = 'green';
+            } else {
+              document.getElementById("answerDis").style.color = 'red';
 
+            }
+
+}
 </script>
 
 <%- include("./partials/footer.ejs") %>

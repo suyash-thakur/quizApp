@@ -286,6 +286,9 @@ router.get("/marketing", (req, res, next) => {
 router.get("/finance", (req, res, next) => {
   res.render("finance");
 });
+router.get("/register", (req, res, next) => {
+  res.render("register");
+});
 router.get("/demoWord", (req, res, next) => {
   let problemsJSON;
   let problemQuestions = [];

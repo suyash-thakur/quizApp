@@ -1,0 +1,59 @@
+<%- include("./partials/header.ejs") %>
+<br>
+<br>
+<div class="container">
+    <div class="row" style="padding: 0px !important; margin-bottom: 20px;">
+        <div class="col-md-8 col-xs-12" style="padding: 0px !important;">
+          <div style="width: 100%;">
+            <h1 style="color: #B4B4B4;">Learn With Us</h1>
+            <h1>Enabling Smarter Generation </h1>
+          </div>
+          <img src="/assets/studygirl.png" class="imgSignup">
+        </div>
+        <div class="col-md-4 col-xs-12" style="padding: 0px !important; ">
+          <br>
+          <br>
+        <div style="display: flex;">
+          <div style="flex-grow: 1; text-align: left; padding-right: 30px; padding-left: 30px; background-color: #FAFAFA; height: 555px;">
+            <div style="margin-left: auto;">
+              <h1>Signup Now</h1>
+          <form action="contact" method="POST">
+            <div class="join-us-form-section">
+            <div class="join-us-form-text" style="width: 100% !important;"><input type="text" placeholder="Name" name="name" ></div>
+            <div class="join-us-form-text" style="width: 100% !important;"><input type="email" placeholder="Email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" style="width: 100% !important;"></div>
+            <div class="join-us-form-text" style="width: 100% !important;"><input type="number" placeholder="Phone" name="number"></div>
+            <div class="join-us-form-text" style="width: 100% !important;"><input type="text" placeholder="Subject" name="subject" pattern="[A-Za-z]"></div>
+            <div class="join-us-form-text" style="width: 100% !important;">
+              <select name="curriculum">
+                <option value="Curriculum" disabled selected>Curriculum</option>
+                <option value="Elementary School">Elementary School</option>
+                <option value="Middle School">Middle School</option>
+                <option value="High School">High School</option>
+              </select>
+            </div>
+            <% if (locals.error) { %>
+              <div class="alert alert-danger" role="alert">
+                  <%= error %>
+              </div>
+          <% } %>
+        </div>
+       
+          <div class="text-center">
+            <button type="submit" class="btn btn-warning btn-btn clickable">Submit</button>
+          </div>
+          <br>
+          <p>Already have an account?<span> <a href="/login">Log In</a></span></p>
+        </form>
+        <br>
+      </div>
+      </div>
+      <div class="d-none d-sm-block">
+        <img src="/assets/border.png" style="width: 50px; height: 555px;" >
+      </div>
+        </div>
+        </div>
+      </div>
+</div>
+<br>
+<br>
+<%- include("./partials/footer.ejs") %></div>
