@@ -96,6 +96,12 @@ var timeFive = [90, 60, 45, 30, 15, 10, 5];
 var timeFifteen = [90, 60, 45, 30, 15];
 var timeTwenty = [90, 60, 45, 30, 20];
 
+var option = document.createElement("option");
+option.value = null;
+option.text = 'Select time in second'
+option.selected = true;
+option.disabled = true;
+select.appendChild(option);
 
 
 switch(val) {
