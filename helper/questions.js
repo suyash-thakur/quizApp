@@ -17,9 +17,19 @@ function getRandomNumber(min, max, decimal = 0) {
 }
 
 function getRandomSymbol(type) {
+  if (type == 'subAndAdd'){
+    var rnd = Math.random();
+    if(rnd<0.8) {
+      return '+'
+    } else  {
+      return '-'
+    }
+  } else {
   return String.fromCharCode(
     expression[type][Math.floor(Math.random() * 2)].toString()
   );
+  }
+
 }
 
 function generateQuestion(digit, type, length, decimal = 0) {
