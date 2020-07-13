@@ -161,11 +161,17 @@
           let tableData = "";
 
           data.arrayOfAnswers.forEach((answer, index) => {
-       
+            var color;
+          if(answer.selected == answer.answer) {
+            color = 'green';
+          } else {
+           color = 'red';
+
+          }
             tableData += `<tr>
               <td class="table-value">${index + 1}</td>
               <td class="table-value"><img class="flash-img img-thumbnail" id="flash-img-src" src=${answer.question}></td>
-              <td class="table-value" id="answerDis" >${answer.selected}</td>
+              <td class="table-value" id="answerDis" style="color:${color}" >${answer.selected}</td>
               <td class="table-value">${answer.answer}</td>
               </tr>`
 

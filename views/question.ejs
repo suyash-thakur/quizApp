@@ -116,6 +116,7 @@
               var downloadTimer;
               var done = false;
               var questionArray = new Array();
+              console.log(question);
               document.getElementById('load').style.display="none";
               if(operation == "subAndAdd"){
                 document.getElementById('sign').innerHTML="+";
@@ -148,7 +149,7 @@
 
               function timer(){
                   var currentDigit = 0;
-
+                      console.log(currentDigit);
                       document.getElementById("option1").classList.remove("choice-view")
                       document.getElementById("option2").classList.remove("choice-view")
                       document.getElementById("option3").classList.remove("choice-view")
@@ -178,9 +179,13 @@
                   }
 
               document.getElementById("progressBar").textContent = timeleft;
+              console.log("corquest=" +currentquestion);
+              console.log("cordig=" +currentDigit);
               document.getElementById("question").innerHTML = questionArray[currentquestion - 1][currentDigit];
               document.getElementById("question").opacity = 1;
               timeleft -= 1;
+          
+
               }, 1000);
               var changequest = setInterval(function(){
                   if(timeleft <= 2*eachtime){
