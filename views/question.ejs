@@ -148,6 +148,8 @@
               timer();
 
               function timer(){
+                document.getElementById("question").innerHTML = questionArray[currentquestion - 1][0];
+
                   var currentDigit = 0;
                       console.log(currentDigit);
                       document.getElementById("option1").classList.remove("choice-view")
@@ -163,6 +165,7 @@
                   downloadTimer = setInterval(function(){
                   if(timeleft <= 0){
                       clearInterval(downloadTimer);
+
                       document.getElementById("question").style.display = "none";
                       document.getElementById("heading").style.opacity = 1;
                       document.getElementById("option1").innerHTML = options[currentquestion - 1][0];
