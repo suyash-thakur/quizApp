@@ -595,7 +595,40 @@ router.post("/contact", (req, res, next) => {
     }
   );
 });
+router.get("/admin", (req, res, next) => {
+  const limit = 10
+  // page number
+  var page = req.query.page
+  if (page == undefined) {
+    page = 1
+  }
+  
 
+  // calculate offset
+  const offset = (page - 1) * limit
+  var countQuery = 'SELECT COUNT(*) as number FROM register';
+  connection.query(countQuery, (error, response) => {
+    if (response) {
+      var num = response[0].number;
+      
+      const prodsQuery = "select * from register limit "+limit+" OFFSET "+offset
+      connection.query(
+        prodsQuery,
+        (error, results) => {
+         if (results) {
+           results = results.reverse();
+          res.render("admin", { data: results, page: page , num: num});
+         }else {
+          res.render("error");
+        }
+        });
+
+    } else {
+      res.render("error");
+    }
+  });
+
+})
 router.post("/clear", (req, res, next) => {
   useVar[req.cookies.profileData] = { loggedIn: false };
   res.clearCookie("profileData");

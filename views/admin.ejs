@@ -1,0 +1,112 @@
+<%- include("./partials/header.ejs") %>
+<div >
+    <br>
+    <% for(var i=0; i < data.length; i++) { %>
+        <div style="display: flex;" class="container">
+            <div  >
+                <b><%= (i + 1) + (page - 1)*10 %></b>
+            </div>
+            <div>
+                <div style="display: flex;" class="container" style=" padding-top:20px">
+                    <div>
+                        <b>
+                            Name-:
+                        </b>
+                    </div>
+                    <div>
+                        <p><%= data[i].name %></p>
+            
+                    </div>
+                  
+                 </div>
+                 <div style="display: flex;" class="container" style=" padding-top:20px">
+                    <div>
+                        <b>
+                            Email-:
+                        </b>
+                    </div>
+                    <div>
+                        <p><%= data[i].email %></p>
+            
+                    </div>
+                  
+                 </div>
+                 <div style="display: flex;" class="container" style=" padding-top:20px">
+                    <div>
+                        <b>
+                            Number-:
+                        </b>
+                    </div>
+                    <div>
+                        <p><%= data[i].number %></p>
+            
+                    </div>
+                  
+                 </div>
+                 <div style="display: flex;" class="container" style=" padding-top:20px">
+                    <div>
+                        <b>
+                            Subject-:
+                        </b>
+                    </div>
+                    <div>
+                        <p><%= data[i].subject %></p>
+            
+                    </div>
+                  
+                 </div>
+                 <div style="display: flex;" class="container" style=" padding-top:20px">
+                    <div>
+                        <b>
+                            Curriculum-:
+                        </b>
+                    </div>
+                    <div>
+                        <p><%= data[i].curriculum %></p>
+            
+                    </div>
+                  
+                 </div>
+            </div>
+        </div>
+     
+  
+        <hr>
+      
+    <% } %>
+    <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
+        <div id="privButton">
+        <button type="button" class="btn btn-secondary" onclick="prev()"><- prev</button> &nbsp; &nbsp;
+    </div>
+    <div id="nextButton">
+        <button type="button" class="btn btn-secondary" onclick="next()">next -></button>
+    </div>
+    </div>
+</div>
+<br>
+<%- include("./partials/footer.ejs") %></div>
+<script>
+    var pages = <%- page   %>;
+    var number =  <%- num   %>;
+    var dataNum =  <%- data.length   %>;
+    console.log(dataNum);
+    console.log(number);
+
+    if ( dataNum + (pages - 1)*10 >= number ) {
+
+        document.getElementById('nextButton').style.display = 'none';
+    }
+    
+    if (pages == 1){
+        document.getElementById('privButton').style.display = 'none';
+    }
+    
+    function next() {
+        pages = pages + 1;
+        window.location.href = '/admin?page=' + pages;
+    }
+    function prev() {
+        pages = pages - 1;
+        window.location.href = '/admin?page=' + pages;
+    }
+</script>
