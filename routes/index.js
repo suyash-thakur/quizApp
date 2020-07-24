@@ -419,7 +419,11 @@ router.get("/wordProblem", async (req, res, next) => {
           res.redirect("error");
         }
 
-        problemsJSON = shuffle(results);
+        results = shuffle(results);
+        
+        results = results.splice(0, 7);
+        
+        problemsJSON = results;
 
         problemsJSON.forEach((e) => {
           problemQuestions.push(e.question);
