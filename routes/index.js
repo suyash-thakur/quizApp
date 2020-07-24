@@ -413,7 +413,7 @@ router.get("/wordProblem", async (req, res, next) => {
     res.redirect("/demoWord");
   } else {
     await connection.query(
-      "select * from wordProblems",
+      "select * from wordProblems ORDER BY RAND() LIMIT 7",
       (error, results, fields) => {
         if (error) {
           res.redirect("error");
