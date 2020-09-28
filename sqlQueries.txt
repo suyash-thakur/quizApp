@@ -5,3 +5,13 @@
 "create table wordProblems (question varchar(1024), answer varchar(150), first varchar(150), second varchar(150), third varchar(150), fourth varchar(150))"
 "insert into wordProblems values ('Mike had 180 blue and red pencils. He had 45 blue pencils. What percentage of his pencils was red?', '75%', '25%', '15%', '75%', '10%')"
 "create table flashCards (question varchar(1024), answer varchar(150), first varchar(150), second varchar(150), third varchar(150), fourth varchar(150))"
+
+y.map((e) =>
+    connection.query(
+      "insert into flashCards values (?,?,?,?,?,?)",
+      [e[0], e[1], e[2], e[3], e[4], e[5]],
+      (errors, results) => {
+        console.log(results);
+      }
+    )
+  );

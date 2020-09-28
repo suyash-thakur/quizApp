@@ -472,7 +472,7 @@ router.get("/flashCard", async (req, res, next) => {
     res.redirect("/demoFlash");
   } else {
     await connection.query(
-      "select * from flashCards",
+      "select * from flashCards ORDER BY RAND() LIMIT 7",
       (error, results, fields) => {
         if (error) {
           res.redirect("error");
