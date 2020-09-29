@@ -94,6 +94,7 @@
         document.getElementById("flash-img-src").src = question[currentQuestion];
         document.querySelector(".flash-answers-section").innerHTML = generateOption(options[currentQuestion], options[currentQuestion].length)
         document.getElementById("totalquestion").innerText = question.length;
+        document.getElementById("currentquestion").innerText = currentQuestion + 1;
 
         document
           .querySelectorAll(".flash-option")
