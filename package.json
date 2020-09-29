@@ -30,6 +30,7 @@
     "jquery": "^3.5.0",
     "moment": "^2.26.0",
     "morgan": "^1.9.1",
+    "msexcel-builder": "0.0.2",
     "mysql": "^2.18.1",
     "path": "^0.12.7",
     "popper.js": "^1.16.1",
