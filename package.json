@@ -28,7 +28,7 @@
     "helmet": "^3.21.2",
     "http": "0.0.0",
     "jquery": "^3.5.0",
-    "moment": "^2.26.0",
+    "moment": "^2.29.4",
     "morgan": "^1.9.1",
     "msexcel-builder": "0.0.2",
     "mysql": "^2.18.1",
